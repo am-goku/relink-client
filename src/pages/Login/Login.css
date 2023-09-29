@@ -1,0 +1,13 @@
+.outerLogo {
+    background-image: url("../../images/relinkicon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.innerLogo {
+    background-image: url("../../images/relink-source.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    margin-left: -2rem;
+}

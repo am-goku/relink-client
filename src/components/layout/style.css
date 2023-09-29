@@ -1,0 +1,16 @@
+.logoDiv {
+    background-image: url(../../images/logowithback.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.navSelection {
+    transition: 300ms;
+}
+
+
+.navSelection:hover {
+    background-color: rgba(128, 128, 128, 0.616);
+    transition: 500ms;
+}
