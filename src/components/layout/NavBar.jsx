@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import { FaUserAlt, FaRegComments, FaRegCompass, FaRegEdit } from "react-icons/fa";
 import { IoHomeSharp, IoNotifications } from "react-icons/io5";
+import logowithback from "../../images/logowithback.png"
 
 function NavBar() {
+
+  const logo = "../../images/logowithback.png";
 
     const navs = [
       { name: "PROFILE", icon: <FaUserAlt />, path: "/" },
@@ -23,8 +26,10 @@ function NavBar() {
 
   return (
     <>
-      <div className="w-72 h-screen flex flex-col bg-gradient-to-r from-black via-zinc-900 to-zinc-700">
-        <div className="w-72 h-32 logoDiv cursor-pointer"></div>
+      <div className="w-72 h-screen flex flex-col bg-gradient-to-r from-black via-zinc-900 to-zinc-700 ">
+        <div className="w-full h-auto cursor-pointer">
+          <img src={logowithback} alt="" className="h-auto" />
+        </div>
         {/* end of logo div on navbr */}
 
         <div
