@@ -1,24 +1,42 @@
-import React from "react";
-import { BrowserRouter as Router,Routes,Route} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 
 //pages
-import Login from "./pages/Login/Login";
-import Signup from "./pages/Register/Signup";
-import Varifyemail from "./pages/Login/Varifyemail";
-import Home from "./pages/Home";
+import NavBar from "./components/layout/NavBar";
+import Header from "./components/layout/Header";
+import NavBarSm from "./components/layout/NavBar-Sm";
 
 
 function App() {
+  const location = useLocation();
+  const [path, setPath] = useState('');
+  useEffect(()=>{
+    setPath(location.pathname);
+    console.log(path);
+  }, [location, path]);
 
   return (
-          <Router>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Signup />} />
-              <Route path="/forgot-password" element={<Varifyemail />}></Route>
-            </Routes>
-          </Router>
+    <>
+      <div className="md:hidden pb-10">
+        <Header />
+      </div>
+      <div className="flex">
+        <div className="hidden md:block">
+          <NavBar path={path} />
+        </div>
+        <Outlet />
+      </div>
+      <div className="md:hidden mt-14">
+        <NavBarSm />
+      </div>
+    </>
   );
 }
 

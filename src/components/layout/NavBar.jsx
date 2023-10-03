@@ -4,17 +4,17 @@ import { FaUserAlt, FaRegComments, FaRegCompass, FaRegEdit } from "react-icons/f
 import { IoHomeSharp, IoNotifications } from "react-icons/io5";
 import logowithback from "../../images/logowithback.png"
 
-function NavBar() {
+function NavBar({path}) {
 
   const logo = "../../images/logowithback.png";
 
     const navs = [
-      { name: "PROFILE", icon: <FaUserAlt />, path: "/" },
-      { name: "HOME", icon: <IoHomeSharp />, path: "/" },
-      { name: "EXPLORE", icon: <FaRegCompass />, path: "/" },
-      { name: "MESSAGE", icon: <FaRegComments />, path: "/" },
+      { name: "PROFILE", icon: <FaUserAlt />, path: "/profile" },
+      { name: "HOME", icon: <IoHomeSharp />, path: "/posts" },
+      { name: "EXPLORE", icon: <FaRegCompass />, path: "/explore" },
+      { name: "MESSAGE", icon: <FaRegComments />, path: "/message" },
       { name: "CREATE POST", icon: <FaRegEdit />, path: "/" },
-      { name: "NOTIFICATION", icon: <IoNotifications />, path: "/" },
+      { name: "NOTIFICATION", icon: <IoNotifications />, path: "/notification" },
     ];
 
 
@@ -52,7 +52,7 @@ function NavBar() {
         {/* listing the nav icons */}
         {navs.map((nav, index) => {
           return (
-            <div className="w-56 h-12 self-center flex mt-5 border-b border-white cursor-pointer text-center text-white navSelection rounded-md">
+            <div className= {`w-56 h-12 self-center flex mt-5 border-b border-white cursor-pointer text-center text-white navSelection rounded-md ${path===nav.path? "bg-gray-500 bg-opacity-60":""}`}>
               <div className="flex ml-6 self-center justify-end items-center h-full">
                 {nav.icon}
                 <h1 className="ml-4">{nav.name}</h1>
