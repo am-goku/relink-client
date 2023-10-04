@@ -106,13 +106,13 @@ const saveOrUnsave = () => {
                 // xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
                 fill="#000000"
               >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g
                   id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   stroke="#fafafa"
-                  stroke-width="1.536"
+                  strokeWidth="1.536"
                 >
                   {" "}
                   <title>comment 2</title>{" "}
@@ -120,9 +120,9 @@ const saveOrUnsave = () => {
                   <g
                     id="Page-1"
                     stroke="none"
-                    stroke-width="1"
+                    strokeWidth="1"
                     fill="none"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     sketch="MSPage"
                   >
                     {" "}
@@ -150,9 +150,9 @@ const saveOrUnsave = () => {
                   <g
                     id="Page-1"
                     stroke="none"
-                    stroke-width="1"
+                    strokeWidth="1"
                     fill="none"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     sketch="MSPage"
                   >
                     {" "}
@@ -184,27 +184,27 @@ const saveOrUnsave = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
               >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g
                   id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   stroke="#050505"
-                  stroke-width="1.056"
+                  strokeWidth="1.056"
                 >
                   <path
                     fill={"#efebeb"}
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M4 5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v15.138a1.5 1.5 0 0 1-2.244 1.303l-5.26-3.006a1 1 0 0 0-.992 0l-5.26 3.006A1.5 1.5 0 0 1 4 20.138V5zm11 4a1 1 0 1 1 0 2H9a1 1 0 1 1 0-2h6z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </g>
                 <g id="SVGRepo_iconCarrier">
                   <path
                     fill={!isSaved ? "#efebeb" : "#3F5D75"}
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M4 5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v15.138a1.5 1.5 0 0 1-2.244 1.303l-5.26-3.006a1 1 0 0 0-.992 0l-5.26 3.006A1.5 1.5 0 0 1 4 20.138V5zm11 4a1 1 0 1 1 0 2H9a1 1 0 1 1 0-2h6z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </g>
               </svg>

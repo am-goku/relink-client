@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import bgIcon from "../../assets/icon_assets/pngwing.com.png";
 import CropImage from "../options/CropImg";
 import uploadCloudinary from "../../hooks/cloudinary";
-import { json } from "react-router-dom";
 import { postUrl } from "../../const/routes";
 import { apiCall } from "../../services/apiCalls";
 
-function CreatePost() {
+function CreatePost({ setClose }) {
+  // const [isOpen, setIsOpen] = useState(false);
+
   const [error, setError] = useState(""); // state for setting error occurs
   const [selectedImg, setSelectedImg] = useState(false); //state to set the image selected by client
   const [bg, setBg] = useState(bgIcon);
@@ -31,15 +32,15 @@ function CreatePost() {
     }
   };
 
-
   const handleSubmit = async () => {
-    if(!croppedImg){
+    if (!croppedImg) {
       setError("Please select an image");
+      return;
     }
 
     const data1 = await uploadCloudinary(croppedImg, setError);
 
-    if(data1){
+    if (data1) {
       const postData = {
         userId: "",
         image: data1.secure_url,
@@ -47,19 +48,17 @@ function CreatePost() {
       };
 
       apiCall("post", postUrl.create, postData).then((response) => {
-        if(response.status === 200){
+        if (response.status === 200) {
           console.log(response.data);
         } else {
+          console.log(response);
           setError(response.message);
         }
-      })
-
-
+      });
     }
 
-
     console.log("data1: ", data1);
-  }
+  };
 
   return (
     <>
@@ -74,7 +73,7 @@ function CreatePost() {
           />
         ) : null}
 
-        <div className="md:flex grid md:gap-5 gap-10 w-fit h-fit bg-slate-700 p-14 m-auto">
+        <div className="md:flex grid md:gap-5 gap-10 w-fit h-fit bg-slate-700 p-14 m-auto rounded-lg">
           <div className="bg-neutral-500 w-72 h-72 flex-1 relative rounded-md flex justify-center">
             <img src={bg} alt="" className="w-64 h-64 self-center " />
 
@@ -102,18 +101,28 @@ function CreatePost() {
               />
             </div>
 
-            { error?
-              <h3 className="error-msg ml-2 text-red-800">
-                {`! ${error}`}
-              </h3>
-              : null
-            }
+            {error ? (
+              <h3 className="error-msg ml-2 text-red-800">{`! ${error}`}</h3>
+            ) : null}
 
             <div className="ml-auto text-white text-lg font-normal font-['Inika']">
-              <button className="flex-1 w-28 h-8 bg-red-900 bg-opacity-80 rounded-lg mr-5">
+              <button
+                className="flex-1 w-28 h-8 bg-red-900 bg-opacity-80 rounded-lg mr-5"
+                onClick={() => {
+                  setClose(true);
+                  setSelectedImg(false);
+                  setDescription("");
+                  setImage("");
+                  setCroppedImg("");
+                  setError("");
+                }}
+              >
                 Cancel
               </button>
-              <button className="flex-1 w-28 h-8 bg-sky-700 bg-opacity-80 rounded-lg" onClick={handleSubmit}>
+              <button
+                className="flex-1 w-28 h-8 bg-sky-700 bg-opacity-80 rounded-lg"
+                onClick={handleSubmit}
+              >
                 Post
               </button>
             </div>

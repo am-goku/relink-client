@@ -25,6 +25,16 @@ export const getCredentials = () => {
 
 
 export const postLogin = (userData) => {
+    return new Promise((resolve, reject) => {
+        try {
+            apiCall('post', userUrl.login, userData).then((response)=>{
+                resolve(response);
+            })
+        } catch (error) {
+            console.log(error);
+            resolve({ status: 500, message: error.message });
+        }
+    })
 
 }
 

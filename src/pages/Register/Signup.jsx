@@ -1,11 +1,23 @@
-import axios from 'axios'
-import React, { useState } from 'react'
-import { getCredentials } from '../../services/apiMethods';
+import React, { useEffect, useState } from 'react'
 import {passwordValidate, regValidate} from '../../hooks/regValidation';
 import StrengthMeter from '../../components/options/PasswordStregth';
+import { apiCall } from '../../services/apiCalls';
+import { userUrl } from '../../const/routes';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 function Signup() {
+
+  const navigate = useNavigate();
+  const user = useSelector((state)=>state?.user?.validUser);
+
+  useEffect(()=>{
+    if(user){
+      navigate('/')
+    }
+  }, [navigate, user])
+
 
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('');
@@ -61,13 +73,22 @@ function Signup() {
                 email: email,
                 password: password,
                 password2: password2
-            }
+            };
             
             if(await regValidate({...userData, setErr: setError})) {
-                setError("success")
+                apiCall("post", userUrl.register, userData).then((response) => {
+                  if(response.status === 200) {
+                    alert(response.message)
+                    navigate('/login');
+                  } else {
+                    setError(response.message);
+                  }
+                }).catch((error) => {
+                  setError(error.message)
+                })
             }
         } catch (error) {
-            
+            setError("Something went wrong, Try after some time")
         }
     };
     
@@ -78,7 +99,7 @@ function Signup() {
     <>
       <div className="w-screen h-screen flex justify-center">
         <div className="formContainer md:w-3/5 w-auto h-screen flex justify-center lg:justify-start md:items-center mt-20 md:mt-0">
-          <div className=" max-h-full w-80 flex-col justify-start px-6 py-12 lg:px-8 md:bg-gradient-to-r from-gray-300 to-transparent">
+          <div className=" max-h-full w-80 flex-col justify-start px-6 py-12 lg:px-8 md:bg-gradient-to-r from-gray-300 to-transparent rounded-lg">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <h2 className="mb-14 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                 Register to ReLink

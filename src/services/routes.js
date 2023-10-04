@@ -1,10 +1,11 @@
-import { BrowserRouter as Router, createBrowserRouter,  } from "react-router-dom";
+import { createBrowserRouter,  } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Signup from "../pages/Register/Signup";
 import Varifyemail from "../pages/Login/Varifyemail";
 import Error from "../pages/Error/Error";
+import Test from "../pages/Test";
 
 
 const appRouter = createBrowserRouter([
@@ -14,7 +15,7 @@ const appRouter = createBrowserRouter([
         errorElement: <Error />,
         children: [
             {
-                path: "/posts",
+                path: "/",
                 element: <Home />
             },
         ]
@@ -30,6 +31,16 @@ const appRouter = createBrowserRouter([
     {
         path: "/forgot-password",
         element: <Varifyemail />,
+    },
+
+
+
+
+
+
+    {
+        path: "/test",
+        element: <Test />
     }
 ]);
 

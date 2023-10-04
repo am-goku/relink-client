@@ -17,3 +17,8 @@ export const postUrl = {
     create: "/post/create-post",
     getPost: "/post/fetch-posts"
 }
+
+
+export const authUrl = {
+    authUser: "/auth/user",
+}

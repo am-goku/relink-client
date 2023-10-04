@@ -37,8 +37,9 @@ function NavBarSm() {
         <div className="bg-black w-screen h-16 flex items-center justify-center px-4">
           {
             navs.map((nav, index)=> {
+              const key = `navSm-${index}`;
                 return (
-                  <div className=" m-auto w-12 h-12 flex justify-center items-center minNavSelection rounded-2xl">
+                  <div key={key} className=" m-auto w-12 h-12 flex justify-center items-center minNavSelection rounded-2xl">
                     {nav.icon}
                   </div>
                 );

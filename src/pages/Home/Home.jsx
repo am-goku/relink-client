@@ -1,13 +1,22 @@
 import React from "react";
-import NavBar from "../../components/layout/NavBar";
 import SinglePost from "../../components/singlePost/SinglePost";
 import PostContainer from "../../components/containers/PostContainer";
 import SuggestionContainer from "../../components/containers/SuggestionContainer";
 import Suggestion from "../../components/profiles/Suggestion";
-import Header from "../../components/layout/Header";
-import NavBarSm from "../../components/layout/NavBar-Sm";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+
+  const navigate = useNavigate()
+
+  // const user = useSelector((state)=> state?.user.userData);
+  const isValid = useSelector((state)=> state?.user?.validUser);
+
+  if(!isValid) {
+    navigate("/login");
+  }
+
   return (
     <>
         <div className="ml-auto">

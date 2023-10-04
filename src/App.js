@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
   Outlet,
-  Navigate,
   useLocation,
 } from "react-router-dom";
 
@@ -13,13 +9,11 @@ import NavBar from "./components/layout/NavBar";
 import Header from "./components/layout/Header";
 import NavBarSm from "./components/layout/NavBar-Sm";
 
-
 function App() {
   const location = useLocation();
-  const [path, setPath] = useState('');
-  useEffect(()=>{
+  const [path, setPath] = useState("");
+  useEffect(() => {
     setPath(location.pathname);
-    console.log(path);
   }, [location, path]);
 
   return (

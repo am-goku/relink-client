@@ -43,7 +43,6 @@ export const regValidate = async({email, username, password, password2, setErr})
 
             const empty = checkEmpty(email, username, password)
             if(!empty.flag){
-                alert('hi')
                 setErr(empty.setErr);
                 resolve(false);
             }

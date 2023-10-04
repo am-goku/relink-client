@@ -28,7 +28,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-    background: linear-gradient(90deg, #DC2424 0%, rgba(6, 31, 170, 0.7) 100%);
+    background: linear-gradient(90deg, #732ADA 0%, #EDD8CA 100%);
     background-blend-mode: difference;
 }
 
