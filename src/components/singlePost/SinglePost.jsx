@@ -1,34 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./SinglePost.css";
 
 
 import Dropdown from "../options/Dropdown";
+import CaptionWithShowMore from "../options/Caption";
+import { getUser } from "../../services/apiMethods";
 
 
 
 
-function SinglePost() {
+function SinglePost({post}) {
+  const [isRed, setIsRed] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
-const [isRed, setIsRed] = useState(false);
-const [isSaved, setIsSaved] = useState(false);
+  const [postUser, setPostUser] = useState(null);
 
-const likeOrUnlike = () => {
-  setIsRed(!isRed);
-}
+  useEffect(()=>{
+    getUser(post.userId).then((response)=>{
+      if(response.status === 200) {
+        setPostUser(response.users[0]);
+      } else {
+        console.log(response);
+      }
+    }).catch((error)=>{
+      console.log(error);
+    })
+  },[post])
+  
 
+  const likeOrUnlike = () => {
+    setIsRed(!isRed);
+  };
 
-const saveOrUnsave = () => {
-  setIsSaved(!isSaved);
-}
-
-
-
-
-
-
-
-
+  const saveOrUnsave = () => {
+    setIsSaved(!isSaved);
+  };
 
   return (
     <>
@@ -38,7 +45,7 @@ const saveOrUnsave = () => {
           <div className="w-full h-16 flex p-2 gap-3">
             <div className="bg-white ml-1 w-12 h-12 rounded-full self-center"></div>
             <div className="text-white font-semibold text-lg self-center">
-              Gokul Krishna
+              {postUser?.name}
             </div>
 
             <div className="self-center ml-auto cursor-pointer">
@@ -53,14 +60,17 @@ const saveOrUnsave = () => {
           >
             {/* You can add your image here */}
             <img
-              src="https://res.cloudinary.com/di9yf5j0d/image/upload/v1695795823/om0qyogv6dejgjseakej.png"
+              src={post.image}
               alt=""
               className="object-cover w-full h-full"
             />
           </div>
-
+          {/* show more funtion */}
+          <div className="m-2">
+            <CaptionWithShowMore text={post.description} />
+          </div>
           <div className="mt-1">
-            <span className="pl-2 text-white font-medium select-none">{`You and ${2483} others liked this post`}</span>
+            <span className="pl-2 text-white text-sm font-light select-none">{`You and ${2483} others liked this post`}</span>
 
             <div className="p-2 text-xl flex gap-5 mt-5 font-bold">
               <svg

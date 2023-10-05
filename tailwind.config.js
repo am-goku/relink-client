@@ -5,10 +5,12 @@ module.exports = {
     "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        120: "30rem", // You can adjust the width as needed
+      },
+    },
   },
-  plugins: [
-    require("flowbite/plugin")
-  ],
+  plugins: [require("flowbite/plugin")],
 };
 

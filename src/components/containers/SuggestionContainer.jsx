@@ -1,6 +1,8 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 function SuggestionContainer({children}) {
+  
   return (
     <>
       <div className="w-fit mt-10 rounded-lg p-5 bg-stone-900 bg-opacity-75 overflow-scroll no-scrollbar m-5">

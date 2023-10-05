@@ -1,24 +1,24 @@
-import { api } from "./api";
+import { adminApi } from "./api";
 
-export const apiCall = async (method, url, data) => {
-  return await new Promise(async (resolve, reject) => {
-    try {
+const adminApiCalls = async (method, url, data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
       let response;
 
       if (method === "post") {
-        response = await api.post(url, data).catch((err) => {
+        response = await adminApi.post(url, data).catch((err) => {
           resolve({ status: 500, message: err.message });
         });
       } else if (method === "get") {
-        response = await api.get(url, data).catch((err) => {
+        response = await adminApi.get(url, data).catch((err) => {
           resolve({ status: 500, message: err.message });
         });
       } else if (method === "patch") {
-        response = await api.patch(url, data).catch((err) => {
+        response = await adminApi.patch(url, data).catch((err) => {
           resolve({ status: 500, message: err.message });
         });
       } else if (method === "delete") {
-        response = await api.delete(url, data).catch((err) => {
+        response = await adminApi.delete(url, data).catch((err) => {
           resolve({ status: 500, message: err.message });
         });
       }
@@ -27,5 +27,7 @@ export const apiCall = async (method, url, data) => {
         console.log(err);
         resolve({ status: 500, message: err.message });
     }
-  });
-};
+    })
+}
+
+export default adminApiCalls

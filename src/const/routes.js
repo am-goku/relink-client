@@ -8,7 +8,7 @@ export const userUrl = {
 
 export const adminUrl = {
     login: "/admin/login",
-    getUsers: "/admin/users",
+    getUsers: "/admin/fetch-users",
 }
 
 

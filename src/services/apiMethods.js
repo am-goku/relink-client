@@ -4,7 +4,8 @@ import { apiCall } from "./apiCalls"
 
 
 
-
+//@dec      Fetch username/email
+//method    GET
 export const getCredentials = () => {
     return new Promise((resolve, reject) => {
         try {
@@ -24,6 +25,9 @@ export const getCredentials = () => {
 }
 
 
+
+//@dec      Login user
+//method    POST
 export const postLogin = (userData) => {
     return new Promise((resolve, reject) => {
         try {
@@ -39,11 +43,18 @@ export const postLogin = (userData) => {
 }
 
 
+
+//@dec      Register user
+//method    POST
 export const postRegister = (userData) => {
 
 }
 
 
+
+
+//@dec      Create post
+//method    POST
 export const postCreatePost = (postData) => {
     return new Promise((resolve, reject) => {
         try {
@@ -56,6 +67,44 @@ export const postCreatePost = (postData) => {
         } catch (error) {
             console.log(error);
             resolve({status:500, message:error.response})
+        }
+    })
+}
+
+
+
+
+
+//@dec      Fetch posts
+//method    GET
+export const getAllPosts = () => {
+    return new Promise ((resolve, reject) => {
+        try {
+            apiCall("get", postUrl.getPost).then((response) => {
+                resolve(response)
+            })
+        } catch (error) {
+            console.log(error);
+            resolve({status:500, message:error.response})
+        }
+    })
+}
+
+
+
+
+//@dec      Fetch single user
+//method    GET
+export const getUser = (userId) =>{
+    return new Promise ((resolve, reject) => {
+        try {
+            apiCall("get", `${userUrl.fetchUser}?userId=${userId}`).then((response) => {
+                resolve(response);
+            }).catch((error) => {
+                throw new Error(error)
+            })
+        } catch (error) {
+            resolve({status:500, message:error.message})
         }
     })
 }

@@ -11,7 +11,7 @@ import logowithback from "../../images/logowithback.png";
 import CreatePost from "../modal/CreatePost";
 import { initFlowbite } from "flowbite";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeReduxUser } from "../../utils/reducers/userReducer";
 
 function NavBar({ path }) {
@@ -19,9 +19,18 @@ function NavBar({ path }) {
   const dispatch = useDispatch();
   const [isClosed, setIsClosed] = useState(true);
 
+  const userData = useSelector((state)=>state?.user?.userData);
+  const user = useSelector((state)=>state?.user?.validUser);
+
   useEffect(() => {
+    if(!user){
+      navigate("/login");
+    }
+
     initFlowbite();
   });
+
+
 
   const navs = [
     { name: "PROFILE", icon: <FaUserAlt />, path: "/profile" },
@@ -32,10 +41,8 @@ function NavBar({ path }) {
     { name: "NOTIFICATION", icon: <IoNotifications />, path: "/notification" },
   ];
 
-  const imgUrl =
-    "https://res.cloudinary.com/di9yf5j0d/image/upload/v1695795823/om0qyogv6dejgjseakej.png";
 
-  const name = "Gokul Krishna";
+  
 
 
 
@@ -58,7 +65,7 @@ function NavBar({ path }) {
         <div
           className="w-24 h-24 mt-10 rounded-full self-center"
           style={{
-            backgroundImage: `url(${imgUrl})`,
+            backgroundImage: `url(${userData?.profilePic})`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
             backgroundSize: "contain",
@@ -68,7 +75,7 @@ function NavBar({ path }) {
 
         <div className="w-52 h-12 self-center flex mt-5 justify-center max-w-xs overflow-hidden ">
           <h1 className="text-white self-center font-semibold max-h-7 text-xl truncate">
-            {name}
+            {userData?.name || userData?.username}
           </h1>
         </div>
 
@@ -76,14 +83,14 @@ function NavBar({ path }) {
         {navs.map((nav, index) => {
           const key = `nav-${index}`;
           return (
-            <div key={key}
+            <div
+              key={key}
               className={`w-56 h-12 self-center flex mt-5 border-b border-white cursor-pointer text-center text-white navSelection rounded-md ${
                 path === nav.path ? "bg-gray-500 bg-opacity-60" : ""
               }`}
-              onClick={() => {
-                nav.name === "CREATE POST"
-                  ? setIsClosed(false)
-                  : navigate(nav.path);
+              onClick={()=>{
+                nav.name === "CREATE POST"? setIsClosed(false)
+                : navigate(nav.path);
               }}
             >
               <div className="flex ml-6 self-center justify-end items-center h-full">
@@ -96,7 +103,10 @@ function NavBar({ path }) {
 
         {/* LOG OUT BUTTON AREA */}
         <div className="mt-28 w-32 h-10 self-center flex justify-center items-end text-slate-400 text-center relative">
-          <div className="absolute inset-0 flex items-center justify-center cursor-pointer hover:text-white" onClick={logout}>
+          <div
+            className="absolute inset-0 flex items-center justify-center cursor-pointer hover:text-white"
+            onClick={logout}
+          >
             <h1>SIGN OUT</h1>
           </div>
         </div>

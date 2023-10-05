@@ -5,10 +5,13 @@ import CropImage from "../options/CropImg";
 import uploadCloudinary from "../../hooks/cloudinary";
 import { postUrl } from "../../const/routes";
 import { apiCall } from "../../services/apiCalls";
+import { useSelector } from "react-redux";
+import { postCreatePost } from "../../services/apiMethods";
+import { useNavigate } from "react-router-dom";
 
 function CreatePost({ setClose }) {
-  // const [isOpen, setIsOpen] = useState(false);
 
+  const navigate = useNavigate()
   const [error, setError] = useState(""); // state for setting error occurs
   const [selectedImg, setSelectedImg] = useState(false); //state to set the image selected by client
   const [bg, setBg] = useState(bgIcon);
@@ -16,6 +19,9 @@ function CreatePost({ setClose }) {
 
   const [croppedImg, setCroppedImg] = useState();
   const [image, setImage] = useState("");
+
+  const userData = useSelector((state)=>state?.user?.userData);
+
 
   useEffect(() => {
     setBg(croppedImg || bgIcon);
@@ -42,14 +48,19 @@ function CreatePost({ setClose }) {
 
     if (data1) {
       const postData = {
-        userId: "",
+        userId: userData._id,
         image: data1.secure_url,
         description: description,
       };
 
-      apiCall("post", postUrl.create, postData).then((response) => {
+      postCreatePost(postData).then((response) => {
         if (response.status === 200) {
+          setClose(true);
+
           console.log(response.data);
+
+        } else if(response.status === 401) {
+          navigate("/login");
         } else {
           console.log(response);
           setError(response.message);

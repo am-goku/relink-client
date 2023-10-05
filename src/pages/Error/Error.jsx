@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Error() {
 
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
 
   return (
@@ -18,7 +18,7 @@ function Error() {
           <div className="border-y-1 flex items-center">
             <button className='goHomeButton'
               onClick={() => {
-                navigate(-1);
+                navigate("/");
               }}
             >
               <p>Go Home</p>
