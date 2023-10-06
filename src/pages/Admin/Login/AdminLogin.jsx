@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { loginValidate } from "../../../hooks/loginValidate";
+import { adminPostLogin } from "../../../services/admin/apiMethods";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setReduxAdmin} from "../../../utils/reducers/adminReducer";
+import { adminAuth } from "../../../const/localStorage";
 
 function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  const isValid = useSelector((state)=>state?.admin?.validAdmin);
+  useEffect(()=>{
+    if(isValid){
+      navigate("/admin");
+    }
+  }, [isValid, navigate])
+
+  //@dec    Credentials validation
   const setCredentials = () => {
     if (!email) {
       setError("Please enter a username or email");
@@ -17,27 +33,36 @@ function AdminLogin() {
     }
     const adminData = {
       password: password,
-      email: email
-    }
+      email: email,
+    };
     return adminData;
   };
 
+
+  //@dec      Admin login
+  //@method   post
   const onHandleSubmit = async () => {
-    
     const adminData = setCredentials();
 
-    if(!adminData || !(await loginValidate(adminData, setError))){
-        return ;
+    if (!adminData || !(await loginValidate(adminData, setError))) {
+      return;
     }
 
-    
-
-    
+    const response = await adminPostLogin(adminData);
+    if (response.status === 200) {
+      localStorage.setItem(adminAuth, response.adminToken);
+      dispatch(setReduxAdmin())
+      window.location.reload();
+    } else {
+      console.log(response);
+      setError(response.message);
+    }
+    console.log("postAdminLoginResponse", response);
   };
 
   return (
     <>
-      <div className="w-screen h-screen flex justify-center bg-gradient-to-r from-cyan-800 via-slate-500 to-neutral-500">
+      <div className="w-screen h-full flex justify-center bg-gradient-to-r from-cyan-800 via-slate-500 to-neutral-500">
         <div className="formContainer md:w-3/5 w-auto h-screen flex justify-center lg:justify-start md:items-center mt-20 md:mt-0">
           <div className=" max-h-full w-80 flex-col justify-start px-6 py-12 lg:px-8 md:bg-gradient-to-r from-gray-300 to-transparent rounded-lg">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -102,7 +127,7 @@ function AdminLogin() {
                   </div>
                   {error ? (
                     <div className="text-red-600 text-sm font-extralight">
-                      ! {"This is an error message"}
+                      ! {error}
                     </div>
                   ) : null}
                 </div>
@@ -111,7 +136,7 @@ function AdminLogin() {
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-[#1e1e1ec4] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    onClick={() => {}}
+                    onClick={onHandleSubmit}
                   >
                     Sign in
                   </button>

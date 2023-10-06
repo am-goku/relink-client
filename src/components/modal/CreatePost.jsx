@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import bgIcon from "../../assets/icon_assets/pngwing.com.png";
 import CropImage from "../options/CropImg";
 import uploadCloudinary from "../../hooks/cloudinary";
-import { postUrl } from "../../const/routes";
-import { apiCall } from "../../services/apiCalls";
 import { useSelector } from "react-redux";
 import { postCreatePost } from "../../services/apiMethods";
 import { useNavigate } from "react-router-dom";

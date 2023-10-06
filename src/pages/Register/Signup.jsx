@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import {passwordValidate, regValidate} from '../../hooks/regValidation';
 import StrengthMeter from '../../components/options/PasswordStregth';
-import { apiCall } from '../../services/apiCalls';
-import { userUrl } from '../../const/routes';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { postRegister } from '../../services/apiMethods';
 
 
 function Signup() {
@@ -67,7 +66,6 @@ function Signup() {
 
     const handleSubmit = async () => {
         try {
-
             const userData = {
                 username: username,
                 email: email,
@@ -76,7 +74,7 @@ function Signup() {
             };
             
             if(await regValidate({...userData, setErr: setError})) {
-                apiCall("post", userUrl.register, userData).then((response) => {
+                postRegister(userData).then((response) => {
                   if(response.status === 200) {
                     alert(response.message)
                     navigate('/login');

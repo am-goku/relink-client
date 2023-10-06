@@ -47,7 +47,16 @@ export const postLogin = (userData) => {
 //@dec      Register user
 //method    POST
 export const postRegister = (userData) => {
-
+    return new Promise((resolve, reject) => {
+        try {
+            apiCall("post", userUrl.register, userData).then((response)=>{
+                resolve(response);
+            })
+        } catch (error) {
+            console.log(error);
+            resolve({status:500, message: "Somethings wrong."})
+        }
+    })
 }
 
 

@@ -5,7 +5,7 @@ import SuggestionContainer from "../../components/containers/SuggestionContainer
 import Suggestion from "../../components/profiles/Suggestion";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAllPosts, getUser } from "../../services/apiMethods";
+import { getAllPosts,  } from "../../services/apiMethods";
 
 function Home() {
 

@@ -19,3 +19,25 @@ export const userAuthMiddleware =()=>{
         }
     })
 };
+
+
+
+export const adminAuthMiddleware = () => {
+    return new Promise((resolve, reject) => {
+        try {
+            const adminStore = useSelector((state)=> state?.admin);
+            let adminData, admin;
+            if(adminStore?.adminData){
+                adminData = adminStore.adminData;
+                admin = adminStore.validAdmin;
+                resolve({adminData, admin})
+            } else {
+                admin = false;
+                resolve(admin)
+            }
+        } catch(error){
+            console.log(error);
+            resolve({ admin: false });
+        }
+    })
+}

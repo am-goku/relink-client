@@ -21,4 +21,5 @@ export const postUrl = {
 
 export const authUrl = {
     authUser: "/auth/user",
+    authAdmin: "/auth/admin"
 }

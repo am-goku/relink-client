@@ -11,9 +11,12 @@ export const adminPostLogin = (adminData) => {
     return new Promise((resolve, reject) => {
         try {
             adminApiCalls("post", adminUrl.login, adminData).then((response) => {
+                console.log(response);
                 resolve(response);
               }
-            )
+            ).catch((err) => {
+                throw new Error(err);
+            })
         } catch (error) {
             resolve({status: 500, message: error.message});
         }

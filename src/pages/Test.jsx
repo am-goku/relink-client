@@ -1,12 +1,12 @@
 import React from 'react'
-import CreatePost from '../components/modal/CreatePost';
 import AdminLogin from './Admin/Login/AdminLogin';
+import Users from './Admin/Usermanagement/Users';
 
 function Test() {
 
   return (
     <>
-      <AdminLogin />
+      <Users />
     </>
   );
 }

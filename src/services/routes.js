@@ -6,6 +6,7 @@ import Signup from "../pages/Register/Signup";
 import Varifyemail from "../pages/Login/Varifyemail";
 import Error from "../pages/Error/Error";
 import Test from "../pages/Test";
+import adminRouter, { adminLoginRouter } from "./admin/routes";
 
 
 const appRouter = createBrowserRouter([
@@ -34,7 +35,8 @@ const appRouter = createBrowserRouter([
     },
 
 
-
+    adminRouter,
+    adminLoginRouter,
 
 
 
