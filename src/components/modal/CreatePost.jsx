@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import bgIcon from "../../assets/icon_assets/pngwing.com.png";
 import CropImage from "../options/CropImg";
@@ -6,6 +6,7 @@ import uploadCloudinary from "../../hooks/cloudinary";
 import { useSelector } from "react-redux";
 import { postCreatePost } from "../../services/apiMethods";
 import { useNavigate } from "react-router-dom";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 function CreatePost({ setClose }) {
 
@@ -17,6 +18,8 @@ function CreatePost({ setClose }) {
 
   const [croppedImg, setCroppedImg] = useState();
   const [image, setImage] = useState("");
+
+  const [loading, setLoading] = useState(false); // state to set the loading
 
   const userData = useSelector((state)=>state?.user?.userData);
 
@@ -37,6 +40,9 @@ function CreatePost({ setClose }) {
   };
 
   const handleSubmit = async () => {
+
+    setLoading(true);
+
     if (!croppedImg) {
       setError("Please select an image");
       return;
@@ -52,6 +58,7 @@ function CreatePost({ setClose }) {
       };
 
       postCreatePost(postData).then((response) => {
+        setLoading(false);
         if (response.status === 200) {
           setClose(true);
 
@@ -128,12 +135,20 @@ function CreatePost({ setClose }) {
               >
                 Cancel
               </button>
-              <button
+              {
+                !loading?
+                <button
                 className="flex-1 w-28 h-8 bg-sky-700 bg-opacity-80 rounded-lg"
                 onClick={handleSubmit}
               >
                 Post
               </button>
+              : <button
+                className="flex-1 w-28 h-8 bg-sky-700 bg-opacity-80 rounded-lg"
+              >
+                Loading....
+              </button>
+              }
             </div>
           </div>
         </div>

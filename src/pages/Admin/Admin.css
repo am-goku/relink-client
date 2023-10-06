@@ -1,0 +1,26 @@
+/* Admin.css */
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Make the container take the full viewport height */
+  }
+  
+  .admin-header {
+    /* Define styles for your header here */
+  }
+  
+  .admin-content {
+    display: flex;
+    flex-grow: 1;
+  }
+  
+  .admin-sidebar {
+    width: 250px; /* Set the width for your sidebar */
+    /* Define styles for your sidebar here */
+  }
+  
+  .admin-main-content {
+    flex-grow: 1; /* Allow content to take up the remaining space */
+    /* Define styles for your main content here */
+  }
+  

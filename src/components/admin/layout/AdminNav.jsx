@@ -21,8 +21,7 @@ function AdminNav() {
 
   return (
     <>
-      <AdminHeader />
-      <div className="w-36 h-screen flex flex-col bg-[#19576B] mr-auto">
+      <div className="w-36 h-full flex flex-col bg-[#19576B] mr-auto relative">
         <div className="w-full h-auto cursor-pointer"></div>
         {/* end of logo div on navbr */}
 

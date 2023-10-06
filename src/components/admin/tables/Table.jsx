@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import TableRow from "./TableRow";
+import { adminFetchUsers } from "../../../services/admin/apiMethods";
 
 const Table = () => {
+  const [users, setUsers] = useState([])
+  const [error, setError] = useState('')
+
+  useEffect(()=>{
+    adminFetchUsers().then((response)=>{
+      if(response.status === 200) {
+        setUsers(response.users);
+        console.log(response);
+      } else {
+        console.log(response);
+      }
+    }).catch((error)=>{
+      setError(error.message);
+    })
+  },[])
+
   return (
-    <div className="flex flex-col self-center justify-center ">
+    <div className="flex flex-col self-center justify-center">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div className="overflow-hidden">
@@ -33,38 +51,13 @@ const Table = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700">
-                  <td className="whitespace-nowrap px-6 py-4 font-medium">1</td>
-                  <td className="whitespace-nowrap px-6 py-4">Mark</td>
-                  <td className="whitespace-nowrap px-6 py-4">Otto</td>
-                  <td className="whitespace-nowrap px-6 py-4">@mdo</td>
-                  <td className="whitespace-nowrap px-6 py-4">12 june 2023</td>
-                  <td className="whitespace-nowrap px-6 py-4">Active</td>
-                  <td className="whitespace-nowrap px-6 py-4">
-                    <button className="bg-red-500 w-24 h-8 rounded-lg">
-                      Block
-                    </button>
-                    <button className="bg-teal-800 text-white w-28 h-8 rounded-lg ml-6">
-                      View Profile
-                    </button>
-                  </td>
-                </tr>
-                <tr className="border-b bg-white dark:border-neutral-500 dark:bg-neutral-600">
-                  <td className="whitespace-nowrap px-6 py-4 font-medium">2</td>
-                  <td className="whitespace-nowrap px-6 py-4">Jacob</td>
-                  <td className="whitespace-nowrap px-6 py-4">Thornto</td>
-                  <td className="whitespace-nowrap px-6 py-4">@fat</td>
-                  <td className="whitespace-nowrap px-6 py-4">12 june 2023</td>
-                  <td className="whitespace-nowrap px-6 py-4">Active</td>
-                  <td className="whitespace-nowrap px-6 py-4">
-                    <button className="bg-red-500 w-24 h-8 rounded-lg">
-                      Block
-                    </button>
-                    <button className="bg-teal-800 text-white w-28 h-8 rounded-lg ml-6">
-                      View Profile
-                    </button>
-                  </td>
-                </tr>
+
+                {
+                  users.map((user, index)=>{
+                    return <TableRow user={user} index={index} key={user._id} />
+                  })
+                }
+                
               </tbody>
             </table>
           </div>

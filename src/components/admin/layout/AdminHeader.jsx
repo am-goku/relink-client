@@ -34,8 +34,8 @@ function AdminHeader() {
 
   return (
     <>
-      <div className="bg-[#676768] w-full h-24 flex fixed mt-auto">
-        <div className="logo ml-36 w-fit h-full flex justify-center items-center">
+      <div className="bg-[#676768] w-full h-24 flex fixed mt-auto pr-56">
+        <div className="logo ml-10 w-fit h-full flex justify-center items-center">
           <img src={icon} alt="" className="w-60" />
         </div>
 
