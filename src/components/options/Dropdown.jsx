@@ -56,7 +56,7 @@ function Dropdown() {
             <li>
               <button
                 href="#"
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 View profile
               </button>
@@ -64,7 +64,7 @@ function Dropdown() {
             <li>
               <button
                 href="#"
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Report
               </button>
@@ -72,19 +72,11 @@ function Dropdown() {
             <li>
               <button
                 href="#"
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Block
               </button>
             </li>
-            {/* <li>
-              <button
-                href="#"
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Sign out
-              </button>
-            </li> */}
           </ul>
         </div>
       )}

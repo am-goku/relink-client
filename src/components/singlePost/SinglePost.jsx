@@ -42,11 +42,16 @@ function SinglePost({post}) {
       <div className="p-4 mt-5 w-fit">
         {/* Parent div with padding */}
         <div className="p-2 rounded-md relative w-fit bg-black bg-opacity-75">
-          <div className="w-full h-16 flex p-2 gap-3">
-            <div className="bg-white ml-1 w-12 h-12 rounded-full self-center"></div>
+          <div className="w-full h-16 flex p-2 gap-3 self-center">
+            <div className="bg-white ml-1 w-11 h-11 rounded-full self-center">
+              <img src={postUser?.profilePic} alt="" className="rounded-full" />
+            </div>
             <div className="text-white font-semibold text-lg self-center">
               {postUser?.name}
             </div>
+            <button className="text-white font-thin text-xs font-mono self-center bg-slate-400 rounded-lg w-16 h-5">
+              Follow
+            </button>
 
             <div className="self-center ml-auto cursor-pointer">
               <Dropdown />

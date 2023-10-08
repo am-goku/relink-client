@@ -31,7 +31,7 @@ function Header() {
   return (
     <>
       <div
-        className={`${visible ? "translate-y-0" : "-translate-y-full"} transform transition-transform duration-300 fixed top-0 left-0 z-10`}
+        className={`${visible ? "translate-y-0" : "-translate-y-full"} transform transition-transform duration-300 fixed top-0 left-0 z-10 no-scrollbar`}
       >
         <div className="bg-black w-screen h-16 flex justify-center px-5 overflow-hidden">
           <div className="w-56 h-32 self-center -ml-16 cursor-pointer headerLogo" />

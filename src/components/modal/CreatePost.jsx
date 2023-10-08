@@ -6,7 +6,9 @@ import uploadCloudinary from "../../hooks/cloudinary";
 import { useSelector } from "react-redux";
 import { postCreatePost } from "../../services/apiMethods";
 import { useNavigate } from "react-router-dom";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
+import {FaSpinner} from "react-icons/fa";
+
+import "./CreatePost.css"
 
 function CreatePost({ setClose }) {
 
@@ -45,6 +47,7 @@ function CreatePost({ setClose }) {
 
     if (!croppedImg) {
       setError("Please select an image");
+      setLoading(false);
       return;
     }
 
@@ -61,15 +64,12 @@ function CreatePost({ setClose }) {
         setLoading(false);
         if (response.status === 200) {
           setClose(true);
-
-          console.log(response.data);
-
         } else if(response.status === 401) {
           navigate("/login");
         } else {
           console.log(response);
           setError(response.message);
-        }
+        };
       });
     }
 
@@ -144,9 +144,8 @@ function CreatePost({ setClose }) {
                 Post
               </button>
               : <button
-                className="flex-1 w-28 h-8 bg-sky-700 bg-opacity-80 rounded-lg"
-              >
-                Loading....
+                className=" flex-1 w-28 h-8 bg-sky-700 bg-opacity-80 rounded-lg items-center justify-center"
+              > <FaSpinner size={16} icon="spinner" spin={true} className="ml-auto mr-auto rotating-spinner"  />
               </button>
               }
             </div>

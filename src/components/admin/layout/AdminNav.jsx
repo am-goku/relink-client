@@ -3,7 +3,6 @@ import ReportIcn from "../icons/ReportIcn";
 import UsersIcn from "../icons/UsersIcn";
 import GalleryIcn from "../icons/GalleryIcn";
 import ChatIcn from "../icons/ChatIcn";
-import AdminHeader from "./AdminHeader";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 

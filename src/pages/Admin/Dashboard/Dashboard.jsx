@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import AdminNav from '../../../components/admin/layout/AdminNav';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
