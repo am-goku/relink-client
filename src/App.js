@@ -9,6 +9,7 @@ import NavBar from "./components/layout/NavBar";
 import Header from "./components/layout/Header";
 import NavBarSm from "./components/layout/NavBar-Sm";
 
+
 function App() {
   const location = useLocation();
   const [path, setPath] = useState("");

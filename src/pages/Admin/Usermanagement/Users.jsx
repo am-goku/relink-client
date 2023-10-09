@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Table from '../../../components/admin/tables/Table';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { initFlowbite } from 'flowbite';
 
 function Users() {
 
@@ -11,13 +12,18 @@ function Users() {
     if (!isValid) {
       navigate("/admin/login");
     }
+
+    initFlowbite()
   })
 
 
   return (
     <>
+      
+      
+
       <div className="justify-center items-center self-center mr-auto">
-          <Table />
+        <Table />
       </div>
     </>
   );

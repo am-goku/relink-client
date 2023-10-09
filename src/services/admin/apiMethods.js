@@ -42,4 +42,22 @@ export const adminFetchUsers = () => {
 }
 
 
+export const blockUnblockUser = (userId, status) => {
+    return new Promise (async(resolve, reject) => {
+        try {
+            const url = adminUrl.changeBlockStatus(userId);
+            const data = {status: status}
+
+            adminApiCalls("patch", url, data).then((response) => {
+                resolve(response);
+            }).catch((error) => {
+                reject(error);
+            })
+        } catch (error) {
+            resolve({status: 500, message: error.message});
+        }
+    })
+}
+
+
 

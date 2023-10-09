@@ -1,58 +1,50 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import BlockUnblock from '../buttons/BlockUnblock';
 
-function TableRow({ user, index, key }) {
+function TableRow({ userData, index, key }) {
 
-  const [date, setDate] = useState('');
-  const [status, setStatus] = useState(false);
+  const [error, setError] = useState('')
+  const [user, setUser] = useState(userData);
 
-  const changeDate = useCallback(() => {
-    const timestamp = user?.createdAt;
-    const date = new Date(timestamp);
-
-    const day = date.getDate();
-    const month = date.toLocaleString('default', { month: 'long' });
-    const year = date.getFullYear();
-
-    const formattedDate = `${day} ${month} ${year}`;
-    setDate(formattedDate)
-
-  }, [user?.createdAt])
-
-  useEffect(() => {
-    changeDate(user?.createdAt, setDate);
-    if (user?.blocked) {
-      setStatus(false)
-    } else {
-      setStatus(true);
-    }
-  }, [user, changeDate]);
+  
 
   return (
     <>
-      <tr className="border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700">
-        <td className="whitespace-nowrap px-6 py-4 font-medium">{index + 1}</td>
-        <td className="whitespace-nowrap px-6 py-4">{user?.username}</td>
-        <td className="whitespace-nowrap px-6 py-4">{user?.name}</td>
-        <td className="whitespace-nowrap px-6 py-4">{user?.email}</td>
-        <td className="whitespace-nowrap px-6 py-4">{date}</td>
-        <td className="whitespace-nowrap px-6 py-4">{status ? 'Active' : 'Blocked'}</td>
-        <td className="whitespace-nowrap px-6 py-4">
-          {
-            status ?
-              <button className="bg-red-500 w-24 h-8 rounded-lg">
-                Block
-              </button>
-              : <button className="bg-red-500 w-24 h-8 rounded-lg">
-                Unblock
-              </button>
-          }
-          <button className="bg-teal-800 text-white w-28 h-8 rounded-lg ml-6">
-            View Profile
+      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <th
+          scope="row"
+          className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+        >
+          <img
+            className="w-10 h-10 rounded-full"
+            src={user?.profilePic}
+            alt=""
+          />
+          <div className="pl-3">
+            <div className="text-base font-semibold">{user?.name}</div>
+            <div className="font-normal text-gray-500">@{user?.username}</div>
+          </div>
+        </th>
+        <td className="px-6 py-4">{user?.email}</td>
+        <td className="px-6 py-4">
+          <div className="flex items-center">
+            <div
+              className={`h-2.5 w-2.5 rounded-full bg-${
+                user?.blocked ? "red-500" : "green-500"
+              } mr-2`}
+            ></div>{" "}
+            {user?.blocked ? "Blocked" : "Online"}
+          </div>
+        </td>
+        <td className="px-6 py-4">
+          <BlockUnblock user={user} setUser={setUser} setError={setError} />
+          <button className="font-medium text-[#273B4A] dark:text-blue-500 hover:underline ml-5">
+            View profile
           </button>
         </td>
       </tr>
     </>
-  )
+  );
 }
 
 export default TableRow

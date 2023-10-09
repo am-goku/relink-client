@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import TableRow from "./TableRow";
 import { adminFetchUsers } from "../../../services/admin/apiMethods";
+import TableHead from "./TableHead";
+import SearchBar from "./SearchBar";
+import UserFilter from "./UserFilter";
 
 const Table = () => {
   const [users, setUsers] = useState([])
@@ -20,49 +23,26 @@ const Table = () => {
   },[])
 
   return (
-    <div className="flex flex-col self-center justify-center">
-      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-          <div className="overflow-hidden">
-            <table className="min-w-full text-left text-sm font-light">
-              <thead className="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-600">
-                <tr>
-                  <th scope="col" className="px-6 py-4">
-                    #
-                  </th>
-                  <th scope="col" className="px-6 py-4">
-                    Username
-                  </th>
-                  <th scope="col" className="px-6 py-4">
-                    Name
-                  </th>
-                  <th scope="col" className="px-6 py-4">
-                    Email
-                  </th>
-                  <th scope="col" className="px-6 py-4">
-                    Created At
-                  </th>
-                  <th scope="col" className="px-6 py-4">
-                    Status
-                  </th>
-                  <th scope="col" className="px-6 py-4 text-center">
-                    Options
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
 
-                {
-                  users.map((user, index)=>{
-                    return <TableRow user={user} index={index} key={user._id} />
-                  })
-                }
-                
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="flex items-center justify-between pb-4 bg-white dark:bg-gray-900 p-4">
+        <UserFilter />
+        <SearchBar />
       </div>
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <TableHead />
+        <tbody>
+          
+            {
+              users.map((user, index)=>{
+                return (
+                  <TableRow userData={user} key={user._id} />
+                )
+              })
+            }
+
+        </tbody>
+      </table>
     </div>
   );
 }

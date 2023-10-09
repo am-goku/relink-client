@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setReduxUser } from "../../utils/reducers/userReducer";
 
+
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -152,6 +153,15 @@ function Login() {
                   className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                 >
                   Register
+                </a>
+              </p>
+              <p className="mt-10 text-center text-sm text-gray-500">
+                An admin ?{" "}
+                <a
+                  href="/admin/login"
+                  className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                >
+                  Admin Login
                 </a>
               </p>
             </div>

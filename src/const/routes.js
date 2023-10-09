@@ -9,6 +9,8 @@ export const userUrl = {
 export const adminUrl = {
     login: "/admin/login",
     getUsers: "/admin/fetch-users",
+
+    changeBlockStatus: (userId)=> `/admin/${userId}/change-status`,
 }
 
 
@@ -21,5 +23,9 @@ export const postUrl = {
 
 export const authUrl = {
     authUser: "/auth/user",
-    authAdmin: "/auth/admin"
+    authAdmin: "/auth/admin",
+
+    sendOtp: "/auth/sent-verification",
+    verifyOtp: "/auth/verify-otpToken",
+    
 }

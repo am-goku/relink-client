@@ -18,7 +18,6 @@ function Home() {
   useEffect(()=>{
     if (!isValid) {
       navigate("/login");
-      return;
     }
   })
 
