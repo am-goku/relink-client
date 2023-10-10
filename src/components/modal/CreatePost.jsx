@@ -1,18 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import bgIcon from "../../assets/icon_assets/pngwing.com.png";
 import CropImage from "../options/CropImg";
 import uploadCloudinary from "../../hooks/cloudinary";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postCreatePost } from "../../services/apiMethods";
 import { useNavigate } from "react-router-dom";
 import {FaSpinner} from "react-icons/fa";
 
 import "./CreatePost.css"
+import { updateUserPosts } from "../../utils/reducers/postReducer";
 
 function CreatePost({ setClose }) {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [error, setError] = useState(""); // state for setting error occurs
   const [selectedImg, setSelectedImg] = useState(false); //state to set the image selected by client
   const [bg, setBg] = useState(bgIcon);
@@ -63,6 +65,7 @@ function CreatePost({ setClose }) {
       postCreatePost(postData).then((response) => {
         setLoading(false);
         if (response.status === 200) {
+          dispatch(updateUserPosts(response));
           setClose(true);
         } else if(response.status === 401) {
           navigate("/login");

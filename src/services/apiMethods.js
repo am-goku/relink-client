@@ -1,4 +1,4 @@
-import { postUrl, userUrl } from "../const/routes"
+import { authUrl, postUrl, userUrl } from "../const/routes"
 import { apiCall } from "./apiCalls"
 
 
@@ -114,6 +114,60 @@ export const getUser = (userId) =>{
             })
         } catch (error) {
             resolve({status:500, message:error.message})
+        }
+    })
+};
+
+
+
+//@dec      Sent Otp
+//method    POST
+export const sentOtp = (email) => {
+    return new Promise((resolve, reject) => {
+        try {
+            apiCall("post", authUrl.sendOtp, {email: email}).then((response) => {
+                resolve(response);
+            }).catch((error) => {
+                reject(error);
+            })
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+//@dec      Verify Otp
+//method    POST
+export const verifyOtp = (email, otpToken) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const data = { email: email, otpToken: otpToken };
+      apiCall("post", authUrl.verifyOtp, data)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+
+//@dec      Fetch a user posts
+//method    GET
+export const fetchUserPosts = (userId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            apiCall("get", `${postUrl.getUserPosts}?userId=${userId}`)
+              .then((response) => {
+                resolve(response);
+              })
+              .catch((error) => reject(error));
+        } catch (error) {
+            reject(error);
         }
     })
 }

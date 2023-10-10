@@ -22,11 +22,11 @@ function App() {
       <div className="md:hidden pb-10">
         <Header />
       </div>
-      <div className="flex">
+      <div className="flex overflow-hidden">
         <div className="hidden md:block">
           <NavBar path={path} />
         </div>
-        <Outlet />
+          <Outlet />
       </div>
       <div className="md:hidden mt-14">
         <NavBarSm />

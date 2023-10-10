@@ -7,43 +7,59 @@ import Varifyemail from "../pages/Login/Varifyemail";
 import Error from "../pages/Error/Error";
 import Test from "../pages/Test";
 import adminRouter, { adminLoginRouter } from "./admin/routes";
+import Test2 from "../pages/Test2";
+import UserProfile from "../pages/Profile/UserProfile";
 
 
 const appRouter = createBrowserRouter([
-    {
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <Error />,
+    children: [
+      {
         path: "/",
-        element: <App />,
-        errorElement: <Error />,
-        children: [
-            {
-                path: "/",
-                element: <Home />
-            },
-        ]
-    },
-    {
-        path: "/login",
-        element: <Login />,
-    },
-    {
-        path: "/register",
-        element: <Signup />,
-    },
-    {
-        path: "/forgot-password",
-        element: <Varifyemail />,
-    },
-
-
-    adminRouter,
-    adminLoginRouter,
+        element: <Home />,
+      },
+      {
+        path: "/profile",
+        element: <UserProfile />,
+      },
 
 
 
-    {
-        path: "/test",
-        element: <Test />
-    }
+
+
+
+
+
+
+      {
+        path: "/test2",
+        element: <Test2 />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Signup />,
+  },
+  {
+    path: "/forgot-password",
+    element: <Varifyemail />,
+  },
+
+  adminRouter,
+  adminLoginRouter,
+
+  {
+    path: "/test",
+    element: <Test />,
+  },
 ]);
 
 

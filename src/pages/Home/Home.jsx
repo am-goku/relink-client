@@ -3,17 +3,20 @@ import SinglePost from "../../components/singlePost/SinglePost";
 import PostContainer from "../../components/containers/PostContainer";
 import SuggestionContainer from "../../components/containers/SuggestionContainer";
 import Suggestion from "../../components/profiles/Suggestion";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAllPosts,  } from "../../services/apiMethods";
+import { fetchUserPosts, getAllPosts,  } from "../../services/apiMethods";
+import { setUserPosts } from "../../utils/reducers/postReducer";
 
 function Home() {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [posts, setPosts] = useState([])
 
   // const user = useSelector((state)=> state?.user.userData);
   const isValid = useSelector((state)=> state?.user?.validUser);
+  const user = useSelector((state)=> state?.user?.userData);
 
   useEffect(()=>{
     if (!isValid) {
@@ -36,6 +39,14 @@ function Home() {
       }
     });
   }, [])
+
+
+// to fetch the user posts
+  useEffect(()=> {
+    fetchUserPosts(user?._id).then((response) => {
+      dispatch(setUserPosts(response));
+    })
+  })
 
   return (
     <>

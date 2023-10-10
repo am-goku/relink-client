@@ -1,21 +1,5 @@
-const a = [1,2,3];
+const a = [1,2,3,4,5,6]
 
+a.unshift(0)
 
-const add =(num)=>{
-    return new Promise((resolve,reject)=>{
-        resolve(num[1]+num[2]);
-    })
-}
-
-
-
-const xyz = async () => {
-    add(a).then((c)=>{
-        console.log(c);
-    })
-
-    
-}
-
-
-xyz();
+console.log(a);

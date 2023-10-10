@@ -56,7 +56,7 @@ function NavBar({ path }) {
 
   return (
     <>
-      <div className="w-72 h-screen flex flex-col bg-gradient-to-r from-black via-zinc-900 to-zinc-700 ">
+      <div className="w-72 h-screen flex flex-col bg-gradient-to-r from-black via-zinc-900 to-zinc-700">
         <div className="w-full h-auto cursor-pointer">
           <img src={logowithback} alt="" className="h-auto" />
         </div>

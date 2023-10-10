@@ -16,7 +16,7 @@ function GalleryIcn() {
         xmlSpace="preserve"
         stroke="#f6f4f4"
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
           strokeLinecap="round"

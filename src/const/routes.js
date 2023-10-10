@@ -17,7 +17,9 @@ export const adminUrl = {
 
 export const postUrl = {
     create: "/post/create-post",
-    getPost: "/post/fetch-posts"
+    getPost: "/post/fetch-posts",
+
+    getUserPosts: "/post/fetchUserPosts",
 }
 
 
