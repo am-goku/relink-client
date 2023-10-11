@@ -9,6 +9,7 @@ import Test from "../pages/Test";
 import adminRouter, { adminLoginRouter } from "./admin/routes";
 import Test2 from "../pages/Test2";
 import UserProfile from "../pages/Profile/UserProfile";
+import SinglePostPage from "../pages/Posts/SinglePostPage";
 
 
 const appRouter = createBrowserRouter([
@@ -25,8 +26,10 @@ const appRouter = createBrowserRouter([
         path: "/profile",
         element: <UserProfile />,
       },
-
-
+      {
+        path: "/post/:postId",
+        element: <SinglePostPage />,
+      },
 
 
 

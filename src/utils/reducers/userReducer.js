@@ -6,26 +6,6 @@ import { apiCall } from "../../services/apiCalls";
 
 let token, isValidUser, userData
 
-try{
-    token = localStorage.getItem(userAuth);
-
-    if(token) {
-        const data = {
-            headers: {
-                Authorization: token,
-            },
-        };
-        const response = await apiCall("get", authUrl.authUser, data);
-        isValidUser = response.valid;
-        userData = response.user;
-    } else {
-        isValidUser = false;
-    }
-} catch(e){
-    token = null;
-    isValidUser = false;
-}
-
 
 const userSlice = createSlice({
     name: "user",
@@ -35,7 +15,8 @@ const userSlice = createSlice({
     },
     reducers: {
         setReduxUser: (state, action) => {
-            state.userData = localStorage.getItem(userAuth);
+            state.userData = action.payload.userData;
+            state.validUser = action.payload.validUser;
         },
         removeReduxUser: (state, action) => {
             state.userData = null;
@@ -44,6 +25,34 @@ const userSlice = createSlice({
         },
     }
 });
+
+
+export const userAuthenticator = () => async (dispatch) => {
+  try {
+    token = localStorage.getItem(userAuth);
+
+    if (token) {
+      const data = {
+        headers: {
+          Authorization: token,
+        },
+      };
+      apiCall("get", authUrl.authUser, data).then((response) => {
+        isValidUser = response.valid;
+        userData = response.user;
+        dispatch(setReduxUser({ userData, validUser: isValidUser}));
+      }).catch((error) => {
+        dispatch(setReduxUser({userData: null, validUser: false}));
+      })
+      
+    } else {
+      isValidUser = false;
+    }
+  } catch (e) {
+    token = null;
+    isValidUser = false;
+  }
+};
 
 
 export const { setReduxUser, removeReduxUser} = userSlice.actions;

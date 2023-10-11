@@ -25,39 +25,39 @@ function Home() {
   })
 
 
-  useEffect(()=>{
-    getAllPosts().then((response) => {
-      try {
-        if (response.status === 200) {
-          // console.log(response);
-          setPosts(response.posts);
-        } else {
-          console.log(response);
-        }
-      } catch (error) {
+  useEffect(() => {
+    getAllPosts()
+      .then((response) => {
+        setPosts(response.posts);
+      })
+      .catch((error) => {
         console.log(error);
-      }
-    });
-  }, [])
+        // navigate("/login");
+      });
+  }, [navigate]);
 
 
 // to fetch the user posts
   useEffect(()=> {
-    fetchUserPosts(user?._id).then((response) => {
-      dispatch(setUserPosts(response));
-    })
-  })
+    if(isValid){
+      fetchUserPosts(user?._id).then((response) => {
+        dispatch(setUserPosts(response));
+      }).catch((error) => {
+        console.log("error is", error);
+      })
+    }
+  },[navigate, isValid, user, dispatch])
 
   return (
     <>
         <div className="md:ml-auto">
           <PostContainer>
             {
-              posts.map((post) => {
+              posts?.map((post) => {
                 return (
                   <SinglePost
                     key={post._id}
-                    post={post}
+                    postData={post}
                   />
                 );
               })
@@ -67,10 +67,6 @@ function Home() {
 
         <div className="hidden lg:block md:hidden mr-auto ml-auto">
           <SuggestionContainer>
-            <Suggestion />
-            <Suggestion />
-            <Suggestion />
-            <Suggestion />
             <Suggestion />
             <Suggestion />
           </SuggestionContainer>

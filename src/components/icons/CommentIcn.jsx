@@ -1,9 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-function CommentIcn({size}) {
+function CommentIcn({size, post}) {
+
+  const navigate = useNavigate()
+
+
   return (
     <>
-        <svg
+        <svg onClick={()=> navigate(`/post/${post?._id}`)}
                 className="mt-1 cursor-pointer ml-2"
                 width={size?.width}
                 height={size?.height}

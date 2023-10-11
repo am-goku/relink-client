@@ -8,27 +8,6 @@ import adminApiCalls from "../../services/admin/apiCalls";
 
 let token, isValidAdmin, adminData;
 
-try {
-  token = localStorage.getItem(adminAuth);
-
-  if (token) {
-    const data = {
-      headers: {
-        Authorization: token,
-      },
-    };
-    const response = await adminApiCalls("get", authUrl.authAdmin, data);
-    isValidAdmin = response.valid;
-    adminData = response.admin;
-  } else {
-    isValidAdmin = false;
-  }
-} catch (e) {
-  token = null;
-  isValidAdmin = false;
-}
-
-
 
 const adminSlice = createSlice({
   name: "admin",
@@ -38,7 +17,8 @@ const adminSlice = createSlice({
   },
   reducers: {
     setReduxAdmin: (state, action) => {
-      state.adminData = localStorage.getItem(adminAuth)
+      state.adminData = action.payload.adminData;
+      state.validAdmin = action.payload.validAdmin;
     },
     removeReduxAdmin: (state) => {
       state.adminData = null;
@@ -47,6 +27,30 @@ const adminSlice = createSlice({
     },
   },
 });
+
+
+export const adminAuthenticator = () => async (dispatch) => {
+  try {
+    token = localStorage.getItem(adminAuth);
+
+    if (token) {
+      const data = {
+        headers: {
+          Authorization: token,
+        },
+      };
+      const response = await adminApiCalls("get", authUrl.authAdmin, data);
+      isValidAdmin = response.valid;
+      adminData = response.admin;
+      dispatch(setReduxAdmin({adminData: adminData, validAdmin: isValidAdmin}))
+    } else {
+      isValidAdmin = false;
+    }
+  } catch (e) {
+    token = null;
+    isValidAdmin = false;
+  }
+}
 
 
 

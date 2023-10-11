@@ -91,10 +91,11 @@ export const getAllPosts = () => {
         try {
             apiCall("get", postUrl.getPost).then((response) => {
                 resolve(response)
-            })
+            }).catch((error) => {
+                reject(error);
+            });
         } catch (error) {
-            console.log(error);
-            resolve({status:500, message:error.response})
+            reject(error);
         }
     })
 }
@@ -166,6 +167,175 @@ export const fetchUserPosts = (userId) => {
                 resolve(response);
               })
               .catch((error) => reject(error));
+        } catch (error) {
+            reject(error);
+        }
+    })
+};
+
+
+
+export const fetchAPost = (postId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = postUrl.getSinglePost(postId);
+            apiCall("get", url).then((response) => {
+                resolve(response);
+            }).catch((error) => {
+                reject(error);
+            })
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+
+
+// @desc    Like post
+//@route    PATCH /post/like-post
+// @access  Registerd users
+export const likePost = (userId, postId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const data = {userId: userId, postId: postId};
+
+            apiCall("patch", postUrl.likePost, data).then((response) => {
+                resolve(response);
+            }).catch((error) => reject(error));
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+// @desc    Unlike post
+//@route    PATCH /post/unllike-post
+// @access  Registerd users
+export const unlikePost = (userId, postId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const data = {userId: userId, postId: postId};
+
+            apiCall("patch", postUrl.unlikePost, data).then((response) => {
+                resolve(response);
+            }).catch((error) => reject(error));
+        } catch (error) {
+            reject(error);
+        }
+    })
+};
+
+
+// @desc    Get comment
+//@route    GET /post/fetch-comment
+// @access  Registerd users
+export const fetchComments = (postId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            apiCall("get", postUrl.fetchComments, {postId: postId}).then((response) => {
+                resolve(response)
+            }).catch((error) => reject(error))
+        } catch (error) {
+            reject(error);
+        }
+    })
+};
+// @desc    Add comment
+//@route    POST /post/add-comment
+// @access  Registerd users
+export const addComment = (userId, postId, content) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const data = {userId: userId, postId: postId, content: content};
+            apiCall("post", postUrl.addComment, data).then((response) => {
+                resolve(response);
+            }).catch((err) => reject(err))
+        } catch (error) {
+            reject(error);
+        }
+    })
+};
+// @desc    Delete comment
+//@route    DELETE /post/delete-comment
+// @access  Registerd users
+export const deleteComment = (commentId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            apiCall("delete", postUrl.deleteComment, {commentId:commentId}).then((response) => {
+                resolve(response);
+            }).catch((err) => reject(err));
+        } catch (error) {
+            reject(error);
+        }
+    })
+};
+
+
+
+// @desc    Remove from saved
+// @route   DELETE /user/:userId/save/post/remove/:postId
+// @access  Registerd users
+export const removeSavedPost = (userId, postId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = userUrl.removeSave(userId, postId);
+            apiCall("delete", url).then((response) => {
+                resolve(response)
+            }).catch((error) =>{
+                reject(error);
+            })
+        } catch (error) {
+            reject(error);
+        }
+    })
+};
+
+// @desc    Save post
+// @route   DELETE /user/:userId/save/post/:postId
+// @access  Registerd users
+export const savePost = (userId, postId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = userUrl.savePost(userId, postId);
+            apiCall("put", url).then((response) => {
+                resolve(response);
+            }).catch((error) => reject(error));
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+
+
+
+// @desc    Follow user
+// @route   POST /user/:userId/follow/:followeeUserId
+// @access  Registerd users
+export const followUser = (userId, followeeId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = userUrl.followUser(userId, followeeId);
+            apiCall("post", url).then((response)=> {
+                resolve(response);
+            }).catch((error) => reject(error));
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+// @desc    Unfollow user
+// @route   POST /user/:userId/unfollow/:followeeUserId
+// @access  Registerd users
+export const unfollowUser = (userId, followeeId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = userUrl.unfollowUser(userId, followeeId);
+            apiCall("post", url).then((response)=> {
+                resolve(response);
+            }).catch((error) => reject(error));
         } catch (error) {
             reject(error);
         }

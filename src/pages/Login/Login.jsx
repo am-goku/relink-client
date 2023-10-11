@@ -20,11 +20,10 @@ function Login() {
   const user = useSelector((state)=> state?.user.validUser);
   
   useEffect(() => {
-    console.log("user is:", user);
     if(user){
         navigate("/")
     }
-  }, [user, navigate]);
+  });
 
   const setCredentials = () => {
     if (!nameOrEmail) {
@@ -54,12 +53,11 @@ function Login() {
     postLogin(userData).then((response) => {
       if (response.status === 200) {
         localStorage.setItem(userAuth, response.token);
-        dispatch(setReduxUser());
+        dispatch(setReduxUser({userData:response.user, validUser: true}));
         window.location.reload("/");
       } else {
         setError(response.message);
       }
-      console.log("postLoginResponse", response);
     });
   };
 

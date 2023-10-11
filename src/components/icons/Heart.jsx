@@ -1,12 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { likePost, unlikePost } from '../../services/apiMethods';
 
-function Heart({size, color}) {
+function Heart({size, color, post, setPost}) {
 
     const [isRed, setIsRed] = useState(false);
 
+    const user = useSelector((state)=> state?.user?.userData)
+
+    useEffect(()=>{
+        if(post?.likes?.includes(user._id)){
+            setIsRed(true);
+        } else {
+            setIsRed(false);
+        }
+    }, [user, post]);
+
 
     const likeOrUnlike = () => {
-        setIsRed(!isRed)
+        if(isRed){
+            unlikePost(user._id, post._id).then((response)=> {
+                setPost(response)
+            }).catch((error)=> {
+                console.log(error);
+            })
+        } else {
+            likePost(user._id, post._id).then((response)=> {
+                setPost(response);
+            }).catch((error)=> {
+                console.log(error);
+            })
+        }
     }
 
     return (

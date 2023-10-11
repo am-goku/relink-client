@@ -51,7 +51,7 @@ function AdminLogin() {
     const response = await adminPostLogin(adminData);
     if (response.status === 200) {
       localStorage.setItem(adminAuth, response.adminToken);
-      dispatch(setReduxAdmin())
+      dispatch(setReduxAdmin({adminData:response.admin, validAdmin:response.valid}))
       window.location.reload();
     } else {
       console.log(response);
