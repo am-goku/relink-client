@@ -26,22 +26,22 @@ export const adminUrl = {
 
 
 export const postUrl = {
-    create: "/post/create-post",
-    getPost: "/post/fetch-posts",
+  create: "/post/create-post",
+  getPost: "/post/fetch-posts",
 
-    getSinglePost: (postId) => `/post/fetch-single-post/${postId}`,
+  getSinglePost: (postId) => `/post/fetch-single-post/${postId}`,
 
-    getUserPosts: "/post/fetchUserPosts",
+  getUserPosts: "/post/fetchUserPosts",
 
-    //likes
-    likePost: "/post/like-post",
-    unlikePost: "/post/unlike-post",
+  //likes
+  likePost: "/post/like-post",
+  unlikePost: "/post/unlike-post",
 
-    //comments
-    fetchComments: "/post/fetch-comments",
-    addComment: "/post/add-comment",
-    deleteComment: "/post/delete-comment",
-}
+  //comments
+  fetchComments: (postId) => `/post/fetch-comments/${postId}`,
+  addComment: "/post/add-comment",
+  deleteComment: "/post/delete-comment",
+};
 
 
 export const authUrl = {

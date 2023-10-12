@@ -32,20 +32,20 @@ function UserProfile() {
 
   return (
     <>
-      <div className="w-full h-screen justify-center items-center overflow-scroll no-scrollbar">
+      <div className="w-full lg:h-screen justify-center items-center overflow-scroll no-scrollbar p-1">
         <ProfileCard user={user} />
-        <div className="bg-black h-1 w-[60%] mt-20 ml-auto mr-auto"></div>
+        <div className="bg-black h-1 w-[60%] lg:mt-20 mt-5 ml-auto mr-auto"></div>
         <div className="overflow-auto h-full no-scrollbar">
-          <div className="grid grid-cols-3 grid-flow-row gap-9 p-5 w-fit h-fit ml-auto mr-auto overflow-hidden ">
+          <div className=" grid lg:grid-cols-4 grid-cols-3 grid-flow-row lg:gap-9 gap-1 lg:p-5 p-1 w-fit h-fit ml-auto mr-auto overflow-hidden ">
             {posts.map((post, index) => {
               return <UserPosts post={post} key={post?._id} />;
             })}
           </div>
-          { posts?.length === 0 ?
-            <div className="text-center">
-              No posts to show
-            </div> : error ? {error} : null
-          }
+          {posts?.length === 0 ? (
+            <div className="text-center">No posts to show</div>
+          ) : error ? (
+            { error }
+          ) : null}
         </div>
       </div>
     </>

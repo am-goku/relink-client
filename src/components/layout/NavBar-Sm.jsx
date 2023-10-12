@@ -33,7 +33,7 @@ function NavBarSm() {
 
   return (
     <>
-      <div className="flex left-0 bottom-0 fixed">
+      <div className="flex left-0 bottom-0 sticky">
         <div className="bg-black w-screen h-16 flex items-center justify-center px-4">
           {
             navs.map((nav, index)=> {

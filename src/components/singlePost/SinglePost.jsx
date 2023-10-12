@@ -41,9 +41,9 @@ function SinglePost({postData}) {
 
   return (
     <>
-      <div className="p-4 mt-5 w-fit">
+      <div className="p-4 mt-5 w-full">
         {/* Parent div with padding */}
-        <div className="p-2 rounded-md relative w-fit bg-black bg-opacity-75">
+        <div className="p-2 rounded-md relative w-full bg-black bg-opacity-75">
           <div className="w-full h-16 flex p-2 gap-3 self-center">
             <div className="bg-white ml-1 w-11 h-11 rounded-full self-center">
               <img src={postUser?.profilePic} alt="" className="rounded-full" />

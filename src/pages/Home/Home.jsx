@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUserPosts, getAllPosts,  } from "../../services/apiMethods";
 import { setUserPosts } from "../../utils/reducers/postReducer";
+import { removeReduxUser } from "../../utils/reducers/userReducer";
 
 function Home() {
 
@@ -19,7 +20,7 @@ function Home() {
   const user = useSelector((state)=> state?.user?.userData);
 
   useEffect(()=>{
-    if (!isValid) {
+    if (!user) {
       navigate("/login");
     }
   })

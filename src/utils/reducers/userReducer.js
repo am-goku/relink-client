@@ -8,22 +8,23 @@ let token, isValidUser, userData
 
 
 const userSlice = createSlice({
-    name: "user",
-    initialState: {
-        userData: userData,
-        validUser: isValidUser,
+  name: "user",
+  initialState: {
+    userData: userData,
+    validUser: isValidUser,
+  },
+  reducers: {
+    setReduxUser: (state, action) => {
+      state.userData = action.payload.userData;
+      state.validUser = action.payload.validUser;
     },
-    reducers: {
-        setReduxUser: (state, action) => {
-            state.userData = action.payload.userData;
-            state.validUser = action.payload.validUser;
-        },
-        removeReduxUser: (state, action) => {
-            state.userData = null;
-            state.validUser = false;
-            localStorage.removeItem(userAuth);
-        },
-    }
+    removeReduxUser: (state, action) => {
+      state.userData = null;
+      state.validUser = false;
+      localStorage.removeItem(userAuth);
+    },
+    
+  },
 });
 
 
@@ -46,11 +47,10 @@ export const userAuthenticator = () => async (dispatch) => {
       })
       
     } else {
-      isValidUser = false;
+      dispatch(removeReduxUser());
     }
   } catch (e) {
-    token = null;
-    isValidUser = false;
+    dispatch(removeReduxUser());
   }
 };
 

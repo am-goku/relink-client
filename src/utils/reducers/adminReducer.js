@@ -39,16 +39,17 @@ export const adminAuthenticator = () => async (dispatch) => {
           Authorization: token,
         },
       };
-      const response = await adminApiCalls("get", authUrl.authAdmin, data);
+      const response = await adminApiCalls("get", authUrl.authAdmin, data).catch((error)=> {
+        dispatch(removeReduxAdmin())
+      })
       isValidAdmin = response.valid;
       adminData = response.admin;
       dispatch(setReduxAdmin({adminData: adminData, validAdmin: isValidAdmin}))
     } else {
-      isValidAdmin = false;
+      dispatch(removeReduxAdmin())
     }
   } catch (e) {
-    token = null;
-    isValidAdmin = false;
+    dispatch(removeReduxAdmin())
   }
 }
 

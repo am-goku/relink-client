@@ -8,10 +8,13 @@ import thunk from "redux-thunk";
 import userSlice from "./reducers/userReducer";
 import adminSlice from "./reducers/adminReducer";
 import postSlice from "./reducers/postReducer";
+import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 
 const persistConfig = {
   key: "root",
   storage,
+  transforms: [], // Apply any transforms if needed
+  stateReconciler: autoMergeLevel2,
 };
 
 const rootReducer = combineReducers({

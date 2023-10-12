@@ -30,13 +30,6 @@ const appRouter = createBrowserRouter([
         path: "/post/:postId",
         element: <SinglePostPage />,
       },
-
-
-
-
-
-
-
       {
         path: "/test2",
         element: <Test2 />,

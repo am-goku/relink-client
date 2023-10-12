@@ -44,7 +44,7 @@ function Varifyemail() {
             verifyOtp(email, otp).then((response) => {
                 console.log(response);
                 localStorage.setItem(userAuth, response.token);
-                dispatch(setReduxUser());
+                dispatch(setReduxUser({userData:response.user, validUser: response.valid}));
                 window.location.reload();
             }).catch((error) => {
                 setError(error.message);

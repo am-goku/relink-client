@@ -25,7 +25,7 @@ function SinglePostPage() {
   useEffect(()=> {
     fetchAPost(postId).then((response) => {
       setPost(response);
-      console.log(response);
+      // console.log(response);
     }).catch((error) => {
       setError(error);
       navigate("/NotFound");
@@ -35,8 +35,8 @@ function SinglePostPage() {
 
   return (
     <>
-      <div className='h-screen w-full items-center flex p-20'>
-        <SinglePostView post={post} setPost={setPost} />
+      <div className="h-screen bg-[#C6C1C1] md:w-full w-full items-center flex md:p-20 lg:p-5 overflow-auto">
+        <SinglePostView post={post} postId={postId} setPost={setPost} />
       </div>
     </>
   );

@@ -1,5 +1,6 @@
-const a = [1,2,3,4,5,6]
 
-a.unshift(0)
 
-console.log(a);
+// Example usage:
+const targetDateStr = "2023-10-12T10:08:17.819+00:00";
+const result = getTimeDifference(targetDateStr);
+console.log("Time difference: " + result);

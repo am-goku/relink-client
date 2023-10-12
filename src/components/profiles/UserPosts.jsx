@@ -13,7 +13,7 @@ function UserPosts({post}) {
   return (
     <>
       <div
-        className="aspect-square rounded border-y-2 border-x-2 w-64 bg-slate-600"
+        className="aspect-square rounded border-y-2 border-x-2 lg:w-64 w-fit bg-slate-600"
         onClick={()=> navigate(`/post/${post._id}`)}
       >
         <img

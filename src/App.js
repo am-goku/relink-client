@@ -8,18 +8,24 @@ import {
 import NavBar from "./components/layout/NavBar";
 import Header from "./components/layout/Header";
 import NavBarSm from "./components/layout/NavBar-Sm";
+import { useDispatch } from "react-redux";
+import { userAuthenticator } from "./utils/reducers/userReducer";
+import { ToastContainer } from "react-toastify";
 
 
 function App() {
   const location = useLocation();
   const [path, setPath] = useState("");
+  const dispatch = useDispatch();
   useEffect(() => {
     setPath(location.pathname);
-  }, [location, path]);
+    dispatch(userAuthenticator());
+  }, [location, path, dispatch]);
 
   return (
     <>
-      <div className="md:hidden pb-10">
+    <ToastContainer />
+      <div className="md:hidden sticky top-0 z-50">
         <Header />
       </div>
       <div className="flex overflow-hidden">
@@ -28,7 +34,7 @@ function App() {
         </div>
           <Outlet />
       </div>
-      <div className="md:hidden mt-14">
+      <div className="md:hidden sticky bottom-0 z-50">
         <NavBarSm />
       </div>
     </>

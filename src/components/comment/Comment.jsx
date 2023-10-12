@@ -1,19 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getUser } from "../../services/apiMethods";
+import { getTimeDifference } from "../../hooks/timeAgo";
 
-function Comment() {
+function Comment({data}) {
+  const [commenter, setCommenter] = useState({});
+  const [error, setError] = useState();
+  const [time, setTime] = useState('just now')
+  useEffect(()=> {
+    getUser(data.userId).then((response)=> {
+      console.log("comment user:", response);
+      setCommenter(response.users[0]);
+    }).catch((error)=> {
+      setError(error.message);
+    });
+  },[data]);
+
+  useEffect(() => {
+    const newTime = getTimeDifference(data?.createdAt);
+    setTime(newTime);
+  },[data])
+
+
   return (
     <>
-      <div className="w-fit h-fit bg-slate-400 flex gap-2 items-center rounded-lg p-5">
-        <div className="aspect-square w-8 rounded-full bg-black self-start" />
+      <div className="w-fit h-fit bg-slate-400 flex gap-2 items-center rounded-lg p-5 relative">
+        <div className="aspect-square w-8 rounded-full bg-black self-start">
+          <img
+            src={commenter?.profilePic}
+            alt=""
+            className="rounded-full w-8 aspect-square"
+          />
+        </div>
         <div className="col-span-1">
-          <span className="font-medium text-base ">Joel V Jose</span>
-          <div className="mt-2 font-poppins text-sm flex flex-col">
-            <span className=" max-w-lg">
-              This is a comment to the post uciweciwebiwe qibxiqwns qwbsqwonqw
-              eibdendoedb
+          <span className="font-medium text-base">{commenter?.name}</span>
+          <div className="mt-2 h-fit font-poppins text-sm flex ">
+            <span className="max-w-lg overflow-auto no-scrollbar">
+              {data?.content}
             </span>
           </div>
         </div>
+        <div className="p-1 text-xs absolute bottom-0 right-0 text-gray-700"><span className="">{time}</span></div>
       </div>
     </>
   );

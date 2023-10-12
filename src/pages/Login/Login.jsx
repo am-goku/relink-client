@@ -17,7 +17,7 @@ function Login() {
   const [nameOrEmail, setNameOrEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const user = useSelector((state)=> state?.user.validUser);
+  const user = useSelector((state)=> state?.user?.validUser);
   
   useEffect(() => {
     if(user){

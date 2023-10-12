@@ -233,7 +233,8 @@ export const unlikePost = (userId, postId) => {
 export const fetchComments = (postId) => {
     return new Promise((resolve, reject) => {
         try {
-            apiCall("get", postUrl.fetchComments, {postId: postId}).then((response) => {
+            const url = postUrl.fetchComments(postId)
+            apiCall("get", url).then((response) => {
                 resolve(response)
             }).catch((error) => reject(error))
         } catch (error) {
