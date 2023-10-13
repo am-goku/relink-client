@@ -9,16 +9,25 @@ import { getUser } from "../../services/apiMethods";
 import Heart from "../icons/Heart";
 import SaveIcn from "../icons/SaveIcn";
 import CommentIcn from "../icons/CommentIcn";
+import { useSelector } from "react-redux";
+import ConnectionBtn from "../icons/ConnectionBtn";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 function SinglePost({postData}) {
 
-  const [isRed, setIsRed] = useState(false);
+  const navigate = useNavigate()
+  // const [isRed, setIsRed] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const user = useSelector((state)=> state?.user?.userData)
+
+  const [owner, setOwner] = useState(false);
 
   const [post, setPost] = useState(postData);
+
+  const [likes, setLikes] = useState([]);
 
   const [postUser, setPostUser] = useState(null);
 
@@ -26,45 +35,61 @@ function SinglePost({postData}) {
     getUser(post.userId).then((response)=>{
       if(response.status === 200) {
         setPostUser(response.users[0]);
+        user?._id === postUser?._id ? setOwner(true) : setOwner(false);
       } else {
         console.log(response);
       }
     }).catch((error)=>{
       console.log(error);
     })
-  },[post])
+
+    setLikes(post?.likes)
+  },[post, user, postUser])
   
 
   const saveOrUnsave = () => {
     setIsSaved(!isSaved);
   };
 
+  const seeProfile = () => {
+    navigate(`/profile/${postUser?.username}`);
+  }
+
   return (
     <>
-      <div className="p-4 mt-5 w-full">
+      <div className="p-4 mt-5 w-full select-none">
         {/* Parent div with padding */}
         <div className="p-2 rounded-md relative w-full bg-black bg-opacity-75">
           <div className="w-full h-16 flex p-2 gap-3 self-center">
-            <div className="bg-white ml-1 w-11 h-11 rounded-full self-center">
+            <div
+              className="bg-white ml-1 w-11 h-11 rounded-full self-center cursor-pointer"
+              onClick={seeProfile}
+            >
               <img src={postUser?.profilePic} alt="" className="rounded-full" />
             </div>
-            <div className="text-white font-semibold text-lg self-center">
+            <div
+              className="text-white font-semibold text-lg self-center cursor-pointer"
+              onClick={seeProfile}
+            >
               {postUser?.name}
             </div>
-            <button className="text-white font-thin text-xs font-mono self-center bg-slate-400 rounded-lg w-16 h-5">
-              Follow
-            </button>
+            <div className="font-thin font-mono self-center rounded-lg w-16 h-5">
+              <ConnectionBtn
+                user={postUser}
+                owner={owner}
+                width={20}
+                height={5}
+                color={"white"}
+              />
+            </div>
 
             <div className="self-center ml-auto cursor-pointer">
-              <Dropdown />
+              <Dropdown owner={owner} />
             </div>
           </div>
 
           {/* Larger square div for image */}
-          <div
-            className="max-w-xl mt-2 aspect-square bg-gray-300 rounded-lg overflow-hidden"
-            // onDoubleClick={likeOrUnlike}
-          >
+          <div className="max-w-xl mt-2 aspect-square bg-gray-300 rounded-lg overflow-hidden">
             {/* You can add your image here */}
             <img
               src={post.image}
@@ -77,16 +102,28 @@ function SinglePost({postData}) {
             <CaptionWithShowMore text={post.description} />
           </div>
           <div className="mt-1">
-            <span className="pl-2 text-white text-sm font-light select-none">{`You and ${2483} others liked this post`}</span>
+            {likes?.length > 0 ? (
+              <span className="pl-2 text-white text-sm font-light select-none">
+                {likes?.includes(user?._id)
+                  ? `You ${
+                      likes.length > 1 ? `and ${likes?.length - 1} other` : ""
+                    } liked this post`
+                  : likes?.length === 1
+                  ? `One person liked this post`
+                  : `${likes?.length} people liked this post`}
+              </span>
+            ) : null}
 
             <div className="p-2 text-xl flex gap-5 mt-5 font-bold">
-              
-              <Heart size={{width: 34, height:36}} post={post} setPost={setPost} />
+              <Heart
+                size={{ width: 34, height: 36 }}
+                post={post}
+                setPost={setPost}
+              />
 
-              
-              <CommentIcn size={{width:33, height:31}} post={post} />
+              <CommentIcn size={{ width: 33, height: 31 }} post={post} />
 
-              <SaveIcn size={{width:36, height:37}} />
+              <SaveIcn size={{ width: 36, height: 37 }} />
             </div>
           </div>
         </div>

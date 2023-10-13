@@ -4,15 +4,15 @@ import { useSelector } from "react-redux";
 
 function Options({user}) {
 
-  const [ownProfile, setOwnProfile] = useState(false);
+  const [owner, setOwner] = useState(false);
 
   const currentUser = useSelector((state) => state?.user?.userData)
 
   useEffect(() => {
     initFlowbite();
 
-    if(currentUser?.userName === user?.username){
-        setOwnProfile(true);
+    if(currentUser?._id === user?._id){
+        setOwner(true);
     }
   },[currentUser, user]);
 
@@ -43,7 +43,7 @@ function Options({user}) {
           className="py-2 text-sm text-gray-700 dark:text-gray-200"
           aria-labelledby="dropdownMenuIconButton"
         >
-          {ownProfile ? (
+          {owner ? (
             <li>
               <button className="block px-4 py-2 w-full text-start hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 Edit profile
@@ -51,8 +51,8 @@ function Options({user}) {
             </li>
           ) : (
             <li>
-              <button className="block px-4 py-2 w-full text-start hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                Edit profile
+              <button className="block px-4 py-2 w-full text-start text-red-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                Report
               </button>
             </li>
           )}

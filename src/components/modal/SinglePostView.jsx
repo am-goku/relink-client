@@ -6,9 +6,13 @@ import Comment from '../comment/Comment';
 import { addComment, fetchComments, getUser } from '../../services/apiMethods';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 
 function SinglePostView({post, postId, setPost}) {
 
+
+  const navigate = useNavigate()
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const txtArea = useRef(null);
@@ -63,6 +67,9 @@ function SinglePostView({post, postId, setPost}) {
 
   return (
     <>
+      <div className="w-fit hidden lg:block h-fit absolute top-28 left-96 cursor-pointer" onClick={()=> navigate(-1)}>
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" width="3rem" viewBox="0 0 512 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128z"/></svg>
+      </div>
       <div className="bg-[#C6C1C1] w-full md:w-fit lg:h-fit h-full ml-auto mr-auto p-5 md:flex gap-10 select-none">
         <div className="postImage border-black lg:border-r-2 p-2 grid gap-3 md:w-fit w-full">
           <div className="userInfo flex items-center gap-3">
@@ -78,11 +85,11 @@ function SinglePostView({post, postId, setPost}) {
           <div className="md:w-[40rem] w-fit">
             <img src={post?.image} alt="" className="rounded select-none" />
           </div>
-          { post?.description ?
+          {post?.description ? (
             <div className="max-w-xl max-h-40 flex flex-col overflow-y-auto no-scrollbar">
               <span className="font-poppins">{post?.description}</span>
-            </div> : null
-          }
+            </div>
+          ) : null}
           <div className="flex mt-2 ml-2 gap-8 text-center">
             <div className="">
               <Heart
@@ -120,10 +127,7 @@ function SinglePostView({post, postId, setPost}) {
             {comments.map((comment, index) => {
               return <Comment data={comment} key={comment._id} />;
             })}
-            {
-              comments?.length === 0?
-              <span>No comments</span>: null
-            }
+            {comments?.length === 0 ? <span>No comments</span> : null}
           </div>
         </div>
       </div>

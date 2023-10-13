@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SettingsIcn from "../icons/SettingsIcn";
 import Options from "./Options";
+import { useSelector } from "react-redux";
+import ConnectionBtn from "../icons/ConnectionBtn";
+import { getConnections } from "../../services/apiMethods";
 
 function ProfileCard({ user }) {
+
+
+  const [owner, setOwner] = useState(false);
+
+  const currentUser = useSelector((state)=> state?.user?.userData);
+  const [error, setError] = useState('');
+
+  const [following, setFollowing] = useState([]);
+  const [followers, setFollowers] = useState([]);
+
+  useEffect(()=> {
+    getConnections(user._id).then((connections)=>{
+      setFollowers(connections.followers);
+      setFollowing(connections.following);
+    }).catch((error)=>{
+      setError(error.message);
+    })
+  }, [user])
+
+  useEffect(()=> {
+    if(currentUser?._id === user?._id){
+      setOwner(true);
+    }
+  }, [user, currentUser]);
+
+
   return (
     <>
       <div className="bg-[#1E1E1EC4] opacity-70 lg:items-center lg:px-60 lg:py-24 w-full p-7 lg:p-0 lg:w-fit h-fit mr-auto ml-auto lg:mt-7 flex lg:grid lg:grid-flow-col lg:gap-20 gap-12 relative select-none lg:rounded">
@@ -15,9 +44,11 @@ function ProfileCard({ user }) {
             alt=""
             className="rounded-full aspect-square w-full"
           />
-          <div className="lg:w-9 lg:h-9 hidden lg:block rounded-full absolute bottom-0 right-0 cursor-pointer">
-            <SettingsIcn size={{ width: 36, height: 36 }} />
-          </div>
+          {owner ? (
+            <div className="lg:w-9 lg:h-9 hidden lg:block rounded-full absolute bottom-0 right-0 cursor-pointer">
+              <SettingsIcn size={{ width: 36, height: 36 }} />
+            </div>
+          ) : null}
         </div>
 
         <div className="w-1 h-32 bg-black hidden lg:block"></div>
@@ -31,14 +62,28 @@ function ProfileCard({ user }) {
           </div>
           <div className="flex gap-5">
             <div className="mt-8 grid gap-1">
-              <span className="lg:text-xl font-poppins text-center">106</span>
-              <span className="lg:text-sm font-serif text-center">Followers</span>
+              <span className="lg:text-xl font-poppins text-center">
+                {followers?.length || 0}
+              </span>
+              <span className="lg:text-sm font-serif text-center">
+                Followers
+              </span>
             </div>
             <div className="mt-8 grid gap-1">
-              <span className="lg:text-xl font-poppins text-center">168</span>
-              <span className="lg:text-sm font-serif text-center">Following</span>
+              <span className="lg:text-xl font-poppins text-center">
+                {following?.length || 0}
+              </span>
+              <span className="lg:text-sm font-serif text-center">
+                Following
+              </span>
             </div>
           </div>
+          {/* follow unfollow btn */}
+          {currentUser?._id !== user?._id ? (
+            <div className="w-36 mt-3 h-10 flex justify-center items-center">
+              <ConnectionBtn user={user} owner={owner} setFollowers={setFollowers} />
+            </div>
+          ) : null}
         </div>
       </div>
     </>

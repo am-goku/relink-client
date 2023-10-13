@@ -341,4 +341,73 @@ export const unfollowUser = (userId, followeeId) => {
             reject(error);
         }
     })
+};
+
+// @desc    Get connections
+// @route   GET /user/fetch/connection/:userId
+// @access  Registerd users
+export const getConnections = (userId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = userUrl.getConnections(userId);
+            apiCall("get", url).then((response) => {
+                resolve(response);
+            }).catch((err) => reject(err));
+        } catch (error) {
+            reject(error);
+        }
+    })
+};
+
+
+// @desc    Search user
+// @route   GET /user/search/:key
+// @access  Registerd users
+export const searchUser = (key) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = userUrl.searchUser(key);
+            apiCall("get", url).then((response) => {
+                resolve(response);
+            }).catch((error) => reject(error));
+        } catch (error) {
+            reject(error);
+        }
+    })
+};
+
+
+// @desc    Fetch user by username
+// @route   /user/fetch/user/username/:username
+// @access Authenticated users
+export const fetchUserByUsername = (username) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = userUrl.fetchByUsername(username);
+            apiCall("get", url).then((response) => {
+                resolve(response)
+            }).catch((error) => reject(error));
+        } catch (error) {
+            reject(error);
+        }
+    })
+};
+
+
+
+// @desc    Delete post
+//@route    DELETE /post/delete/post/:postId
+// @access  Registerd users
+export const deletePost = (postId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = postUrl.deletePost(postId);
+            apiCall("delete", url).then((response) => {
+                resolve(response);
+            }).catch((err) => reject(err));
+        } catch (error) {
+            reject(error);
+        }
+    })
 }
+

@@ -11,6 +11,7 @@ import NavBarSm from "./components/layout/NavBar-Sm";
 import { useDispatch } from "react-redux";
 import { userAuthenticator } from "./utils/reducers/userReducer";
 import { ToastContainer } from "react-toastify";
+import { initFlowbite } from "flowbite";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
   useEffect(() => {
     setPath(location.pathname);
     dispatch(userAuthenticator());
+      initFlowbite();
   }, [location, path, dispatch]);
 
   return (

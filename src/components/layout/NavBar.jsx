@@ -33,7 +33,7 @@ function NavBar({ path }) {
 
 
   const navs = [
-    { name: "PROFILE", icon: <FaUserAlt />, path: "/profile" },
+    { name: "PROFILE", icon: <FaUserAlt />, path: `/profile/${userData?.username}` },
     { name: "HOME", icon: <IoHomeSharp />, path: "/" },
     { name: "EXPLORE", icon: <FaRegCompass />, path: "/explore" },
     { name: "MESSAGE", icon: <FaRegComments />, path: "/message" },
@@ -43,7 +43,11 @@ function NavBar({ path }) {
 
 
   
-
+const handleClose = (e) => {
+  if(e.target.id === "defaultModal" && e.target.id !== "crtPost"){
+    setIsClosed(true);
+  } 
+}
 
 
 
@@ -88,9 +92,10 @@ function NavBar({ path }) {
               className={`w-56 h-12 self-center flex mt-5 border-b border-white cursor-pointer text-center text-white navSelection rounded-md ${
                 path === nav.path ? "bg-gray-500 bg-opacity-60" : ""
               }`}
-              onClick={()=>{
-                nav.name === "CREATE POST"? setIsClosed(false)
-                : navigate(nav.path);
+              onClick={() => {
+                nav.name === "CREATE POST"
+                  ? setIsClosed(false)
+                  : navigate(nav.path);
               }}
             >
               <div className="flex ml-6 self-center justify-end items-center h-full">
@@ -116,11 +121,14 @@ function NavBar({ path }) {
         id="defaultModal"
         tabIndex="-1"
         aria-hidden="true"
-        className={`fixed top-0 left-0 right-0 z-50 ${
+        className={`fixed top-0 left-0 right-0 z-50 justify-center flex ${
           isClosed ? "hidden" : "modal-open"
         }  overflow-x-hidden overflow-y-auto md:inset-0 h-screen`}
+        onClick={handleClose}
       >
-        <CreatePost setClose={setIsClosed} />
+        <div className="h-fit w-fit" id="crtPost">
+          <CreatePost setClose={setIsClosed} />
+        </div>
       </div>
     </>
   );

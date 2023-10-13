@@ -10,6 +10,7 @@ import adminRouter, { adminLoginRouter } from "./admin/routes";
 import Test2 from "../pages/Test2";
 import UserProfile from "../pages/Profile/UserProfile";
 import SinglePostPage from "../pages/Posts/SinglePostPage";
+import Explore from "../pages/Explore/Explore";
 
 
 const appRouter = createBrowserRouter([
@@ -23,12 +24,16 @@ const appRouter = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/profile",
+        path: "/profile/:username",
         element: <UserProfile />,
       },
       {
         path: "/post/:postId",
         element: <SinglePostPage />,
+      },
+      {
+        path: "/explore",
+        element: <Explore />
       },
       {
         path: "/test2",

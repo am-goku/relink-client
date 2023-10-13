@@ -12,6 +12,12 @@ export const userUrl = {
     //connection
     followUser: (userId, followeeId) => `/user/${userId}/follow/${followeeId}`,
     unfollowUser: (userId, followeeId) => `/user/${userId}/unfollow/${followeeId}`,
+    getConnections: (userId) => `/user/fetch/connection/${userId}`,
+
+    //search user
+    searchUser: (key) => `/user/search/${key}`,
+    fetchByUsername: (username) => `/user/fetch/username/${username}`,
+
     
 }
 
@@ -32,6 +38,9 @@ export const postUrl = {
   getSinglePost: (postId) => `/post/fetch-single-post/${postId}`,
 
   getUserPosts: "/post/fetchUserPosts",
+
+  //delete post
+  deletePost: (postId) =>`/post/delete/post/${postId}`,
 
   //likes
   likePost: "/post/like-post",

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-function Dropdown() {
+function Dropdown({owner}) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -24,12 +24,14 @@ function Dropdown() {
 
   return (
     <div className="self-center" ref={dropdownRef}>
-      <div
-        onClick={toggleDropdown}
-        className=""
-        type="button"
-      >
-        <svg width={33} height={34} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div onClick={toggleDropdown} className="" type="button">
+        <svg
+          width={33}
+          height={34}
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
           <g
             id="SVGRepo_tracerCarrier"
@@ -54,29 +56,39 @@ function Dropdown() {
             aria-labelledby="dropdownDefaultButton"
           >
             <li>
-              <button
-                href="#"
-                className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
+              <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 View profile
               </button>
             </li>
-            <li>
-              <button
-                href="#"
-                className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Report
-              </button>
-            </li>
-            <li>
-              <button
-                href="#"
-                className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Block
-              </button>
-            </li>
+            {owner ? (
+              <>
+                <li>
+                  <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Edit post
+                  </button>
+                </li>
+
+                <li>
+                  <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Delete post
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Report
+                  </button>
+                </li>
+
+                <li>
+                  <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Block
+                  </button>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       )}

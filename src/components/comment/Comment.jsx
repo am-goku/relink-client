@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { getUser } from "../../services/apiMethods";
 import { getTimeDifference } from "../../hooks/timeAgo";
+import { useNavigate } from "react-router-dom";
 
 function Comment({data}) {
+  const navigate = useNavigate()
   const [commenter, setCommenter] = useState({});
   const [error, setError] = useState();
   const [time, setTime] = useState('just now')
@@ -21,10 +23,15 @@ function Comment({data}) {
   },[data])
 
 
+  const seeProfile = () => {
+    navigate(`/profile/${commenter?.username}`);
+  };
+
+
   return (
     <>
       <div className="w-fit h-fit bg-slate-400 flex gap-2 items-center rounded-lg p-5 relative">
-        <div className="aspect-square w-8 rounded-full bg-black self-start">
+        <div className="aspect-square w-8 rounded-full bg-black self-start" onClick={seeProfile}>
           <img
             src={commenter?.profilePic}
             alt=""
@@ -32,7 +39,7 @@ function Comment({data}) {
           />
         </div>
         <div className="col-span-1">
-          <span className="font-medium text-base">{commenter?.name}</span>
+          <span className="font-medium text-base" onClick={seeProfile}>{commenter?.name}</span>
           <div className="mt-2 h-fit font-poppins text-sm flex ">
             <span className="max-w-lg overflow-auto no-scrollbar">
               {data?.content}

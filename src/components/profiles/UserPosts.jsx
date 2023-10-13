@@ -1,14 +1,9 @@
-import { initFlowbite } from 'flowbite'
-import React, { useEffect, useState } from 'react'
-import SinglePostView from '../modal/SinglePostView';
+import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
 function UserPosts({post}) {
 
   const navigate = useNavigate();
-
-
-
 
   return (
     <>
