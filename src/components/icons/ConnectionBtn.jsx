@@ -2,8 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { followUser, getConnections, unfollowUser } from '../../services/apiMethods';
 
-function ConnectionBtn({user, owner, color, width, height, setFollowers}) {
+function ConnectionBtn({user, color, width, height, setFollowers}) {
     const currentUser = useSelector((state)=> state?.user?.userData);
+    const [owner, setOwner] = useState(false)
+
+    useEffect(() => {
+      if (currentUser?._id === user?._id) {
+        setOwner(true);
+      }
+    }, [user, currentUser]);
 
     const [following, setFollowing] = useState([])
     const [error, setError] = useState('')

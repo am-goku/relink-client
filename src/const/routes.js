@@ -18,6 +18,9 @@ export const userUrl = {
     searchUser: (key) => `/user/search/${key}`,
     fetchByUsername: (username) => `/user/fetch/username/${username}`,
 
+    //update user
+    updateData: (username) => `/user/update/user/${username}`,
+
     
 }
 

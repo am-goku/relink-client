@@ -1,4 +1,3 @@
-import { initFlowbite } from 'flowbite'
 import React, { useEffect, useRef, useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import SearchResult from './SearchResult';

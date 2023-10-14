@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Confirmation() {
+function Confirmation({postId}) {
   return (
     <>
       

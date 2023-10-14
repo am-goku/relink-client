@@ -1,8 +1,20 @@
+import { initFlowbite } from 'flowbite';
 import React, { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-function Dropdown({owner}) {
+function Dropdown({post, postUser}) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+
+  const [owner, setOwner] = useState(false);
+  const currentUser = useSelector((state)=> state?.user?.userData)
+  useEffect(()=> {
+    if(currentUser?._id === postUser?._id){
+      setOwner(true);
+    }
+  }, [currentUser, postUser])
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -15,6 +27,8 @@ function Dropdown({owner}) {
   };
 
   useEffect(() => {
+    initFlowbite();
+
     document.addEventListener("mousedown", closeDropdown);
 
     return () => {
@@ -56,7 +70,10 @@ function Dropdown({owner}) {
             aria-labelledby="dropdownDefaultButton"
           >
             <li>
-              <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+              <button
+                className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                onClick={() => navigate(`/profile/${postUser?.username}`)}
+              >
                 View profile
               </button>
             </li>
@@ -77,13 +94,13 @@ function Dropdown({owner}) {
             ) : (
               <>
                 <li>
-                  <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <button className="block px-4 py-2 w-full text-left text-red-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                     Report
                   </button>
                 </li>
 
                 <li>
-                  <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <button className="block px-4 py-2 w-full text-left text-red-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                     Block
                   </button>
                 </li>

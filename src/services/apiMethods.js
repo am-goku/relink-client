@@ -411,3 +411,21 @@ export const deletePost = (postId) => {
     })
 }
 
+
+
+// @desc    Search user
+//route     /user/update/user/:username
+// @access  Registerd users
+export const updateUserData = (username, data) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = userUrl.updateData(username);
+            apiCall("put", url, data).then((response) => {
+                resolve(response);
+            }).catch((err) => reject(err));
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+

@@ -6,7 +6,6 @@ import Comment from '../comment/Comment';
 import { addComment, fetchComments, getUser } from '../../services/apiMethods';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 
 function SinglePostView({post, postId, setPost}) {

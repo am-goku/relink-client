@@ -2,7 +2,7 @@ import { initFlowbite } from "flowbite";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-function Options({user}) {
+function Options({user, setIsEdit}) {
 
   const [owner, setOwner] = useState(false);
 
@@ -45,7 +45,7 @@ function Options({user}) {
         >
           {owner ? (
             <li>
-              <button className="block px-4 py-2 w-full text-start hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+              <button onClick={()=>setIsEdit(true)} className="block px-4 py-2 w-full text-start hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 Edit profile
               </button>
             </li>

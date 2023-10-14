@@ -4,6 +4,7 @@ import UserPosts from "../../components/profiles/UserPosts";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserByUsername, fetchUserPosts } from "../../services/apiMethods";
+import EditProfile from "../../components/modal/EditProfile";
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ function UserProfile() {
   const { validUser, userData } = useSelector(
     (state) => state?.user
   );
+
+  const [isEdit, setIsEdit] = useState(false);
 
   const { username } = useParams();
 
@@ -46,8 +49,9 @@ function UserProfile() {
 
   return (
     <>
+      {!isEdit ? (
         <div className="w-full lg:h-screen justify-center items-center overflow-scroll no-scrollbar p-1">
-          <ProfileCard user={user} />
+          <ProfileCard user={user} setIsEdit={setIsEdit} />
           <div className="bg-black h-1 w-[60%] lg:mt-20 mt-5 ml-auto mr-auto"></div>
           <div className="overflow-auto h-full no-scrollbar">
             <div className=" grid lg:grid-cols-4 grid-cols-3 grid-flow-row lg:gap-9 gap-1 lg:p-5 p-1 w-fit h-fit ml-auto mr-auto overflow-hidden ">
@@ -62,6 +66,12 @@ function UserProfile() {
             ) : null}
           </div>
         </div>
+      ) : (
+        <div className="w-full lg:h-screen flex flex-col justify-center items-center overflow-scroll no-scrollbar p-1">
+
+          <EditProfile setIsEdit={setIsEdit} />
+          </div>
+      )}
     </>
   );
 }

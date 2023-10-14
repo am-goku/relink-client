@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUserPosts, getAllPosts,  } from "../../services/apiMethods";
 import { setUserPosts } from "../../utils/reducers/postReducer";
-import { removeReduxUser } from "../../utils/reducers/userReducer";
+import HomeLoader from "../../components/loaders/HomeLoader";
 
 function Home() {
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -25,6 +26,13 @@ function Home() {
     }
   })
 
+  useEffect(()=>{
+    setLoading(true);
+    setTimeout(()=>{
+      setLoading(false);
+    }, 1000)
+  },[])
+
 
   useEffect(() => {
     getAllPosts()
@@ -34,10 +42,8 @@ function Home() {
       .catch((error) => {
         console.log(error);
         // navigate("/login");
-      });
+      })
   }, [navigate]);
-
-
 // to fetch the user posts
   useEffect(()=> {
     if(isValid){
@@ -45,33 +51,35 @@ function Home() {
         dispatch(setUserPosts(response));
       }).catch((error) => {
         console.log("error is", error);
+      }).finally(()=> {
       })
     }
   },[navigate, isValid, user, dispatch])
 
   return (
     <>
-        <div className="md:ml-auto">
-          <PostContainer>
-            {
-              posts?.map((post) => {
-                return (
-                  <SinglePost
-                    key={post._id}
-                    postData={post}
-                  />
-                );
-              })
-            }
-          </PostContainer>
+      {loading ? (
+        <div className="w-screen h-screen flex justify-center items-center ">
+          <HomeLoader />
         </div>
+      ) : (
+        <>
+          <div className="md:ml-auto">
+            <PostContainer>
+              {posts?.map((post, index) => {
+                return <SinglePost key={post._id} postData={post} setLoading={setLoading} />;
+              })}
+            </PostContainer>
+          </div>
 
-        <div className="hidden lg:block md:hidden mr-auto ml-auto">
-          <SuggestionContainer>
-            <Suggestion />
-            <Suggestion />
-          </SuggestionContainer>
-        </div>
+          <div className="hidden lg:block md:hidden mr-auto ml-auto">
+            <SuggestionContainer>
+              <Suggestion />
+              <Suggestion />
+            </SuggestionContainer>
+          </div>
+        </>
+      )}
     </>
   );
 }

@@ -19,8 +19,6 @@ import { useNavigate } from "react-router-dom";
 function SinglePost({postData}) {
 
   const navigate = useNavigate()
-  // const [isRed, setIsRed] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
   const user = useSelector((state)=> state?.user?.userData)
 
   const [owner, setOwner] = useState(false);
@@ -32,8 +30,8 @@ function SinglePost({postData}) {
   const [postUser, setPostUser] = useState(null);
 
   useEffect(()=>{
-    getUser(post.userId).then((response)=>{
-      if(response.status === 200) {
+    getUser(post?.userId).then((response)=>{
+      if(response?.status === 200) {
         setPostUser(response.users[0]);
         user?._id === postUser?._id ? setOwner(true) : setOwner(false);
       } else {
@@ -42,14 +40,12 @@ function SinglePost({postData}) {
     }).catch((error)=>{
       console.log(error);
     })
-
+    
     setLikes(post?.likes)
-  },[post, user, postUser])
+  },[post, user, postData, postUser?._id])
   
 
-  const saveOrUnsave = () => {
-    setIsSaved(!isSaved);
-  };
+
 
   const seeProfile = () => {
     navigate(`/profile/${postUser?.username}`);
@@ -73,18 +69,19 @@ function SinglePost({postData}) {
             >
               {postUser?.name}
             </div>
-            <div className="font-thin font-mono self-center rounded-lg w-16 h-5">
-              <ConnectionBtn
-                user={postUser}
-                owner={owner}
-                width={20}
-                height={5}
-                color={"white"}
-              />
-            </div>
+            {!owner ? (
+              <div className="font-thin font-mono self-center rounded-lg w-16 h-5">
+                <ConnectionBtn
+                  user={postUser}
+                  width={20}
+                  height={5}
+                  color={"white"}
+                />
+              </div>
+            ) : null}
 
             <div className="self-center ml-auto cursor-pointer">
-              <Dropdown owner={owner} />
+              <Dropdown post={post} postUser={postUser} />
             </div>
           </div>
 

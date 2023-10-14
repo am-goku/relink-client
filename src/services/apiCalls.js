@@ -1,6 +1,5 @@
 import { userAuth } from "../const/localStorage";
 import { api } from "./api";
-import { removeReduxUser, userAuthenticator } from "../utils/reducers/userReducer";
 
 
 export const apiCall = async (method, url, data) => {
@@ -25,6 +24,10 @@ export const apiCall = async (method, url, data) => {
         response = await api.delete(url, data).catch((err) => {
           error = err;
         });
+      } else if (method === "put"){
+        response = await api.put(url, data).catch((err) => {
+          error = err;
+        })
       }
       
       if(response){
