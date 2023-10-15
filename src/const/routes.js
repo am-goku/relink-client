@@ -26,11 +26,12 @@ export const userUrl = {
 
 
 export const adminUrl = {
-    login: "/admin/login",
-    getUsers: "/admin/fetch-users",
+  login: "/admin/login",
+  //fetch users with pagination and search
+  getUsers: "/admin/fetch-users",
 
-    changeBlockStatus: (userId)=> `/admin/${userId}/change-status`,
-}
+  changeBlockStatus: (userId) => `/admin/${userId}/change-status`,
+};
 
 
 

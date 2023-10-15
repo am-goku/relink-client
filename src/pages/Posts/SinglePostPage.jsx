@@ -35,9 +35,13 @@ function SinglePostPage() {
 
   return (
     <>
+      {post? 
+
       <div className="h-screen bg-[#C6C1C1] md:w-full w-full items-center flex md:p-20 lg:p-5 overflow-auto">
         <SinglePostView post={post} postId={postId} setPost={setPost} />
-      </div>
+      </div> : null
+
+      }
     </>
   );
 }

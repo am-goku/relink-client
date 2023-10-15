@@ -31,12 +31,9 @@ function SinglePost({postData}) {
 
   useEffect(()=>{
     getUser(post?.userId).then((response)=>{
-      if(response?.status === 200) {
-        setPostUser(response.users[0]);
-        user?._id === postUser?._id ? setOwner(true) : setOwner(false);
-      } else {
+        setPostUser(response[0]);
         console.log(response);
-      }
+        user?._id === postUser?._id ? setOwner(true) : setOwner(false);
     }).catch((error)=>{
       console.log(error);
     })

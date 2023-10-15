@@ -11,7 +11,7 @@ function Comment({data}) {
   useEffect(()=> {
     getUser(data.userId).then((response)=> {
       console.log("comment user:", response);
-      setCommenter(response.users[0]);
+      setCommenter(response[0]);
     }).catch((error)=> {
       setError(error.message);
     });

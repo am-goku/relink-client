@@ -18,12 +18,14 @@ const userSlice = createSlice({
       state.userData = action.payload.userData;
       state.validUser = action.payload.validUser;
     },
+    updateReduxUser: (state, action) => {
+      state.userData = action.payload;
+    },
     removeReduxUser: (state, action) => {
       state.userData = null;
       state.validUser = false;
       localStorage.removeItem(userAuth);
     },
-    
   },
 });
 
@@ -55,6 +57,6 @@ export const userAuthenticator = () => async (dispatch) => {
 };
 
 
-export const { setReduxUser, removeReduxUser} = userSlice.actions;
+export const { setReduxUser, updateReduxUser, removeReduxUser} = userSlice.actions;
 
 export default userSlice.reducer;

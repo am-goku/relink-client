@@ -27,10 +27,10 @@ export const adminPostLogin = (adminData) => {
 
 //@dec      Fetch user data
 //method    GET
-export const adminFetchUsers = () => {
+export const adminFetchUsers = (currentPage, perPage, searchTerm) => {
     return new Promise((resolve, reject) => {
         try {
-            adminApiCalls("get", adminUrl.getUsers).then((response) => {
+            adminApiCalls("get", `${adminUrl.getUsers}/?page=${currentPage}&perPage=${perPage}&search=${searchTerm}`).then((response) => {
                 resolve(response);
             }).catch((err) => {
                 resolve({status:500, message: err.message});

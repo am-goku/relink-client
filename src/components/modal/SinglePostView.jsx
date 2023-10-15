@@ -28,13 +28,17 @@ function SinglePostView({post, postId, setPost}) {
         }).catch((error) =>{
           setError(error.message)
         });
-        
-        getUser(post.userId).then((response) => {
-            setPostOwner(response.users[0]);
-        }).catch((error) => {
-            setError(error.message)
-        });
     },[post, postId])
+
+    useEffect(()=> {
+      getUser(post?.userId)
+        .then((response) => {
+          setPostOwner(response);
+        })
+        .catch((error) => {
+          setError(error.message);
+        });
+    },[post])
 
 
     const postComment = () => {
