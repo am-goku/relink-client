@@ -3,15 +3,16 @@ import SaveIcn from '../icons/SaveIcn';
 import Heart from '../icons/Heart';
 import SendIcn from '../icons/SendIcn';
 import Comment from '../comment/Comment';
-import { addComment, fetchComments, getUser } from '../../services/apiMethods';
+import { addComment, fetchAPost, fetchComments, getUser } from '../../services/apiMethods';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
-function SinglePostView({post, postId, setPost}) {
+function SinglePostView({postId}) {
 
 
-  const navigate = useNavigate()
+    const [post, setPost] = useState()
+    const navigate = useNavigate()
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const txtArea = useRef(null);
@@ -21,6 +22,20 @@ function SinglePostView({post, postId, setPost}) {
 
     const user = useSelector((state)=> state?.user?.userData);
 
+    //fetching the details post post with postId
+    useEffect(() => {
+      fetchAPost(postId)
+        .then((response) => {
+          setPost(response);
+          // console.log(response);
+        })
+        .catch((error) => {
+          setError(error);
+          navigate("/NotFound");
+        });
+    }, [postId, navigate]);
+
+    //fetching the comments for a post with postId
     useEffect(()=> {
         fetchComments(postId).then((response) =>{
           setComments(response);
@@ -30,17 +45,24 @@ function SinglePostView({post, postId, setPost}) {
         });
     },[post, postId])
 
+    //fetching the details of the user posted the post with userId inside post
     useEffect(()=> {
-      getUser(post?.userId)
+      if(post){
+        getUser(post?.userId)
         .then((response) => {
-          setPostOwner(response);
-        })
-        .catch((error) => {
-          setError(error.message);
-        });
+          
+          setPostOwner(response[0]);
+          console.log('trial call', post?.userId, postOwner);
+
+          })
+          .catch((error) => {
+            setError(error.message);
+          });
+      }
     },[post])
 
 
+    //function to add a new comment
     const postComment = () => {
       if(!newComment){
         setError("Please add a comment")
@@ -57,6 +79,7 @@ function SinglePostView({post, postId, setPost}) {
         return;
       }
 
+      //calling api
       addComment(user?._id, postId, newComment).then((response) => {
         setComments([response, ...comments]);
         txtArea.current.value = '';
@@ -76,14 +99,14 @@ function SinglePostView({post, postId, setPost}) {
       <div className="bg-[#C6C1C1] w-full md:w-fit lg:h-fit h-full ml-auto mr-auto p-5 md:flex gap-10 select-none">
         <div className="postImage border-black lg:border-r-2 p-2 grid gap-3 md:w-fit w-full">
           <div className="userInfo flex items-center gap-3">
-            <div className="profilePic rounded-full aspect-square w-10">
+            <div className="profilePic rounded-full aspect-square w-10" onClick={()=> navigate(`/profile/${postOwner?.username}`)}>
               <img
                 src={postOwner?.profilePic}
                 alt=""
                 className="rounded-full"
               />
             </div>
-            <span className="font-medium text-lg">{postOwner?.name}</span>
+            <span className="font-medium text-lg" onClick={()=> navigate(`/profile/${postOwner?.username}`)}>{postOwner?.name || postOwner?.username}</span>
           </div>
           <div className="md:w-[40rem] w-fit">
             <img src={post?.image} alt="" className="rounded select-none" />
@@ -100,7 +123,7 @@ function SinglePostView({post, postId, setPost}) {
                 post={post}
                 setPost={setPost}
               />
-              <span className="">106</span>
+              <span className="">{post?.likes?.length}</span>
             </div>
             <div className="">
               <SaveIcn size={{ width: 32, height: 32 }} />

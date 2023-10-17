@@ -12,7 +12,6 @@ export const apiCall = async (method, url, data) => {
           error = err;
         });
       } else if (method === "get") {
-        console.log("data", data);
         response = await api.get(url, data).catch((err) => {
           error = err;
         });

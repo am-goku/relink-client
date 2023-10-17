@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserByUsername, fetchUserPosts } from "../../services/apiMethods";
 import EditProfile from "../../components/modal/EditProfile";
+import LazyLoad from "react-lazy-load";
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -54,11 +55,11 @@ function UserProfile() {
           <ProfileCard user={user} setIsEdit={setIsEdit} />
           <div className="bg-black h-1 w-[60%] lg:mt-20 mt-5 ml-auto mr-auto"></div>
           <div className="overflow-auto h-full no-scrollbar">
-            <div className=" grid lg:grid-cols-4 grid-cols-3 grid-flow-row lg:gap-9 gap-1 lg:p-5 p-1 w-fit h-fit ml-auto mr-auto overflow-hidden ">
-              {posts?.map((post, index) => {
-                return <UserPosts post={post} key={post?._id} />;
-              })}
-            </div>
+              <div className=" grid lg:grid-cols-4 grid-cols-3 grid-flow-row lg:gap-9 gap-1 lg:p-5 p-1 w-fit h-fit ml-auto mr-auto overflow-hidden ">
+                {posts?.map((post, index) => {
+                  return <UserPosts post={post} key={post?._id} />;
+                })}
+              </div>
             {posts?.length === 0 ? (
               <div className="text-center">No posts to show</div>
             ) : error ? (
@@ -68,9 +69,8 @@ function UserProfile() {
         </div>
       ) : (
         <div className="w-full lg:h-screen flex flex-col justify-center items-center overflow-scroll no-scrollbar p-1">
-
           <EditProfile setIsEdit={setIsEdit} />
-          </div>
+        </div>
       )}
     </>
   );

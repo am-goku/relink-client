@@ -12,6 +12,9 @@ import CommentIcn from "../icons/CommentIcn";
 import { useSelector } from "react-redux";
 import ConnectionBtn from "../icons/ConnectionBtn";
 import { useNavigate } from "react-router-dom";
+import LazyLoad from "react-lazy-load";
+import ProfilePic from "../profiles/ProfilePic";
+import NameField from "../profiles/NameField";
 
 
 
@@ -58,13 +61,13 @@ function SinglePost({postData}) {
               className="bg-white ml-1 w-11 h-11 rounded-full self-center cursor-pointer"
               onClick={seeProfile}
             >
-              <img src={postUser?.profilePic} alt="" className="rounded-full" />
+              <ProfilePic styleProp={"rounded-full"} image={postUser?.ProfilePic} />
             </div>
             <div
               className="text-white font-semibold text-lg self-center cursor-pointer"
               onClick={seeProfile}
             >
-              {postUser?.name}
+              <NameField name={postUser?.name || postUser?.username} />
             </div>
             {!owner ? (
               <div className="font-thin font-mono self-center rounded-lg w-16 h-5">

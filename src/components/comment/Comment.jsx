@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getUser } from "../../services/apiMethods";
 import { getTimeDifference } from "../../hooks/timeAgo";
 import { useNavigate } from "react-router-dom";
+import ProfilePic from "../profiles/ProfilePic";
+import NameField from "../profiles/NameField";
 
 function Comment({data}) {
   const navigate = useNavigate()
@@ -32,14 +34,10 @@ function Comment({data}) {
     <>
       <div className="w-fit h-fit bg-slate-400 flex gap-2 items-center rounded-lg p-5 relative">
         <div className="aspect-square w-8 rounded-full bg-black self-start" onClick={seeProfile}>
-          <img
-            src={commenter?.profilePic}
-            alt=""
-            className="rounded-full w-8 aspect-square"
-          />
+          <ProfilePic image={commenter?.profilePic} styleProp={'rounded-full w-8 aspect-square'} />
         </div>
         <div className="col-span-1">
-          <span className="font-medium text-base" onClick={seeProfile}>{commenter?.name}</span>
+          <NameField name={commenter?.name || commenter?.username} doFunction={seeProfile} styleProp={'font-medium text-base'} />
           <div className="mt-2 h-fit font-poppins text-sm flex ">
             <span className="max-w-lg overflow-auto no-scrollbar">
               {data?.content}

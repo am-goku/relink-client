@@ -11,6 +11,7 @@ import Test2 from "../pages/Test2";
 import UserProfile from "../pages/Profile/UserProfile";
 import SinglePostPage from "../pages/Posts/SinglePostPage";
 import Explore from "../pages/Explore/Explore";
+import MessageBox from "../pages/Message/MessageBox";
 
 
 const appRouter = createBrowserRouter([
@@ -34,6 +35,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/explore",
         element: <Explore />
+      },
+      {
+        path: "/message",
+        element: <MessageBox />,
       },
       {
         path: "/test2",

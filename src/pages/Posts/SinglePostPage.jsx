@@ -10,7 +10,6 @@ function SinglePostPage() {
   const navigate = useNavigate()
 
   const {postId} = useParams();
-  const [post, setPost] = useState({});
   const [error, setError] = useState('');
 
 
@@ -22,23 +21,13 @@ function SinglePostPage() {
     
   },[navigate, isValid])
 
-  useEffect(()=> {
-    fetchAPost(postId).then((response) => {
-      setPost(response);
-      // console.log(response);
-    }).catch((error) => {
-      setError(error);
-      navigate("/NotFound");
-    })
-  },[postId, navigate]);
-
 
   return (
     <>
-      {post? 
+      {postId? 
 
       <div className="h-screen bg-[#C6C1C1] md:w-full w-full items-center flex md:p-20 lg:p-5 overflow-auto">
-        <SinglePostView post={post} postId={postId} setPost={setPost} />
+        <SinglePostView postId={postId} />
       </div> : null
 
       }
