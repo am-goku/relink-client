@@ -1,20 +1,20 @@
 import React from 'react'
 import SendIcn from '../icons/SendIcn'
 
-function TypeBox() {
+function TypeBox({setText, sendText}) {
   return (
     <>
-      <div className="w-14 aspect-square bg-white flex justify-center items-center rounded-lg relative">
+      <div className="w-11 h-11 aspect-square bg-white flex justify-center items-center rounded-lg relative">
         <input
           type="file"
           name="image"
           id="image"
           accept="image/jpeg, image/png, image/webp, image/jpg"
-          className="opacity-0 w-full h-full rounded-lg absolute"
+          className="inset-0 w-full h-full absolute opacity-0"
         />
         <svg
             width={56}
-            height={56}
+            height={25}
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -38,16 +38,17 @@ function TypeBox() {
         </svg>
       </div>
 
-      <div className="w-[60rem] bg-white h-14 rounded-lg ml-auto">
+      <div className="w-[65rem] bg-white h-12 rounded-full ml-auto">
         <input
           type="text"
           placeholder="Type something ..."
           className="border-none w-full h-full rounded-lg"
+          onChange={(e)=> setText(e.target.value)}
         />
       </div>
 
-      <div className="w-14 aspect-square bg-white flex items-center justify-center rounded-2xl ml-auto">
-        <SendIcn size={{ width: 36, height: 36 }} />
+      <div className="w-14 h-10 aspect-square bg-white flex items-center justify-center rounded-lg ml-auto" onClick={sendText}>
+        <SendIcn size={{ width: 36, height: 32 }} />
       </div>
     </>
   );

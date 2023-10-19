@@ -1,13 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProfilePic from '../profiles/ProfilePic';
 import NameField from '../profiles/NameField';
+import { getUser } from '../../services/apiMethods';
 
-function ChatUser({user, doFunction}) {
+function ChatUser({userId, doFunction}) {
 
     const [online, setOnline] = useState(true);
+    const [user, setUser] = useState();
+
+    useEffect(()=> {
+      getUser(userId).then((user) => {
+        setUser(user[0]);
+      }).catch((error) => {
+        console.log(error);
+      })
+    },[userId])
+
 
   return (
-    <div className="flex items-center gap-5 border-2 p-2 rounded-lg select-none bg-slate-400 opacity-70">
+    <div className="flex items-center gap-5 border-2 p-2 rounded-lg select-none bg-slate-400 opacity-70 cursor-pointer" onClick={()=>doFunction(user)}>
       <div className="relative rounded-full w-fit h-fit">
         <ProfilePic
           image={user?.profilePic}

@@ -1,4 +1,4 @@
-import { authUrl, postUrl, userUrl } from "../const/routes"
+import { authUrl, messageUrl, postUrl, userUrl } from "../const/routes"
 import { apiCall } from "./apiCalls"
 
 
@@ -431,3 +431,25 @@ export const updateUserData = (username, data) => {
     })
 }
 
+
+
+//////////////////////////////////////////// CHAT SECTION //////////////////////////////////
+// @desc    Create or get chatRoom of two
+// @route   /messages/inbox/room/:firstId/:secondId
+// @access  Users - private
+export const setUpChatRoom = (firstId, secondId) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const url = messageUrl.getChatRoom(firstId, secondId);
+      apiCall("put", url)
+        .then((chatRoom) => {
+          resolve(chatRoom);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

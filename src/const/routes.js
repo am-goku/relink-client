@@ -20,8 +20,6 @@ export const userUrl = {
 
     //update user
     updateData: (username) => `/user/update/user/${username}`,
-
-    
 }
 
 
@@ -64,4 +62,12 @@ export const authUrl = {
     sendOtp: "/auth/sent-verification",
     verifyOtp: "/auth/verify-otpToken",
     
-}
+};
+
+
+
+
+export const messageUrl = {
+    getChatRoom: (firstId, secondId) => `/messages/inbox/room/${firstId}/${secondId}`,
+    
+};

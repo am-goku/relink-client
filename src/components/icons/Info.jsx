@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Info({size}) {
+function Info({size, color}) {
   return (
     <svg
       height={size?.height}
@@ -11,7 +11,7 @@ function Info({size}) {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 512 512"
       xmlSpace="preserve"
-      fill="#000000"
+      fill={color}
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
