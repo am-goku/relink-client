@@ -25,8 +25,8 @@ function ChatList({setReciever}) {
         <div className='w-full h-14'>
           <span className="font-poppins text-xl font-medium">Messages</span>
         </div>
-        {following.map((userId) => {
-          return <ChatUser doFunction={setReciever} userId={userId} />;
+        {following.map((userId, index) => {
+          return <ChatUser doFunction={setReciever} userId={userId} key={index} />;
         })}
       </div>
     </>

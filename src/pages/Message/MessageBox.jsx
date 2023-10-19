@@ -14,19 +14,23 @@ function MessageBox() {
   const [reciever, setReciever] = useState()
 
   useEffect(()=> {
-    setUpChatRoom(user?._id, reciever?._id).then((chatRoom)=>{
-      setChatRoom(chatRoom);
-      console.log(chatRoom);
-    }).catch((error)=>{
-      setError(error);
-    })
+    if(reciever){
+      setUpChatRoom(user?._id, reciever?._id)
+        .then((chatRoom) => {
+          setChatRoom(chatRoom);
+          console.log(chatRoom);
+        })
+        .catch((error) => {
+          setError(error);
+        });
+    }
   },[user, reciever]);
 
   return (
     <>
       <div className="w-full p-5 flex items- gap-6">
         <ChatList setReciever={setReciever} />
-        <ChatBox reciever={reciever} />
+        <ChatBox reciever={reciever} chatRoom={chatRoom} />
       </div>
     </>
   );

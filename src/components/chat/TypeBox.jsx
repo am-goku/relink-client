@@ -1,7 +1,50 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import SendIcn from '../icons/SendIcn'
+import { sendMessage } from '../../services/apiMethods';
+import { useSelector } from 'react-redux';
+import { io } from 'socket.io-client';
 
-function TypeBox({setText, sendText}) {
+function TypeBox({chatRoom, setMessages, messages, recieverId}) {
+
+  const [error, setError] = useState('')
+
+  const socket = io.connect("http://localhost:4000");
+
+
+  const textRef = useRef();
+  const [text, setText] = useState('');
+
+  const user = useSelector((state)=> state?.user?.userData);
+
+
+
+
+
+  const sendNewMessage = () => {
+    if(!text){
+      return;
+    }
+
+    try {
+      sendMessage(chatRoom?._id, text, user?._id)
+        .then((response) => {
+          console.log(response);
+          setMessages([...messages, response]);
+
+            socket.emit("sendMessage", response);
+            setText("");
+            textRef.current.value = "";
+          
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   return (
     <>
       <div className="w-11 h-11 aspect-square bg-white flex justify-center items-center rounded-lg relative">
@@ -19,7 +62,7 @@ function TypeBox({setText, sendText}) {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
           <g
             id="SVGRepo_tracerCarrier"
             strokeLinecap="round"
@@ -40,16 +83,20 @@ function TypeBox({setText, sendText}) {
 
       <div className="w-[65rem] bg-white h-12 rounded-full ml-auto">
         <input
+        ref={textRef}
           type="text"
           placeholder="Type something ..."
           className="border-none w-full h-full rounded-lg"
-          onChange={(e)=> setText(e.target.value)}
+          onChange={(e)=> setText(e.target.value.trim())}
         />
       </div>
 
-      <div className="w-14 h-10 aspect-square bg-white flex items-center justify-center rounded-lg ml-auto" onClick={sendText}>
+      {
+        text?
+        <div className="w-14 h-10 aspect-square bg-white flex items-center justify-center rounded-lg ml-auto" onClick={sendNewMessage} >
         <SendIcn size={{ width: 36, height: 32 }} />
-      </div>
+        </div> : null
+      }
     </>
   );
 }

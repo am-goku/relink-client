@@ -70,4 +70,7 @@ export const authUrl = {
 export const messageUrl = {
     getChatRoom: (firstId, secondId) => `/messages/inbox/room/${firstId}/${secondId}`,
     
+    getMessages: (roomId) => `/messages/inbox/${roomId}`,
+
+    newMessage: (roomId) => `messages/inbox/new-message/${roomId}`,
 };

@@ -453,3 +453,45 @@ export const setUpChatRoom = (firstId, secondId) => {
     }
   });
 };
+
+// @desc    Get chats from a room
+// @route   /messages/inbox/:roomId
+// @access  Users - private
+export const getMessages = (roomId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = messageUrl.getMessages(roomId);
+
+            apiCall("get", url).then((messages)=> {
+                resolve(messages);
+            }).catch((err)=> {
+                reject(err);
+            })
+        } catch (error) {
+            reject(error);
+        }
+    })
+};
+
+// @desc    Send new chat
+// @route   /messages/inbox/new-message/:roomId
+// @access  Users - private
+export const sendMessage = (roomId, textMessage, senderId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = messageUrl.newMessage(roomId);
+            const data = {
+                textMessage: textMessage,
+                senderId: senderId
+            };
+
+            apiCall("post", url, data).then((response)=> {
+                resolve(response)
+            }).catch((err)=> {
+                reject(err)
+            })
+        } catch (error) {
+            reject(error)
+        }
+    })
+};

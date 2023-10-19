@@ -13,7 +13,7 @@ import { FaSpinner } from 'react-icons/fa';
 
 function EditProfile({setIsEdit}) {
 
-    const[loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
     const user = useSelector((state)=> state?.user?.userData);
     const [error, setError] = useState('')
 
@@ -71,7 +71,7 @@ function EditProfile({setIsEdit}) {
                 name: name,
                 profilePic: data1?.secure_url || user?.profilePic,
                 phone: phone || '',
-                bio: bio || ''
+                bio: bio || '',
             }
 
             
