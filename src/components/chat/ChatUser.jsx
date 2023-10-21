@@ -9,11 +9,17 @@ function ChatUser({userId, doFunction}) {
     const [user, setUser] = useState();
 
     useEffect(()=> {
-      getUser(userId).then((user) => {
-        setUser(user[0]);
-      }).catch((error) => {
+      try {
+        getUser(userId)
+          .then((user) => {
+            setUser(user[0]);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
         console.log(error);
-      })
+      }
     },[userId])
 
 

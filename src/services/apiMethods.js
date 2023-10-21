@@ -495,3 +495,19 @@ export const sendMessage = (roomId, textMessage, senderId) => {
         }
     })
 };
+
+// @desc    Get rooms with userID
+// @route   GET /messages/inbox/get-room/userID/:userId
+// @access  Users - private
+export const getRoomWithUserID = (userId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = messageUrl.getRoomFromUser(userId);
+            apiCall("get", url).then((response) => {
+                resolve(response);
+            }).catch((error) => reject(error));
+        } catch (error) {
+            reject(error);
+        }
+    })
+};

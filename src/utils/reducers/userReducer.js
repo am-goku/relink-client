@@ -57,6 +57,6 @@ export const userAuthenticator = () => async (dispatch) => {
 };
 
 
-export const { setReduxUser, updateReduxUser, removeReduxUser} = userSlice.actions;
+export const { setReduxUser, updateReduxUser, removeReduxUser } = userSlice.actions;
 
 export default userSlice.reducer;

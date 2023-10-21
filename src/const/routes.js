@@ -73,4 +73,6 @@ export const messageUrl = {
     getMessages: (roomId) => `/messages/inbox/${roomId}`,
 
     newMessage: (roomId) => `messages/inbox/new-message/${roomId}`,
+
+    getRoomFromUser: (userId) => `/messages/inbox/get-room/userID/${userId}`,
 };
