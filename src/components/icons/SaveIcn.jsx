@@ -1,11 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { removeSavedPost, savePost } from '../../services/apiMethods';
 
-function SaveIcn({size}) {
+function SaveIcn({size, post, setPost, setError}) {
+
+    const user = useSelector((state)=> state?.user?.userData);
 
     const [isSaved, setIsSaved] = useState(false)
 
+    useEffect(()=> {
+      if(user?.savedPosts?.includes(post?._id)){
+        setIsSaved(true)
+      }
+    }, [user, post])
+
     const saveOrUnsave = () => {
-        setIsSaved(!isSaved)
+        if(isSaved){
+          removeSavedPost(user?._id, post?._id).then((response)=> {
+            setPost(response?.post);
+            setIsSaved(false)
+          }).catch((error) => {
+            setError("Something went wrong, Try after some time.");
+          })
+        } else {
+          savePost(user?._id, post?._id)
+            .then((response) => {
+              setPost(response?.post);
+              setIsSaved(true);
+            })
+            .catch((error) => {
+              setError("Unable to save post.")
+            });
+        }
     }
 
 

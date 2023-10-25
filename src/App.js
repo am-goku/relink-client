@@ -31,7 +31,7 @@ function App() {
       <div className="md:hidden sticky top-0 z-50">
         <Header />
       </div>
-      <div className="flex overflow-hidden">
+      <div className="flex overflow-hidden mb-16 md:mb-0">
         <div className="hidden md:block">
           <NavBar path={path} />
         </div>

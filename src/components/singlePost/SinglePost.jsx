@@ -12,9 +12,9 @@ import CommentIcn from "../icons/CommentIcn";
 import { useSelector } from "react-redux";
 import ConnectionBtn from "../icons/ConnectionBtn";
 import { useNavigate } from "react-router-dom";
-import LazyLoad from "react-lazy-load";
 import ProfilePic from "../profiles/ProfilePic";
 import NameField from "../profiles/NameField";
+import { toast } from "react-toastify";
 
 
 
@@ -32,10 +32,12 @@ function SinglePost({postData}) {
 
   const [postUser, setPostUser] = useState(null);
 
+  const [error, setError] = useState('');
+
+
   useEffect(()=>{
     getUser(post?.userId).then((response)=>{
         setPostUser(response[0]);
-        console.log(response);
         user?._id === postUser?._id ? setOwner(true) : setOwner(false);
     }).catch((error)=>{
       console.log(error);
@@ -46,6 +48,22 @@ function SinglePost({postData}) {
   
 
 
+  useEffect(()=> {
+    if(error){
+      toast.error(error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      setError('')
+    };
+  }, [error]);
+
 
   const seeProfile = () => {
     navigate(`/profile/${postUser?.username}`);
@@ -55,7 +73,7 @@ function SinglePost({postData}) {
     <>
       <div className="p-4 mt-5 w-full select-none">
         {/* Parent div with padding */}
-        <div className="p-2 rounded-md relative w-full bg-black bg-opacity-75">
+        <div className="p-2 rounded-md relative lg:w-[40rem] flex flex-col bg-black bg-opacity-75 border-2 border-black">
           <div className="w-full h-16 flex p-2 gap-3 self-center">
             <div
               className="bg-white ml-1 w-11 h-11 rounded-full self-center cursor-pointer"
@@ -67,7 +85,7 @@ function SinglePost({postData}) {
               className="text-white font-semibold text-lg self-center cursor-pointer"
               onClick={seeProfile}
             >
-              <NameField name={postUser?.name || postUser?.username} />
+              <NameField name={postUser?.name || postUser?.username}  />
             </div>
             {!owner ? (
               <div className="font-thin font-mono self-center rounded-lg w-16 h-5">
@@ -86,7 +104,7 @@ function SinglePost({postData}) {
           </div>
 
           {/* Larger square div for image */}
-          <div className="max-w-xl mt-2 aspect-square bg-gray-300 rounded-lg overflow-hidden">
+          <div className="max-w-full min-w-full mt-2 aspect-square bg-gray-300 rounded-lg overflow-hidden">
             {/* You can add your image here */}
             <img
               src={post.image}
@@ -120,7 +138,9 @@ function SinglePost({postData}) {
 
               <CommentIcn size={{ width: 33, height: 31 }} post={post} />
 
-              <SaveIcn size={{ width: 36, height: 37 }} />
+              {
+                user?._id !== post?.userId ? <SaveIcn size={{ width: 36, height: 37 }} post={post} setError={setError} /> : null
+              }
             </div>
           </div>
         </div>

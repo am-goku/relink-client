@@ -20,6 +20,9 @@ export const userUrl = {
 
     //update user
     updateData: (username) => `/user/update/user/${username}`,
+
+    //report
+    report: (userId, username) => `/user/report/user/${userId}/${username}`,
 }
 
 
@@ -29,6 +32,10 @@ export const adminUrl = {
   getUsers: "/admin/fetch-users",
 
   changeBlockStatus: (userId) => `/admin/${userId}/change-status`,
+
+  //reports
+  userReports: "/admin/reports/users",
+  postReports: "/admin/reports/posts",
 };
 
 
@@ -36,6 +43,8 @@ export const adminUrl = {
 export const postUrl = {
   create: "/post/create-post",
   getPost: "/post/fetch-posts",
+
+  getPostCount: "/post/fetch-count",
 
   getSinglePost: (postId) => `/post/fetch-single-post/${postId}`,
 
@@ -52,6 +61,9 @@ export const postUrl = {
   fetchComments: (postId) => `/post/fetch-comments/${postId}`,
   addComment: "/post/add-comment",
   deleteComment: "/post/delete-comment",
+
+  //report
+  report: (userId, username) => `/post/report/post/${userId}/${username}`,
 };
 
 

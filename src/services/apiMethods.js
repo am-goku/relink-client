@@ -86,16 +86,33 @@ export const postCreatePost = (postData) => {
 
 //@dec      Fetch posts
 //method    GET
-export const getAllPosts = () => {
+export const getAllPosts = (page) => {
     return new Promise ((resolve, reject) => {
         try {
-            apiCall("get", postUrl.getPost).then((response) => {
+            apiCall("get", `${postUrl.getPost}?page=${page}`).then((response) => {
                 resolve(response)
             }).catch((error) => {
                 reject(error);
             });
         } catch (error) {
             reject(error);
+        }
+    })
+}
+
+// @desc    Fetch posts count
+// @route   GET /post/fetch-count
+// @access  Private
+export const getPostsCount = () => {
+    return new Promise((resolve, reject) => {
+        try {
+            apiCall("get", postUrl.getPostCount).then((response) => {
+                resolve(response)
+            }).catch((err)=> {
+                reject(err)
+            })
+        } catch (error) {
+            reject(error)
         }
     })
 }
@@ -511,3 +528,48 @@ export const getRoomWithUserID = (userId) => {
         }
     })
 };
+
+
+
+
+
+///////////////////////////////////////////////////////// REPORT SECTION //////////////////////////////////////////////////////////
+// @desc    Report user
+// @route   POST /user/report/user/:userId
+// @access  Registerd users
+export const reportUser = (userId, username, targetId, details) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = userUrl.report(userId, username);
+            const data = {
+                targetId: targetId,
+                details: details
+            }
+            apiCall("post", url, data).then((response) => {
+                resolve(response);
+            }).catch((error) => reject(error))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+// @desc    Report user
+// @route   POST /user/report/user/:userId
+// @access  Registerd users
+export const reportPost = (userId, username, targetId, details) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = postUrl.report(userId, username);
+            const data = {
+                targetId: targetId,
+                details: details
+            }
+            apiCall("post", url, data).then((response) => {
+                resolve(response);
+            }).catch((error) => reject(error))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}

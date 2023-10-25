@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import SinglePost from "../../components/singlePost/SinglePost";
-import PostContainer from "../../components/containers/PostContainer";
+// import PostContainer from "../../components/containers/PostContainer";
 import SuggestionContainer from "../../components/containers/SuggestionContainer";
 import Suggestion from "../../components/profiles/Suggestion";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchUserPosts, getAllPosts,  } from "../../services/apiMethods";
+import { fetchUserPosts, getAllPosts, getPostsCount,  } from "../../services/apiMethods";
 import { setUserPosts } from "../../utils/reducers/postReducer";
-import HomeLoader from "../../components/loaders/HomeLoader";
+
+import "./Home.css"
 
 function Home() {
-  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -20,30 +20,66 @@ function Home() {
   const isValid = useSelector((state)=> state?.user?.validUser);
   const user = useSelector((state)=> state?.user?.userData);
 
+  //error management
+  const [error, setError] = useState('');
+
+  //pagination related
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  const [postMessage, setPostMessage] = useState('')
+
+
+  //auth check
   useEffect(()=>{
     if (!user) {
       navigate("/login");
     }
   })
 
-  useEffect(()=>{
-    setLoading(true);
-    setTimeout(()=>{
-      setLoading(false);
-    }, 1000)
-  },[])
 
 
   useEffect(() => {
-    getAllPosts()
-      .then((response) => {
-        setPosts(response.posts);
-      })
-      .catch((error) => {
-        console.log(error);
-        // navigate("/login");
-      })
-  }, [navigate]);
+    const fetchPosts = () => {
+      try {
+        setLoading(true);
+        setTimeout(()=> {
+          getAllPosts(page)
+            .then((response) => {
+              const newPosts = response.posts;
+                setPosts((prevPosts) => [...prevPosts, ...newPosts]);
+            })
+            .catch((error) => {
+              setError(error.message);
+            }).finally(()=> {
+              setLoading(false)
+            })
+        }, 2000)
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+    fetchPosts();
+  }, [page]);
+
+
+  useEffect(()=> {
+    const postContainer = document.getElementById("post-container");
+    postContainer.addEventListener("scroll", () => {
+       if (postContainer) {
+         const { scrollTop, scrollHeight, clientHeight } = postContainer;
+          if (scrollTop + clientHeight >= scrollHeight && !loading) {
+            setLoading(true);
+              setPage(page+1);
+          }
+       }
+    })
+  })
+
+
+
+
+
 // to fetch the user posts
   useEffect(()=> {
     if(isValid){
@@ -52,34 +88,42 @@ function Home() {
       }).catch((error) => {
         console.log("error is", error);
       }).finally(()=> {
+
       })
     }
   },[navigate, isValid, user, dispatch])
 
   return (
     <>
-      {loading ? (
-        <div className="w-screen h-screen flex justify-center items-center ">
-          <HomeLoader />
-        </div>
-      ) : (
-        <>
-          <div className="md:ml-auto">
-            <PostContainer>
-              {posts?.map((post, index) => {
-                return <SinglePost key={post._id} postData={post} setLoading={setLoading} />;
-              })}
-            </PostContainer>
-          </div>
+      <div className="md:ml-auto">
+        {/* <PostContainer> */}
+        <div
+          id="post-container"
+          className="w-fit h-screen md:mr-auto bg-stone-900 md:bg-transparent bg-opacity-50 overflow-scroll no-scrollbar"
+        >
+          {posts?.map((post) => {
+            return <SinglePost key={post._id} postData={post} />;
+          })}
+          {loading ? (
+            <div className="p-4 mt-5 w-full flex justify-center items-center select-none">
+              <div className="loader">
+                <span className="bar"></span>
+                <span className="bar"></span>
+                <span className="bar"></span>
+              </div>
+            </div>
+          ) : null}
 
-          <div className="hidden lg:block md:hidden mr-auto ml-auto">
-            <SuggestionContainer>
-              <Suggestion />
-              <Suggestion />
-            </SuggestionContainer>
-          </div>
-        </>
-      )}
+        </div>
+        {/* </PostContainer> */}
+      </div>
+
+      <div className="hidden lg:block md:hidden mr-auto ml-auto">
+        <SuggestionContainer>
+          <Suggestion />
+          <Suggestion />
+        </SuggestionContainer>
+      </div>
     </>
   );
 }

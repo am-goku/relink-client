@@ -61,3 +61,37 @@ export const blockUnblockUser = (userId, status) => {
 
 
 
+
+
+////////////////////////////////////////////////// REPORT SECTION //////////////////////////////////////////////////////////////////
+// @desc    Fetch post reports
+// @route   GET /admin/reports/posts
+// @access  Admins
+export const getPostReports = (perPage, search) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = `${adminUrl.userReports}?perPage=${perPage}&search=${search}`
+            adminApiCalls("get", url).then((response) => {
+                resolve(response);
+            }).catch((err)=> reject(err))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+// @desc    Fetch user reports
+// @route   GET /admin/reports/users
+// @access  Admins
+export const getUserReports = (perPage, search) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = `${adminUrl.postReports}?perPage=${perPage}&search=${search}`
+            adminApiCalls("get", url).then((response) => {
+                resolve(response);
+            }).catch((err)=> reject(err))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}

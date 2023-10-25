@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import SinglePostView from '../../components/modal/SinglePostView'
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchAPost } from '../../services/apiMethods';
 import { useSelector } from 'react-redux';
 
 function SinglePostPage() {
@@ -10,16 +9,13 @@ function SinglePostPage() {
   const navigate = useNavigate()
 
   const {postId} = useParams();
-  const [error, setError] = useState('');
-
-
 
   useEffect(()=> {
     if(!isValid){
       navigate("/login");
     }
     
-  },[navigate, isValid])
+  })
 
 
   return (
