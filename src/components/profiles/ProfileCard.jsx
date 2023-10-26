@@ -4,6 +4,7 @@ import Options from "./Options";
 import { useSelector } from "react-redux";
 import ConnectionBtn from "../icons/ConnectionBtn";
 import { getConnections } from "../../services/apiMethods";
+import ConnectionList from "../modal/ConnectionList";
 
 function ProfileCard({ user, setIsEdit }) {
 
@@ -32,8 +33,13 @@ function ProfileCard({ user, setIsEdit }) {
   }, [user, currentUser]);
 
 
+  const [title, setTitle] = useState('');
+
+
   return (
     <>
+      {title && <ConnectionList title={title} setTitle={setTitle} user={user} />}
+
       <div className="bg-[#1E1E1EC4] opacity-70 lg:items-center lg:px-60 lg:py-24 w-full p-7 lg:p-0 lg:w-fit h-fit mr-auto ml-auto lg:mt-7 flex lg:grid lg:grid-flow-col lg:gap-20 gap-12 relative select-none lg:rounded">
         <div className="absolute lg:w-5 lg:h-5 right-0 top-6 lg:m-8 lg:mr-10">
           <Options user={user} setIsEdit={setIsEdit} />
@@ -45,7 +51,10 @@ function ProfileCard({ user, setIsEdit }) {
             className="rounded-full aspect-square w-full"
           />
           {owner ? (
-            <div className="lg:w-9 lg:h-9 hidden lg:block rounded-full absolute bottom-0 right-0 cursor-pointer" onClick={()=>setIsEdit(true)}>
+            <div
+              className="lg:w-9 lg:h-9 hidden lg:block rounded-full absolute bottom-0 right-0 cursor-pointer"
+              onClick={() => setIsEdit(true)}
+            >
               <SettingsIcn size={{ width: 36, height: 36 }} />
             </div>
           ) : null}
@@ -61,7 +70,10 @@ function ProfileCard({ user, setIsEdit }) {
             <span>@{user?.username}</span>
           </div>
           <div className="flex gap-5">
-            <div className="mt-8 grid gap-1">
+            <div
+              onClick={()=> setTitle("followers")}
+              className="mt-8 grid gap-1"
+            >
               <span className="lg:text-xl font-poppins text-center">
                 {followers?.length || 0}
               </span>
@@ -69,7 +81,10 @@ function ProfileCard({ user, setIsEdit }) {
                 Followers
               </span>
             </div>
-            <div className="mt-8 grid gap-1">
+            <div
+              onClick={() => setTitle("following")}
+              className="mt-8 grid gap-1"
+            >
               <span className="lg:text-xl font-poppins text-center">
                 {following?.length || 0}
               </span>
@@ -79,16 +94,17 @@ function ProfileCard({ user, setIsEdit }) {
             </div>
           </div>
           {/* follow unfollow btn */}
-          {!owner ? (
+          {!owner && (
             <div className="w-36 mt-3 h-10 flex justify-center items-center">
-              <ConnectionBtn user={user} owner={owner} setFollowers={setFollowers} />
+              <ConnectionBtn
+                user={user}
+                owner={owner}
+                setFollowers={setFollowers}
+              />
             </div>
-          ) : null}
+          )}
         </div>
       </div>
-
-
-      
     </>
   );
 }

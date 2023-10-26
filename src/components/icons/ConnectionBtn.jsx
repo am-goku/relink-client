@@ -45,7 +45,7 @@ function ConnectionBtn({user, color, width, height, setFollowers}) {
 
   return (
     <>
-      {!owner ? (
+      {
         !following?.includes(user?._id) ? (
           <button
             className={`w-${width || 36} h-${height || 9} rounded-lg bg-${
@@ -68,8 +68,7 @@ function ConnectionBtn({user, color, width, height, setFollowers}) {
           >
             Unfollow
           </button>
-        )
-      ) : null}
+        )}
     </>
   );
 }

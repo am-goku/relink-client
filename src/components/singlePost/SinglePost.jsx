@@ -79,7 +79,7 @@ function SinglePost({postData}) {
               className="bg-white ml-1 w-11 h-11 rounded-full self-center cursor-pointer"
               onClick={seeProfile}
             >
-              <ProfilePic styleProp={"rounded-full"} image={postUser?.ProfilePic} />
+              <ProfilePic styleProp={"rounded-full"} image={postUser?.profilePic} />
             </div>
             <div
               className="text-white font-semibold text-lg self-center cursor-pointer"
