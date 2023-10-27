@@ -1,17 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProfilePic from '../profiles/ProfilePic'
 import { useSelector } from 'react-redux'
 import NameField from '../profiles/NameField'
 import TypeBox from './TypeBox'
-import SenderText from './SenderText'
-import RecieverText from './RecieverText'
-import MessageIcn from '../icons/MessageIcn'
 import Info from '../icons/Info'
 import { getMessages } from '../../services/apiMethods'
 
 import { io }  from 'socket.io-client'
 import MessageArea from './MessageArea'
-import EmojiPicker from 'emoji-picker-react'
 
 function ChatBox({reciever, chatRoom}) {
   
@@ -63,7 +59,7 @@ function ChatBox({reciever, chatRoom}) {
 
   return (
     <>
-      <div className="w-full h-[47rem] bg-black opacity-90 md:h-full rounded-lg relative flex flex-col md:border-white md:border-2">
+      <div className="w-full h-[47rem] bg- opacity-90 md:h-full rounded-lg relative flex flex-col md:border-white md:border-2">
         <div className="flex bg-black w-full h-16 rounded-t-lg items-center px-5 gap-5">
           <ProfilePic
             image={reciever?.profilePic}
@@ -87,7 +83,7 @@ function ChatBox({reciever, chatRoom}) {
             socket={socket}
             room={chatRoom}
           />
-        ) : null}
+        ) : <div className='bg-black bg-opacity-50 w-full h-full'></div>}
 
         <div className="w-full flex rounded-b-lg h-16 bg-black opacity-70 absolute bottom-0 items-center px-3 md:px-10">
           

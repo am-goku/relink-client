@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { userAuthenticator } from "./utils/reducers/userReducer";
 import { ToastContainer } from "react-toastify";
 import { initFlowbite } from "flowbite";
+import { setupPushNotifications } from "./config/firebaseConfig";
 
 
 
@@ -24,6 +25,11 @@ function App() {
     dispatch(userAuthenticator());
       initFlowbite();
   }, [location, path, dispatch]);
+
+
+  useEffect(()=> {
+    setupPushNotifications()
+  })
 
   return (
     <>

@@ -95,3 +95,23 @@ export const getUserReports = (perPage, search) => {
         }
     })
 }
+
+
+
+// @desc    Fetch posts with pagination and populated user
+// @route   GET /admin/fetch-posts
+// @access  Admins
+export const fetchPosts = (page, perPage, search) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const url = `${adminUrl.fetchPosts}?perPage=${perPage}&search=${search}&page=${page}`;
+      adminApiCalls("get", url)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((err) => reject(err));
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

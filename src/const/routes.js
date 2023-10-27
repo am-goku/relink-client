@@ -36,6 +36,9 @@ export const adminUrl = {
   //reports
   userReports: "/admin/reports/users",
   postReports: "/admin/reports/posts",
+
+  //post related
+  fetchPosts: "/admin/fetch-posts",
 };
 
 

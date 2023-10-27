@@ -1,4 +1,5 @@
 export const getTimeDifference = (targetDateStr) => {
+  console.log(targetDateStr);
   const targetDate = new Date(targetDateStr);
   const currentDate = new Date();
   const timeDifference = currentDate - targetDate;
@@ -16,4 +17,18 @@ export const getTimeDifference = (targetDateStr) => {
   } else {
     return seconds + " sec";
   }
+};
+
+
+
+export const convertDate = (dateString) => {
+  const date = new Date(dateString);
+
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Month is zero-based, so we add 1
+  const year = date.getFullYear();
+
+  const formattedDate = `${day}-${month}-${year}`;
+
+  return formattedDate;
 }

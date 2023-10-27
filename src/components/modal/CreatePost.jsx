@@ -43,6 +43,15 @@ function CreatePost({ setClose }) {
     }
   };
 
+
+  const clearComponent = () => {
+    setError("");
+    setSelectedImg(false);
+    setDescription("");
+    setCroppedImg(null);
+    setImage(null);
+  }
+
   const handleSubmit = async () => {
 
     setLoading(true);
@@ -73,10 +82,11 @@ function CreatePost({ setClose }) {
           console.log(response);
           setError(response.message);
         };
-      });
+      }).finally(()=> {
+        clearComponent()
+      })
     }
 
-    console.log("data1: ", data1);
   };
 
   return (

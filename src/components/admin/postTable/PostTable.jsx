@@ -1,39 +1,32 @@
-import React, { useEffect, useState } from "react";
-import TableRow from "./TableRow";
-import { adminFetchUsers } from "../../../services/admin/apiMethods";
-import TableHead from "./TableHead";
-import SearchBar from "./SearchBar";
-import UserFilter from "./UserFilter";
+import React, { useEffect, useState } from 'react'
+import UserFilter from '../tables/UserFilter';
+import SearchBar from '../tables/SearchBar';
+import { PostTableHead } from '../tables/TableHead';
+import PostRow from './PostRow';
+import { fetchPosts } from '../../../services/admin/apiMethods';
 
-const Table = () => {
-  const [users, setUsers] = useState([])
-  const [error, setError] = useState('')
+function PostTable() {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState("");
+    const perPage = 7;
 
-  const [lastPage, setLastPage] = useState(false);
-
-  //filter options
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState('');
-  const perPage = 7;
-
-  useEffect(()=>{
-    adminFetchUsers(currentPage, perPage, searchTerm).then((response)=>{
-        setUsers(response);
-        if(response.length < perPage){
-          setLastPage(true)
-        } else {
-          setLastPage(false)
-        }
-    }).catch((error)=>{
-      setError(error.message);
-    })
-  },[currentPage, searchTerm]);
+    const [posts, setPosts] = useState([]);
 
 
-  const handlePageChange =(newpage) => {
-    setCurrentPage(newpage);
-  };
-  
+    useEffect(()=> {
+        fetchPosts(currentPage, perPage, searchTerm).then((response)=> {
+            setPosts(response);
+            console.log(response);
+        }).catch((error)=> {
+            console.log(error);
+        })
+    }, [currentPage, searchTerm])
+
+
+    const handlePageChange = (newpage) => {
+    //   const nextPage = searchTerm ? 1 : newpage;
+      setCurrentPage(newpage);
+    };
 
   return (
     <>
@@ -43,16 +36,15 @@ const Table = () => {
           <SearchBar setSearchTerm={setSearchTerm} setCurrentPage={setCurrentPage} />
         </div>
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <TableHead />
+          <PostTableHead />
           <tbody>
-            {users.map((user, index) => {
-              return <TableRow userData={user} key={user._id} />;
+            {posts?.map((post, index) => {
+              return <PostRow post={post} key={index} />;
             })}
           </tbody>
         </table>
       </div>
       <div className="gap-3 flex justify-center p-6">
-        
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
@@ -63,15 +55,14 @@ const Table = () => {
         <span className="font-semibold">Page {currentPage}</span>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
-          disabled={lastPage}
+          disabled={posts?.length < perPage}
           class="flex items-center justify-center px-3 h-8 ml- text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           Next
         </button>
-        
       </div>
     </>
   );
 }
 
-export default Table
+export default PostTable

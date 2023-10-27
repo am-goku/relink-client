@@ -17,16 +17,16 @@ function SaveIcn({size, post, setPost, setError}) {
     const saveOrUnsave = () => {
         if(isSaved){
           removeSavedPost(user?._id, post?._id).then((response)=> {
-            setPost(response?.post);
             setIsSaved(false)
+            if(setPost){setPost(response?.post)}
           }).catch((error) => {
             setError("Something went wrong, Try after some time.");
           })
         } else {
           savePost(user?._id, post?._id)
             .then((response) => {
-              setPost(response?.post);
               setIsSaved(true);
+              if(setPost){setPost(response?.post)}
             })
             .catch((error) => {
               setError("Unable to save post.")

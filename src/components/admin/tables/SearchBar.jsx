@@ -1,7 +1,8 @@
 import React from 'react'
 
-function SearchBar({setSearchTerm}) {
+function SearchBar({ setSearchTerm, setCurrentPage }) {
   const handleSearch = (event) => {
+    setCurrentPage(1)
     setSearchTerm(event.target.value);
   };
   return (

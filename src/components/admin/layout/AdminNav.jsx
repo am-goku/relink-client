@@ -32,7 +32,7 @@ function AdminNav() {
               "w-full h-fit aspect-square self-center flex mt-3 border-b justify-center   cursor-pointer text-center text-white navSelection rounded-md"
             }
           >
-            <div className="flex self-center justify-end items-center h-fit ">
+            <div className="flex self-center justify-end items-center h-fit " onClick={()=> navigate("/admin")}>
               <ReportIcn />
             </div>
           </div>

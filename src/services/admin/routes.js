@@ -4,6 +4,7 @@ import Dashboard from "../../pages/Admin/Dashboard/Dashboard";
 import Users from "../../pages/Admin/Usermanagement/Users";
 import Admin from "../../pages/Admin/Admin";
 import Test from "../../pages/Test";
+import Posts from "../../pages/Admin/PostManagement/Posts";
 
 
 
@@ -21,6 +22,10 @@ export const adminRouter = {
     {
       path:"/admin/users",
       element: <Users />
+    },
+    {
+      path:"/admin/posts",
+      element: <Posts />
     },
     {
       path: "/admin/test",
