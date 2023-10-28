@@ -12,6 +12,20 @@ import { adminAuthenticator } from './utils/reducers/adminReducer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/service-worker.js", {scope: '/'})
+    .then(function (registration) {
+      console.log("Service Worker registered with scope:", registration.scope);
+    })
+    .catch(function (error) {
+      console.error("Service Worker registration failed:", error);
+    });
+}
+
+
 Promise.all([persistor.persist(),userAuthenticator(),adminAuthenticator()]).then(()=> {
   root.render(
     <Provider store={store}>
@@ -23,6 +37,7 @@ Promise.all([persistor.persist(),userAuthenticator(),adminAuthenticator()]).then
     </Provider>
   );
 })
+
 
 
 // If you want to start measuring performance in your app, pass a function

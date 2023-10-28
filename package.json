@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.5.1",
     "cloudinary": "^1.41.0",
+    "crypto": "^1.0.1",
     "dotenv": "^16.3.1",
     "emoji-picker-react": "^4.5.3",
     "firebase": "^10.5.2",
@@ -36,6 +37,7 @@
     "redux-thunk": "^2.4.2",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
+    "web-push": "^3.6.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

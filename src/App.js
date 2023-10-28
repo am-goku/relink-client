@@ -10,10 +10,10 @@ import Header from "./components/layout/Header";
 import NavBarSm from "./components/layout/NavBar-Sm";
 import { useDispatch } from "react-redux";
 import { userAuthenticator } from "./utils/reducers/userReducer";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { initFlowbite } from "flowbite";
-import { setupPushNotifications } from "./config/firebaseConfig";
-
+import firebase, { onMessageListener, requestPermission, unsubscribe } from "./firebase"
+import {getToken} from "firebase/messaging"
 
 
 function App() {
@@ -26,10 +26,35 @@ function App() {
       initFlowbite();
   }, [location, path, dispatch]);
 
+  const [notification, setNotification] = useState()
 
   useEffect(()=> {
-    setupPushNotifications()
-  })
+    requestPermission();
+    onMessageListener().then((payload)=> {
+      setNotification({
+        title: payload?.notification?.title,
+        body: payload?.notification?.body
+      })
+      console.log("notification:", payload);
+    }).catch((error)=> {
+      console.log("error getting notification:", error);
+    })
+
+    return ()=> {
+      unsubscribe()
+    }
+  });
+
+  useEffect(() => {
+    if (notification) {
+      new Notification(notification.title, {
+        body: notification.body,
+      });
+    }
+  }, [notification, notification?.title, notification?.body]);
+
+
+ 
 
   return (
     <>
