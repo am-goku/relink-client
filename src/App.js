@@ -12,8 +12,10 @@ import { useDispatch } from "react-redux";
 import { userAuthenticator } from "./utils/reducers/userReducer";
 import { ToastContainer, toast } from "react-toastify";
 import { initFlowbite } from "flowbite";
-import firebase, { onMessageListener, requestPermission, unsubscribe } from "./firebase"
-import {getToken} from "firebase/messaging"
+
+import messaging, { backgroundNotify } from "./firebase";
+import { getToken, onMessage } from "firebase/messaging";
+
 
 
 function App() {
@@ -28,30 +30,26 @@ function App() {
 
   const [notification, setNotification] = useState()
 
+  
+//token section
   useEffect(()=> {
-    requestPermission();
-    onMessageListener().then((payload)=> {
-      setNotification({
-        title: payload?.notification?.title,
-        body: payload?.notification?.body
-      })
-      console.log("notification:", payload);
-    }).catch((error)=> {
-      console.log("error getting notification:", error);
+    Notification.requestPermission().then((res)=> {
+      if(res === "granted"){
+        getToken(
+          messaging,
+          {
+            vapidKey:
+              "BKLxKk_8WAxE4NZ3xL2OJ1hrwo4DMlXkd1uDhMxAfaORlz5dhNBmGKFe9X6vIsbX3Y1uFiV-mGKA5MUex16DHUM",
+          }
+        ).then((token)=> {
+          console.log(token);
+          onMessage(messaging, (payload) => {
+            console.log("Message received. ", payload);
+          });
+        })
+      }
     })
-
-    return ()=> {
-      unsubscribe()
-    }
-  });
-
-  useEffect(() => {
-    if (notification) {
-      new Notification(notification.title, {
-        body: notification.body,
-      });
-    }
-  }, [notification, notification?.title, notification?.body]);
+  })
 
 
  

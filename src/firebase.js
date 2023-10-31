@@ -1,64 +1,47 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// import {getMessaging} from "firebase/messaging"
+import { getMessaging } from "firebase/messaging/sw"
+// import {onBackgroundMessage} from "firebase/messaging/sw"
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-import {initializeApp} from "firebase/app"
-import {deleteToken, getMessaging, getToken, onMessage} from "firebase/messaging"
 
-
-const config = {
-  apiKey: "AIzaSyCZaocx3wUNHEYz57sWwRgbC3a8OM86k4k",
-  authDomain: "relink-app.firebaseapp.com",
-  projectId: "relink-app",
-  storageBucket: "relink-app.appspot.com",
-  messagingSenderId: "724672213776",
-  appId: "1:724672213776:web:5a3d985fb8c9c77e5aeb95",
-  measurementId: "G-KBK69020Q5",
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
-const app = initializeApp(config);
 const messaging = getMessaging(app);
 
-export const requestPermission = () => {
-    console.log("requesting permission....");
-    Notification.requestPermission((permission)=> {
-        if(permission === "granted"){
-            console.log("Notification permission granted");
+export default messaging;
 
-            return getToken(messaging, {
-              vapidKey:
-                "BEL96S6zRFAXOrc9JPou48JTw-ZeGpqmWGPJFBEY7ucAw10i2u2RHZ9-R2MAB-920WtvOGrd_qmbyKAgOgLjoJc",
-            }).then((token)=> {
-                if(token){
-                    console.log("currentToken:", token);
-                } else {
-                    console.log("failed to generate token:");
-                }
-            }).catch((error)=>{
-                console.log("An error occured when requesting to generate the token:", error);
-            })
-        } else {
-            console.log("Notification permission denied");
-        }
-    })
+
+
+export const backgroundNotify = () => {
+  // onBackgroundMessage(messaging, (payload) => {
+  //   console.log(
+  //     "[firebase-messaging-sw.js] Received background message ",
+  //     payload
+  //   );
+  //   // Customize notification here
+  //   const notificationTitle = "Background Message Title";
+  //   const notificationOptions = {
+  //     body: "Background Message body.",
+  //     // icon: "/firebase-logo.png",
+  //   };
+
+  //   // eslint-disable-next-line no-restricted-globals
+  //   window.self.registration.showNotification(notificationTitle, notificationOptions);
+  // });
 };
-
-export const unsubscribe = () => {
-        deleteToken(messaging).then((res) => {
-          console.log("token removed", res);
-        });
-}
-
-
-// requestPermission();
-
-
-export const onMessageListener = ()=> {
-    return new Promise((resolve, reject)=> {
-        try {
-            onMessage(messaging, (payload) => {
-              resolve(payload);
-            });
-        } catch (error) {
-            reject(error);
-        }
-    })
-}

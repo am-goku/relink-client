@@ -10,20 +10,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { userAuthenticator } from './utils/reducers/userReducer';
 import { adminAuthenticator } from './utils/reducers/adminReducer';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-
-
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("/service-worker.js", {scope: '/'})
-    .then(function (registration) {
-      console.log("Service Worker registered with scope:", registration.scope);
-    })
-    .catch(function (error) {
-      console.error("Service Worker registration failed:", error);
-    });
-}
 
 
 Promise.all([persistor.persist(),userAuthenticator(),adminAuthenticator()]).then(()=> {
