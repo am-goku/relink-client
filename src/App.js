@@ -28,26 +28,23 @@ function App() {
       initFlowbite();
   }, [location, path, dispatch]);
 
-  const [notification, setNotification] = useState()
 
-  
+
+const [notification, setNotification] = useState()
 //token section
   useEffect(()=> {
     Notification.requestPermission().then((res)=> {
       if(res === "granted"){
-        getToken(
-          messaging,
-          {
-            vapidKey:
-              "BKLxKk_8WAxE4NZ3xL2OJ1hrwo4DMlXkd1uDhMxAfaORlz5dhNBmGKFe9X6vIsbX3Y1uFiV-mGKA5MUex16DHUM",
-          }
-        ).then((token)=> {
+        getToken(messaging, {
+          vapidKey:
+            "BKLxKk_8WAxE4NZ3xL2OJ1hrwo4DMlXkd1uDhMxAfaORlz5dhNBmGKFe9X6vIsbX3Y1uFiV-mGKA5MUex16DHUM",
+        }).then((token) => {
           console.log(token);
           onMessage(messaging, (payload) => {
             console.log("Message received. ", payload);
           });
-        })
-      }
+        });
+      };
     })
   })
 

@@ -2,7 +2,6 @@
 importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js');
 
-
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("/service-worker.js", { scope: "/" })
@@ -15,21 +14,11 @@ if ("serviceWorker" in navigator) {
 }
 
 firebase.initializeApp({
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  apiKey: "AIzaSyCZaocx3wUNHEYz57sWwRgbC3a8OM86k4k",
+  appId: "1:724672213776:web:72c96042da07927c5aeb95",
+  projectId: "relink-app",
+  messagingSenderId: "724672213776",
 });
 
 const initMessaging = firebase.messaging();
 
-// self.addEventListener("push", function (event) {
-//   const options = {
-//     body: event.data.text(),
-//     icon: "/path/to/icon.png", // Customize with your icon path
-//   };
-
-//   event.waitUntil(
-//     self.registration.showNotification("Notification Title", options)
-//   );
-// });

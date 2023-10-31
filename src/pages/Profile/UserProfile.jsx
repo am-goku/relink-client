@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserByUsername, fetchUserPosts } from "../../services/apiMethods";
 import EditProfile from "../../components/modal/EditProfile";
-import LazyLoad from "react-lazy-load";
 
 function UserProfile() {
   const navigate = useNavigate();

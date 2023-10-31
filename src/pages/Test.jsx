@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import EmojiPicker, {EmojiStyle} from "emoji-picker-react";
+import EmojiPicker from "emoji-picker-react";
 
 function Test() {
 

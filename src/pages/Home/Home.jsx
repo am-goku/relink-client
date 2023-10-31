@@ -5,7 +5,7 @@ import SuggestionContainer from "../../components/containers/SuggestionContainer
 import Suggestion from "../../components/profiles/Suggestion";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchUserPosts, getAllPosts, getPostsCount,  } from "../../services/apiMethods";
+import { fetchUserPosts, getAllPosts, } from "../../services/apiMethods";
 import { setUserPosts } from "../../utils/reducers/postReducer";
 
 import "./Home.css"
