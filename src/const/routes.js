@@ -23,6 +23,10 @@ export const userUrl = {
 
     //report
     report: (userId, username) => `/user/report/user/${userId}/${username}`,
+
+
+    //fcmReg
+    regFcm: (userId, token) => `user/fcm/${userId}/${token}`,
 }
 
 

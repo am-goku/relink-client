@@ -8,17 +8,20 @@ import {
 import NavBar from "./components/layout/NavBar";
 import Header from "./components/layout/Header";
 import NavBarSm from "./components/layout/NavBar-Sm";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userAuthenticator } from "./utils/reducers/userReducer";
 import { ToastContainer, toast } from "react-toastify";
 import { initFlowbite } from "flowbite";
 
-import messaging, { backgroundNotify } from "./firebase";
+import messaging, { backgroundNotify, onListen } from "./firebase";
 import { getToken, onMessage } from "firebase/messaging";
+import { fcmToken } from "./const/localStorage";
+import { registerFcmToken } from "./services/apiMethods";
 
 
 
 function App() {
+  const user = useSelector((state)=> state?.user?.userData)
   const location = useLocation();
   const [path, setPath] = useState("");
   const dispatch = useDispatch();
@@ -29,23 +32,22 @@ function App() {
   }, [location, path, dispatch]);
 
 
-
-const [notification, setNotification] = useState()
 //token section
   useEffect(()=> {
-    Notification.requestPermission().then((res)=> {
-      if(res === "granted"){
-        getToken(messaging, {
-          vapidKey:
-            "BKLxKk_8WAxE4NZ3xL2OJ1hrwo4DMlXkd1uDhMxAfaORlz5dhNBmGKFe9X6vIsbX3Y1uFiV-mGKA5MUex16DHUM",
-        }).then((token) => {
-          console.log(token);
-          onMessage(messaging, (payload) => {
-            console.log("Message received. ", payload);
-          });
-        });
-      };
-    })
+    if(user){
+      Notification.requestPermission().then((res) => {
+        if (res === "granted") {
+          getToken(messaging, {
+            vapidKey:
+              "BKLxKk_8WAxE4NZ3xL2OJ1hrwo4DMlXkd1uDhMxAfaORlz5dhNBmGKFe9X6vIsbX3Y1uFiV-mGKA5MUex16DHUM",
+          }).then((token) => {
+              localStorage.setItem(fcmToken, token);
+              registerFcmToken(user?._id, token);
+              console.log(token);
+          })
+        }
+      });
+    }
   })
 
 

@@ -573,3 +573,20 @@ export const reportPost = (userId, username, targetId, details) => {
         }
     })
 }
+
+
+// @desc    Register fcm
+// @route   GET /user/fcm/:userId/:fcmToken
+// @access  Registerd users
+export const registerFcmToken = (userId, token) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = userUrl.regFcm(userId, token)
+            apiCall("post", url).then((response) => {
+                resolve(response);
+            }).catch((error) => reject(error))
+        } catch (error) {
+            reject(error)
+        }
+    })
+};
