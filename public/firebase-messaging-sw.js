@@ -2,6 +2,7 @@
 importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js');
 
+
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("/service-worker.js", { scope: "/" })
@@ -22,7 +23,6 @@ firebase.initializeApp({
 
 const initMessaging = firebase.messaging();
 
-
 self.addEventListener("push", function (event) {
   const options = JSON.parse(event.data.text());
 
@@ -30,9 +30,12 @@ self.addEventListener("push", function (event) {
 
   console.log(newNotify);
 
-  event.waitUntil(self.registration.showNotification("Relink App", {
-    body: newNotify?.message
-  }));
+  event.waitUntil(
+    self.registration.showNotification("Relink App", {
+      body: newNotify?.message,
+    })
+  );
+
 
 });
 

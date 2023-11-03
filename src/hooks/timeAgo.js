@@ -1,5 +1,4 @@
 export const getTimeDifference = (targetDateStr) => {
-  console.log(targetDateStr);
   const targetDate = new Date(targetDateStr);
   const currentDate = new Date();
   const timeDifference = currentDate - targetDate;

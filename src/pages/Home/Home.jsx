@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import SinglePost from "../../components/singlePost/SinglePost";
 // import PostContainer from "../../components/containers/PostContainer";
 import SuggestionContainer from "../../components/containers/SuggestionContainer";
 import Suggestion from "../../components/profiles/Suggestion";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchUserPosts, getAllPosts, } from "../../services/apiMethods";
+import { fetchNotifications, fetchUserPosts, getAllPosts, } from "../../services/apiMethods";
 import { setUserPosts } from "../../utils/reducers/postReducer";
 
 import "./Home.css"
+import { removeReduxUser } from "../../utils/reducers/userReducer";
+import { setReduxNotifications } from "../../utils/reducers/notificationReducer";
+import EditPost from "../../components/modal/EditPost";
 
 function Home() {
 
@@ -27,7 +30,6 @@ function Home() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const [postMessage, setPostMessage] = useState('')
 
 
   //auth check
@@ -36,6 +38,9 @@ function Home() {
       navigate("/login");
     }
   })
+
+
+  
 
 
 
@@ -51,6 +56,9 @@ function Home() {
             })
             .catch((error) => {
               setError(error.message);
+              if(error?.response?.status === 401){
+                dispatch(removeReduxUser())
+              }
             }).finally(()=> {
               setLoading(false)
             })
@@ -60,7 +68,7 @@ function Home() {
       }
     };
     fetchPosts();
-  }, [page]);
+  }, [page, navigate, dispatch]);
 
 
   useEffect(()=> {
@@ -78,20 +86,31 @@ function Home() {
 
 
 
-
-
 // to fetch the user posts
   useEffect(()=> {
     if(isValid){
       fetchUserPosts(user?._id).then((response) => {
         dispatch(setUserPosts(response));
       }).catch((error) => {
-        console.log("error is", error);
-      }).finally(()=> {
-
+        setError(error)
       })
     }
-  },[navigate, isValid, user, dispatch])
+  },[isValid, user, dispatch])
+
+
+  useEffect(()=> {
+    fetchNotifications(user?._id).then((response) => {
+      dispatch(setReduxNotifications({notifications:response}))
+    }).catch((error) => {
+      setError(error)
+    })
+  })
+
+
+
+  const openEditor = useRef();
+  const closeEditor = useRef();
+  const [selectedPost, setSelectedPost] = useState();
 
   return (
     <>
@@ -102,7 +121,7 @@ function Home() {
           className="w-fit h-screen md:mr-auto bg-stone-900 md:bg-transparent bg-opacity-50 overflow-scroll no-scrollbar"
         >
           {posts?.map((post) => {
-            return <SinglePost key={post._id} postData={post} />;
+            return <SinglePost setSelectedPost={setSelectedPost}  key={post._id} postData={post} openEditor={openEditor} />;
           })}
           {loading ? (
             <div className="p-4 mt-5 w-full flex justify-center items-center select-none">
@@ -124,6 +143,19 @@ function Home() {
           <Suggestion />
         </SuggestionContainer>
       </div>
+
+
+
+
+
+      <button ref={openEditor} data-modal-target="default-modal" data-modal-toggle="default-modal" class="hidden" type="button" />
+        <div id="default-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+          <EditPost closeEditor={closeEditor} post={selectedPost} setPost={setSelectedPost} />
+        </div>
+      <button ref={closeEditor} type="button" class="hidden" data-modal-hide="default-modal" />
+
+
+
     </>
   );
 }

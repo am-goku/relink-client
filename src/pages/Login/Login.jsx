@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { loginValidate } from "../../hooks/loginValidate";
 import { postLogin } from "../../services/apiMethods";
-import { userAuth } from "../../const/localStorage";
+import { refreshToken, userAuth } from "../../const/localStorage";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setReduxUser } from "../../utils/reducers/userReducer";
@@ -52,7 +52,8 @@ function Login() {
     }
     postLogin(userData).then((response) => {
       if (response.status === 200) {
-        localStorage.setItem(userAuth, response.token);
+        localStorage.setItem(userAuth, response.tokens.accessToken);
+        localStorage.setItem(refreshToken, response.tokens.refreshToken);
         dispatch(setReduxUser({userData:response.user, validUser: true}));
         window.location.reload("/");
       } else {

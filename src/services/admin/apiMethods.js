@@ -1,4 +1,5 @@
-import { adminUrl } from "../../const/routes"
+import { adminUrl, postUrl } from "../../const/routes"
+import { apiCall } from "../apiCalls";
 import adminApiCalls from "./apiCalls"
 
 
@@ -115,3 +116,21 @@ export const fetchPosts = (page, perPage, search) => {
     }
   });
 };
+
+
+
+// @desc    update post
+// @route   PUT /post/update-post/:postId
+// @access  registed user
+export const updatePost = (postId, caption) => {
+    return new Promise((resolve, reject) => {
+        const url = postUrl.update(postId);
+        const data= { caption: caption};
+
+        apiCall("put", url, data).then((response) => {
+            resolve(response);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}

@@ -6,7 +6,7 @@ import Confirmation from '../modal/Confirmation';
 import ReportModal from '../modal/ReportModal';
 import { toast } from 'react-toastify';
 
-function Dropdown({post, postUser}) {
+function Dropdown({post, postUser, openEditor, setSelectedPost}) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -90,13 +90,13 @@ const [reportModal, setReportModal] = useState(false);
         />
       )}{" "}
       {/** Delete post confirmation modal */}
-      {reportModal && <ReportModal post={post} setError={setError} setReportModal={setReportModal} />}
-
-
-
-
-
-
+      {reportModal && (
+        <ReportModal
+          post={post}
+          setError={setError}
+          setReportModal={setReportModal}
+        />
+      )}
       <div className="self-center" ref={dropdownRef}>
         <div onClick={toggleDropdown} className="" type="button">
           <svg
@@ -140,7 +140,13 @@ const [reportModal, setReportModal] = useState(false);
               {owner ? (
                 <>
                   <li>
-                    <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <button
+                      onClick={() => {
+                        setSelectedPost(post);
+                        openEditor.current.click();
+                      }}
+                      className="block px-4 py-2 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    >
                       Edit post
                     </button>
                   </li>
@@ -158,7 +164,10 @@ const [reportModal, setReportModal] = useState(false);
               ) : (
                 <>
                   <li>
-                    <button onClick={()=> setReportModal(true)} className="block px-4 py-2 w-full text-left text-red-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <button
+                      onClick={() => setReportModal(true)}
+                      className="block px-4 py-2 w-full text-left text-red-500 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    >
                       Report
                     </button>
                   </li>

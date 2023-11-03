@@ -9,9 +9,24 @@ import {persistor, store} from './utils/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { userAuthenticator } from './utils/reducers/userReducer';
 import { adminAuthenticator } from './utils/reducers/adminReducer';
+import { addNewReduxNotification } from './utils/reducers/notificationReducer';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Listen for messages from the service worker
+navigator.serviceWorker.addEventListener('message', (event) => {
+  const { messageType } = event.data;
+  const { newData } = event.data.data;
+
+  const newNotify = JSON.parse(newData);
+
+  console.log(messageType);
+
+  if (messageType === "push-received") {
+    store.dispatch(addNewReduxNotification({ notification: newNotify }));
+  }
+});
 
 
 Promise.all([persistor.persist(),userAuthenticator(),adminAuthenticator()]).then(()=> {

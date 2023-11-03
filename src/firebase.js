@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {getMessaging, onMessage} from "firebase/messaging"
-import { onBackgroundMessage } from "firebase/messaging/sw"
+import { onBackgroundMessage,  } from "firebase/messaging/sw"
 
 
 
@@ -21,4 +21,26 @@ const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
 export default messaging;
+
+
+
+export const subscribeTopic = (token) => {
+  const topic = "notify"
+   fetch(`https://iid.googleapis.com/iid/v1/${token}/rel/topics/${topic}`, {
+     method: "POST",
+     headers: new Headers({
+       Authorization: `key=${token}`,
+     }),
+   })
+     .then((response) => {
+       if (response.status < 200 || response.status >= 400) {
+         console.log(response.status, response);
+       }
+       console.log(`"${topic}" is subscribed`);
+     })
+     .catch((error) => {
+       console.error(error.result);
+     });
+   return true;
+}
 

@@ -7,6 +7,7 @@ import thunk from "redux-thunk";
 import userSlice from "./reducers/userReducer";
 import adminSlice from "./reducers/adminReducer";
 import postSlice from "./reducers/postReducer";
+import notificationSlice from "./reducers/notificationReducer";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 
 const persistConfig = {
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   user: userSlice,
   admin: adminSlice,
   userPosts: postSlice,
+  notification: notificationSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

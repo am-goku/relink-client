@@ -33,7 +33,7 @@ const userSlice = createSlice({
 export const userAuthenticator = () => async (dispatch) => {
   try {
     token = localStorage.getItem(userAuth);
-
+    console.log("token is",token);
     if (token) {
       const data = {
         headers: {
@@ -47,9 +47,8 @@ export const userAuthenticator = () => async (dispatch) => {
       }).catch((error) => {
         dispatch(setReduxUser({userData: null, validUser: false}));
       })
-      
     } else {
-      dispatch(removeReduxUser());
+      dispatch(removeReduxUser())
     }
   } catch (e) {
     dispatch(removeReduxUser());

@@ -7,19 +7,19 @@ const adminApiCalls = async (method, url, data) => {
 
       if (method === "post") {
         response = await adminApi.post(url, data).catch((err) => {
-          resolve({ status: 500, message: err.message });
+          reject({ status: 500, message: err.message });
         });
       } else if (method === "get") {
         response = await adminApi.get(url, data).catch((err) => {
-          resolve({ status: 500, message: err.message });
+          reject({ status: 500, message: err.message });
         });
       } else if (method === "patch") {
         response = await adminApi.patch(url, data).catch((err) => {
-          resolve({ status: 500, message: err.message });
+          reject({ status: 500, message: err.message });
         });
       } else if (method === "delete") {
         response = await adminApi.delete(url, data).catch((err) => {
-          resolve({ status: 500, message: err.message });
+          reject({ status: 500, message: err.message });
         });
       }
       resolve(response.data);

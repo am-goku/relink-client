@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
 import {
   FaUserAlt,
@@ -13,27 +13,31 @@ import { initFlowbite } from "flowbite";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeReduxUser } from "../../utils/reducers/userReducer";
+import NotificationLg from "../notification/NotificationLg";
+import { logoutUser } from "../../services/apiMethods";
 
 function NavBar({ path }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isClosed, setIsClosed] = useState(true);
 
-  const userData = useSelector((state)=>state?.user?.userData);
-  const user = useSelector((state)=>state?.user?.validUser);
+  const userData = useSelector((state) => state?.user?.userData);
+  const user = useSelector((state) => state?.user?.validUser);
 
   useEffect(() => {
-    if(!user){
+    if (!user) {
       navigate("/login");
     }
 
     initFlowbite();
   });
 
-
-
   const navs = [
-    { name: "PROFILE", icon: <FaUserAlt />, path: `/profile/${userData?.username}` },
+    {
+      name: "PROFILE",
+      icon: <FaUserAlt />,
+      path: `/profile/${userData?.username}`,
+    },
     { name: "HOME", icon: <IoHomeSharp />, path: "/" },
     { name: "EXPLORE", icon: <FaRegCompass />, path: "/explore" },
     { name: "MESSAGE", icon: <FaRegComments />, path: "/message" },
@@ -41,22 +45,39 @@ function NavBar({ path }) {
     { name: "NOTIFICATION", icon: <IoNotifications />, path: "/notification" },
   ];
 
+  const handleClose = (e) => {
+    if (e.target.id === "defaultModal" && e.target.id !== "crtPost") {
+      setIsClosed(true);
+    }
+  };
 
-  
-const handleClose = (e) => {
-  if(e.target.id === "defaultModal" && e.target.id !== "crtPost"){
-    setIsClosed(true);
-  } 
-}
+  //notification section
+  const [noteToggle, setNoteToggle] = useState(false);
+  const noteOpen = useRef();
+  const noteClose = useRef();
+
+  useEffect(() => {
+    if (noteToggle) {
+      noteOpen.current.click();
+    } else {
+      noteClose.current.click();
+    }
+  }, [noteToggle]);
 
 
-
+  //logout section
   const logout = () => {
-    dispatch(removeReduxUser());
-    navigate("/login");
-    return;
-  }
-
+    logoutUser(userData?._id).then((res)=> {
+      if(res){
+        dispatch(removeReduxUser());
+        navigate("/login");
+      } else {
+        throw new Error('error')
+      }
+    }).catch((err) => {
+      window.location.reload();
+    })
+  };
 
   return (
     <>
@@ -90,12 +111,14 @@ const handleClose = (e) => {
             <div
               key={key}
               className={`w-56 h-12 self-center flex mt-5 border-b border-white cursor-pointer text-center text-white navSelection rounded-md ${
-                path === nav.path ? "bg-gray-500 bg-opacity-60" : ""
+                path === nav?.path ? "bg-gray-500 bg-opacity-60" : ""
               }`}
-              onClick={() => {
-                nav.name === "CREATE POST"
+              onClick={(e) => {
+                nav?.name === "CREATE POST"
                   ? setIsClosed(false)
-                  : navigate(nav.path);
+                  : nav?.path !== "/notification"
+                  ? navigate(nav?.path)
+                  : setNoteToggle(true);
               }}
             >
               <div className="flex ml-6 self-center justify-end items-center h-full">
@@ -129,6 +152,43 @@ const handleClose = (e) => {
         <div className="h-fit w-fit" id="crtPost">
           <CreatePost setClose={setIsClosed} />
         </div>
+      </div>
+
+      {/* notification section  */}
+      <div id="notificationTab">
+        <div className="text-center hidden ">
+          <button
+            type="button"
+            ref={noteOpen}
+            data-drawer-target="drawer-left-example"
+            data-drawer-show="drawer-left-example"
+            data-drawer-placement="left"
+            aria-controls="drawer-left-example"
+          >
+            Notification drawer
+          </button>
+        </div>
+
+        <div
+          id="drawer-left-example"
+          className="fixed select-none top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-[#C6C1C1] w-96 dark:bg-gray-800"
+          tabIndex="-1"
+          aria-labelledby="drawer-left-label"
+        >
+          <NotificationLg
+            noteToggle={noteToggle}
+            setNoteToggle={setNoteToggle}
+          />
+        </div>
+
+        <button
+          type="button"
+          id="crossBtn"
+          ref={noteClose}
+          data-drawer-hide="drawer-left-example"
+          aria-controls="drawer-left-example"
+          className="hidden"
+        />
       </div>
     </>
   );

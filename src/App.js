@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Outlet,
-  useLocation,
-} from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 //pages
 import NavBar from "./components/layout/NavBar";
@@ -10,52 +7,65 @@ import Header from "./components/layout/Header";
 import NavBarSm from "./components/layout/NavBar-Sm";
 import { useDispatch, useSelector } from "react-redux";
 import { userAuthenticator } from "./utils/reducers/userReducer";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { initFlowbite } from "flowbite";
 
-import messaging, { backgroundNotify, onListen } from "./firebase";
-import { getToken, onMessage } from "firebase/messaging";
+import messaging from "./firebase";
+import { getToken, isSupported } from "firebase/messaging";
 import { fcmToken } from "./const/localStorage";
 import { registerFcmToken } from "./services/apiMethods";
-
-
+import Protect from "./components/authenticator/Protect";
 
 function App() {
-  const user = useSelector((state)=> state?.user?.userData)
+  const user = useSelector((state) => state?.user?.userData);
+  const isValid = useSelector((state) => state?.user?.validUser);
   const location = useLocation();
   const [path, setPath] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+  //authenticator
+  useEffect(() => {
+    if (!user || !isValid) {
+      navigate("/login");
+    }
+  },[user, isValid, navigate]);
+
+
   useEffect(() => {
     setPath(location.pathname);
-    dispatch(userAuthenticator());
-      initFlowbite();
+    // dispatch(userAuthenticator());
+    initFlowbite();
   }, [location, path, dispatch]);
 
-
-//token section
-  useEffect(()=> {
-    if(user){
+  //token section
+  useEffect(() => {
+    if (user) {
       Notification.requestPermission().then((res) => {
         if (res === "granted") {
-          getToken(messaging, {
-            vapidKey:
-              "BKLxKk_8WAxE4NZ3xL2OJ1hrwo4DMlXkd1uDhMxAfaORlz5dhNBmGKFe9X6vIsbX3Y1uFiV-mGKA5MUex16DHUM",
-          }).then((token) => {
-              localStorage.setItem(fcmToken, token);
-              registerFcmToken(user?._id, token);
-              console.log(token);
-          })
+          if (isSupported()) {
+            getToken(messaging, {
+              vapidKey:
+                "BKLxKk_8WAxE4NZ3xL2OJ1hrwo4DMlXkd1uDhMxAfaORlz5dhNBmGKFe9X6vIsbX3Y1uFiV-mGKA5MUex16DHUM",
+            })
+              .then((token) => {
+                localStorage.setItem(fcmToken, token);
+                console.log(token);
+                registerFcmToken(user?._id, token);
+              })
+              .catch((error) => {
+                console.error("Error getting FCM token:", error);
+              });
+          }
         }
       });
     }
-  })
-
-
- 
+  }, [user]);
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <div className="md:hidden sticky top-0 z-50">
         <Header />
       </div>
@@ -63,7 +73,7 @@ function App() {
         <div className="hidden md:block">
           <NavBar path={path} />
         </div>
-          <Outlet />
+        <Outlet />
       </div>
       <div className="md:hidden sticky bottom-0 z-50">
         <NavBarSm />

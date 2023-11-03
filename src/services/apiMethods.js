@@ -590,3 +590,70 @@ export const registerFcmToken = (userId, token) => {
         }
     })
 };
+
+
+// @desc    Fetch notifications
+// @route   /user/:userId/notifications
+// @access  Registerd users
+export const fetchNotifications = (userId) => {
+    return new Promise((resolve, reject) => {
+        const url = userUrl.getNotes(userId);
+
+        apiCall("get", url).then((response) => {
+            resolve(response);
+        }).catch((error) => reject(error));
+    })
+}
+
+
+// @desc    Read notification
+// @route   PATCH /user/notifications/read/:notificationId
+// @access  Registerd users
+export const readNotification = (notifyId) => {
+    return new Promise((resolve, reject) => {
+        const url = userUrl.readNote(notifyId);
+        apiCall("patch", url).then((response) => {
+            resolve(response);
+        }).catch((error) => reject(error));
+    })
+}
+
+// @desc    Delete notification
+// @route   DELETE /user/notifications/delete/:userId
+// @access  Registerd users
+export const deleteNotifications = (userId) => {
+    return new Promise((resolve, reject) => {
+      const url = userUrl.deleteNotes(userId);
+      apiCall("delete", url)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => reject(error));
+    });
+}
+
+
+
+
+
+// @desc    Logout user
+// @route   POST /user/logout/:userId
+// @access  Registerd users
+export const logoutUser = (userId) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const url = userUrl.logOut(userId);
+      apiCall("post", url)
+        .then((res) => {
+          if(res.status === 'OK'){
+            resolve(true);
+          } else {
+            reject(false);
+          }
+        })
+        .catch((err) => reject(err));
+    } catch (err_1) {
+      reject(err_1);
+    }
+  });
+};

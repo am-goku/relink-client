@@ -1,33 +1,40 @@
 export const userUrl = {
-    login: "/user/login",
-    register: "/user/register",
-    fetchUser: "/user/fetch-users",
-    getCredentials: "/user/userdetails",
+  login: "/user/login",
+  register: "/user/register",
+  fetchUser: "/user/fetch-users",
+  getCredentials: "/user/userdetails",
 
+  //saved posts
+  savePost: (userId, postId) => `/user/${userId}/save/post/${postId}`,
+  removeSave: (userId, postId) => `/user/${userId}/save/post/remove/${postId}`,
 
-    //saved posts
-    savePost: (userId, postId) => `/user/${userId}/save/post/${postId}`,
-    removeSave: (userId, postId) => `/user/${userId}/save/post/remove/${postId}`,
+  //connection
+  followUser: (userId, followeeId) => `/user/${userId}/follow/${followeeId}`,
+  unfollowUser: (userId, followeeId) =>
+    `/user/${userId}/unfollow/${followeeId}`,
+  getConnections: (userId) => `/user/fetch/connection/${userId}`,
 
-    //connection
-    followUser: (userId, followeeId) => `/user/${userId}/follow/${followeeId}`,
-    unfollowUser: (userId, followeeId) => `/user/${userId}/unfollow/${followeeId}`,
-    getConnections: (userId) => `/user/fetch/connection/${userId}`,
+  //search user
+  searchUser: (key) => `/user/search/${key}`,
+  fetchByUsername: (username) => `/user/fetch/username/${username}`,
 
-    //search user
-    searchUser: (key) => `/user/search/${key}`,
-    fetchByUsername: (username) => `/user/fetch/username/${username}`,
+  //update user
+  updateData: (username) => `/user/update/user/${username}`,
 
-    //update user
-    updateData: (username) => `/user/update/user/${username}`,
+  //report
+  report: (userId, username) => `/user/report/user/${userId}/${username}`,
 
-    //report
-    report: (userId, username) => `/user/report/user/${userId}/${username}`,
+  //fcmReg
+  regFcm: (userId, token) => `user/fcm/${userId}/${token}`,
 
+  //notification related
+  getNotes: (userId) => `/user/${userId}/notifications`,
+  readNote: (notifyId) => `/user/notifications/read/${notifyId}`,
+  deleteNotes: (userId) => `/user/notifications/delete/${userId}`,
 
-    //fcmReg
-    regFcm: (userId, token) => `user/fcm/${userId}/${token}`,
-}
+  //logout
+  logOut: (userId) => `/user/logout/${userId}`,
+};
 
 
 export const adminUrl = {
@@ -71,6 +78,10 @@ export const postUrl = {
 
   //report
   report: (userId, username) => `/post/report/post/${userId}/${username}`,
+
+  //update post
+  update: (postId) => `/post/update-post/${postId}`,
+  
 };
 
 

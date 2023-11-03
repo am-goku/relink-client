@@ -4,7 +4,7 @@ import "./Login.css"
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { sentOtp, verifyOtp } from '../../services/apiMethods';
-import { userAuth } from '../../const/localStorage';
+import { refreshToken, userAuth } from '../../const/localStorage';
 import { setReduxUser } from '../../utils/reducers/userReducer';
 import { FaSpinner } from 'react-icons/fa';
 
@@ -43,8 +43,9 @@ function Varifyemail() {
         } else {
             verifyOtp(email, otp).then((response) => {
                 console.log(response);
-                localStorage.setItem(userAuth, response.token);
-                dispatch(setReduxUser({userData:response.user, validUser: response.valid}));
+                localStorage.setItem(userAuth, response?.tokens?.accessToken);
+                localStorage.setItem(refreshToken, response?.tokens?.refreshToken);
+                dispatch(setReduxUser({userData:response?.user, validUser: response?.valid}));
                 window.location.reload();
             }).catch((error) => {
                 setError(error.message);

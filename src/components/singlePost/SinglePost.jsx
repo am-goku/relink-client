@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import "./SinglePost.css";
 
@@ -15,11 +15,12 @@ import { useNavigate } from "react-router-dom";
 import ProfilePic from "../profiles/ProfilePic";
 import NameField from "../profiles/NameField";
 import { toast } from "react-toastify";
+import EditPost from "../modal/EditPost";
 
 
 
 
-function SinglePost({postData}) {
+function SinglePost({postData, setSelectedPost, openEditor}) {
 
   const navigate = useNavigate()
   const user = useSelector((state)=> state?.user?.userData)
@@ -69,6 +70,11 @@ function SinglePost({postData}) {
     navigate(`/profile/${postUser?.username}`);
   }
 
+
+
+  //edit section
+
+
   return (
     <>
       <div className="p-4 mt-5 w-full select-none">
@@ -99,7 +105,7 @@ function SinglePost({postData}) {
             ) : null}
 
             <div className="self-center ml-auto cursor-pointer">
-              <Dropdown post={post} postUser={postUser} />
+              <Dropdown post={post} postUser={postUser} openEditor={openEditor} setSelectedPost={setSelectedPost}  />
             </div>
           </div>
 
@@ -145,6 +151,14 @@ function SinglePost({postData}) {
           </div>
         </div>
       </div>
+
+
+
+              
+      
+
+
+
     </>
   );
 }
