@@ -9,7 +9,7 @@ function Heart({size, color, post, setPost}) {
     const user = useSelector((state)=> state?.user?.userData)
 
     useEffect(()=>{
-        if(post?.likes?.includes(user._id)){
+        if(post?.likes?.includes(user?._id)){
             setIsRed(true);
         } else {
             setIsRed(false);
@@ -19,13 +19,13 @@ function Heart({size, color, post, setPost}) {
 
     const likeOrUnlike = () => {
         if(isRed){
-            unlikePost(user._id, post._id).then((response)=> {
+            unlikePost(user?._id, post?._id).then((response)=> {
                 setPost(response)
             }).catch((error)=> {
                 console.log(error);
             })
         } else {
-            likePost(user._id, post._id).then((response)=> {
+            likePost(user?._id, post?._id).then((response)=> {
                 setPost(response);
             }).catch((error)=> {
                 console.log(error);

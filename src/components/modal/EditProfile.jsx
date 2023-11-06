@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import CropImage from '../options/CropImg';
 import uploadCloudinary from '../../hooks/cloudinary';
@@ -8,10 +7,14 @@ import { updateUserData } from '../../services/apiMethods';
 import SettingsIcn from '../icons/SettingsIcn';
 import { updateReduxUser } from '../../utils/reducers/userReducer';
 import { FaSpinner } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 
 
 function EditProfile({setIsEdit}) {
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [loading, setLoading] = useState(false)
     const user = useSelector((state)=> state?.user?.userData);
@@ -76,7 +79,8 @@ function EditProfile({setIsEdit}) {
 
             
             updateUserData(user?.username, data).then((response)=> {
-                updateReduxUser(response)
+                dispatch(updateReduxUser(response));
+                window.location.reload();
                 setLoading(false);
             }).catch((err)=> {
                 setError(err.message);
@@ -180,7 +184,7 @@ function EditProfile({setIsEdit}) {
                   name="email"
                   id="email"
                   defaultValue={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value.trim())}
                   disabled
                   className="border-x-0 border-t-0 focus:ring-0 bg-transparent"
                 />
@@ -194,8 +198,8 @@ function EditProfile({setIsEdit}) {
                   type="text"
                   name="phone"
                   id="phone"
-                  defaultValue={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  defaultValue={phone || ''}
+                  onChange={(e) => setPhone(e.target.value.trim())}
                   className="border-x-0 border-t-0 focus:ring-0 bg-transparent"
                 />
               </div>
@@ -216,29 +220,58 @@ function EditProfile({setIsEdit}) {
               </div>
             </div>
             <div className="bg-slate-700 rounded w-32 h-9 ml-auto flex items-center hover:bg-slate-400">
-              {!loading? <button
-                className="w-full h-full text-center text-white font-poppins"
-                onClick={handleUpdate}
-              >
-                Update
-              </button>
-              :
-              <button className="w-full h-full text-center text-white font-poppins flex items-center justify-center" disabled>
-                <FaSpinner
-                  size={16}
-                  icon="spinner"
-                  spin={true}
-                  className="ml-auto mr-auto rotating-spinner"
-                />
-              </button>}
+              {!loading ? (
+                <button
+                  className="w-full h-full text-center text-white font-poppins"
+                  onClick={handleUpdate}
+                >
+                  Update
+                </button>
+              ) : (
+                <button
+                  className="w-full h-full text-center text-white font-poppins flex items-center justify-center"
+                  disabled
+                >
+                  <FaSpinner
+                    size={16}
+                    icon="spinner"
+                    spin={true}
+                    className="ml-auto mr-auto rotating-spinner"
+                  />
+                </button>
+              )}
             </div>
           </div>
 
-          <div className="EditCard w-[60rem] h-fit bg-[#C6C1C1] p-5 flex flex-col items-center gap-10 rounded-md">
-            <span className="text-2xl">Change Password</span>
-            <div className="w-full h-fit gap-3 flex flex-col">
+          <div className="EditCard w-[60rem] h-fit bg-[#C6C1C1] p-5 flex flex-col gap-10 rounded-md">
+            <span className="text-xl font-semibold">Change Password</span>
+            {/* //new password */}
+            <div className="w-full h-fit gap-3 flex flex- items-center">
+              <div className="label w-40">
+                <span>New password</span>
+              </div>
               <div className="flex gap-12 justify-center items-center">
-                <input type="password" name="" id="" />
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  className="bg-transparent focus:border-black focus:ring-0 border-x-0 border-t-0"
+                />
+              </div>
+            </div>
+
+            {/* confirm password */}
+            <div className="w-full h-fit gap-3 flex items-center">
+              <div className="label w-40">
+                <span>Confirm password</span>
+              </div>
+              <div className="flex gap-12 justify-center items-center">
+                <input
+                  type="password"
+                  name=""
+                  id=""
+                  className="bg-transparent focus:border-black focus:ring-0 border-x-0 border-t-0"
+                />
               </div>
             </div>
           </div>

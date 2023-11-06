@@ -4,7 +4,7 @@ import StrengthMeter from '../../components/options/PasswordStregth';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { postRegister } from '../../services/apiMethods';
-
+import OauthSignup from '../../components/Oauth/OauthSignup';
 
 function Signup() {
 
@@ -39,27 +39,7 @@ function Signup() {
         );
     }
 
-    const checkUserData = (e) =>{
-        // getCredentials().then((res)=>{
-        //     console.log("ress", res);
-        //     if(res.status === 200){
-        //         console.log('inside 200');
-        //         if(res.usernames.includes(username)){
-        //             console.log("inside username");
-        //             setError("Username already in use");
-        //         } else if(res.emails.includes(email)){
-        //             console.log("inside email");
-        //             setError("Email has already been registered");
-        //         } else {
-        //             setError(null);
-        //         }
-        //     } else {
-        //         setError(res.message)
-        //     }
-        // }).catch((err) =>{
-        //     setError(err.message)
-        // })
-    }
+
 
 
 
@@ -122,7 +102,6 @@ function Signup() {
                       // required
                       className="block w-full border-b bg-transparent border-black py-1.5 text-gray-900 placeholder:text-gray-950 focus:outline-none sm:text-sm sm:leading-6"
                       onChange={(e) => setEmail(e.target.value.trim())}
-                      onBlur={checkUserData}
                     />
                   </div>
                 </div>
@@ -143,7 +122,6 @@ function Signup() {
                       // required
                       className="block w-full border-b bg-transparent border-black py-1.5 text-gray-900 placeholder:text-gray-950 focus:outline-none sm:text-sm sm:leading-6"
                       onChange={(e) => setUsername(e.target.value.trim())}
-                      onBlur={checkUserData}
                     />
                   </div>
                 </div>
@@ -170,17 +148,16 @@ function Signup() {
                       }}
                     />
                   </div>
-                  {
-                    password?
-                    <div className='mt-2'>
-                    <StrengthMeter
-                      poorPassword={poorPassword}
-                      weakPassword={weakPassword}
-                      strongPassword={strongPassword}
-                      passwordError={passwordError}
-                    />
-                  </div>: null
-                  }
+                  {password ? (
+                    <div className="mt-2">
+                      <StrengthMeter
+                        poorPassword={poorPassword}
+                        weakPassword={weakPassword}
+                        strongPassword={strongPassword}
+                        passwordError={passwordError}
+                      />
+                    </div>
+                  ) : null}
                 </div>
                 <div>
                   <div className="flex items-center justify-between">
@@ -207,13 +184,15 @@ function Signup() {
                   <div className="text-red-700">{`! ${error}`}</div>
                 ) : null}
 
-                <div>
+                <div className='flex flex-col gap-2'>
                   <button
                     className="flex w-full justify-center rounded-md bg-[#1e1e1ec4] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     onClick={handleSubmit}
                   >
                     Register
                   </button>
+
+                  <OauthSignup />
                 </div>
               </div>
 

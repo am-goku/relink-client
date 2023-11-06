@@ -1,8 +1,18 @@
 export const userUrl = {
+  // login
   login: "/user/login",
+  Oauthlogin: "/user/login/Oauth",
+
+  // register
   register: "/user/register",
+  OauthReg: "/user/register/Oauth",
+
+  // fetch | search user data
   fetchUser: "/user/fetch-users",
   getCredentials: "/user/userdetails",
+  searchUser: (key) => `/user/search/${key}`,
+  fetchByUsername: (username) => `/user/fetch/username/${username}`,
+  fetchByEmail: (email)=> `/user/fetch-user/email/${email}`,
 
   //saved posts
   savePost: (userId, postId) => `/user/${userId}/save/post/${postId}`,
@@ -10,13 +20,8 @@ export const userUrl = {
 
   //connection
   followUser: (userId, followeeId) => `/user/${userId}/follow/${followeeId}`,
-  unfollowUser: (userId, followeeId) =>
-    `/user/${userId}/unfollow/${followeeId}`,
+  unfollowUser: (userId, followeeId) => `/user/${userId}/unfollow/${followeeId}`,
   getConnections: (userId) => `/user/fetch/connection/${userId}`,
-
-  //search user
-  searchUser: (key) => `/user/search/${key}`,
-  fetchByUsername: (username) => `/user/fetch/username/${username}`,
 
   //update user
   updateData: (username) => `/user/update/user/${username}`,

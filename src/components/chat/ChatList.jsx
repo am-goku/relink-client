@@ -69,7 +69,7 @@ function ChatList({setReciever}) {
         <div className="w-full h-14 flex justify-center items-center">
           <span className="font-poppins text-xl font-medium">Messages</span>
           <button
-            type='button'
+            type="button"
             className="text-3xl font-semibold ml-auto"
             data-modal-target="followers"
             data-modal-toggle="followers"
@@ -77,11 +77,17 @@ function ChatList({setReciever}) {
             +
           </button>
         </div>
-        {list.map((userId, index) => {
-          return (
-            <ChatUser doFunction={setReciever} userId={userId} key={index} />
-          );
-        })}
+        {list?.length > 0
+          ? list.map((userId, index) => {
+              return (
+                <ChatUser
+                  doFunction={setReciever}
+                  userId={userId}
+                  key={index}
+                />
+              );
+            })
+          : null}
       </div>
 
       <div
@@ -91,9 +97,9 @@ function ChatList({setReciever}) {
         className="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
       >
         <div className="relative w-full max-w-2xl max-h-full">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div className="relative bg-[#C6C1C1] rounded-lg shadow dark:bg-gray-700">
             <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white font-poppins">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white font-poppins">
                 People you follow
               </h3>
               <button
@@ -121,17 +127,21 @@ function ChatList({setReciever}) {
               </button>
             </div>
             <div className="p-6 space-y-6">
-              {following.map((userId, index) => {
-                return (
-                  <div onClick={closeModal}>
-                    <ChatUser
-                      doFunction={setReciever}
-                      userId={userId}
-                      key={index}
-                    />
-                  </div>
-                );
-              })}
+              {following ? (
+                following.map((userId, index) => {
+                  return (
+                    <div onClick={closeModal}>
+                      <ChatUser
+                        doFunction={setReciever}
+                        userId={userId}
+                        key={index}
+                      />
+                    </div>
+                  );
+                })
+              ) : (
+                <span>You not following anyone</span>
+              )}
             </div>
           </div>
         </div>

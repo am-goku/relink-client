@@ -1,9 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {getMessaging, onMessage} from "firebase/messaging"
-import { onBackgroundMessage,  } from "firebase/messaging/sw"
-
-
-
+import { GoogleAuthProvider, getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -21,7 +18,6 @@ const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
 export default messaging;
-
 
 
 export const subscribeTopic = (token) => {
@@ -44,3 +40,6 @@ export const subscribeTopic = (token) => {
    return true;
 }
 
+
+export const provider = new GoogleAuthProvider();
+export const auth = getAuth();

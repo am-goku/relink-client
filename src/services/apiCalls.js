@@ -40,10 +40,10 @@ export const apiCall = async (method, url, data) => {
             console.log("error in apiCalls:::::", response);
             resolve(response.data);
           }).catch((error)=>{
-            reject(error);
+            reject(error?.response?.data);
           })
         } else{
-          reject(error);
+          reject(error?.response?.data);
         }
       }
     } catch (err) {

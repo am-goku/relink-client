@@ -17,6 +17,7 @@
     "dotenv-webpack": "^8.0.1",
     "emoji-picker-react": "^4.5.3",
     "firebase": "^10.5.2",
+    "firebaseui": "^6.1.0",
     "flowbite": "^1.8.1",
     "flowbite-react": "^0.6.2",
     "immutable": "^5.0.0-beta.4",

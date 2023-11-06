@@ -6,7 +6,6 @@ import NavBar from "./components/layout/NavBar";
 import Header from "./components/layout/Header";
 import NavBarSm from "./components/layout/NavBar-Sm";
 import { useDispatch, useSelector } from "react-redux";
-import { userAuthenticator } from "./utils/reducers/userReducer";
 import { ToastContainer } from "react-toastify";
 import { initFlowbite } from "flowbite";
 
@@ -14,7 +13,6 @@ import messaging from "./firebase";
 import { getToken, isSupported } from "firebase/messaging";
 import { fcmToken } from "./const/localStorage";
 import { registerFcmToken } from "./services/apiMethods";
-import Protect from "./components/authenticator/Protect";
 
 function App() {
   const user = useSelector((state) => state?.user?.userData);
@@ -63,13 +61,15 @@ function App() {
     }
   }, [user]);
 
+
+  
   return (
     <>
       <ToastContainer />
       <div className="md:hidden sticky top-0 z-50">
         <Header />
       </div>
-      <div className="flex overflow-hidden mb-16 md:mb-0">
+      <div className="flex overflow-hidden mb-16 md:mb-0 select-none">
         <div className="hidden md:block">
           <NavBar path={path} />
         </div>

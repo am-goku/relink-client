@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setReduxUser } from "../../utils/reducers/userReducer";
 
+import OauthSignin from "../../components/Oauth/OauthSignin";
+
 
 function Login() {
   const navigate = useNavigate();
@@ -134,7 +136,7 @@ function Login() {
                   ) : null}
                 </div>
 
-                <div>
+                <div className="flex flex-col gap-2">
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-[#1e1e1ec4] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -142,6 +144,8 @@ function Login() {
                   >
                     Sign in
                   </button>
+
+                  <OauthSignin />
                 </div>
               </div>
 

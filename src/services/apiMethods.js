@@ -42,7 +42,22 @@ export const postLogin = (userData) => {
 
 }
 
-
+// @desc    Login google user
+// @route   POST /user/login/Oauth
+// @access  Public
+export const OauthLogin = (userData) => {
+    return new Promise((resolve, reject) => {
+        try {
+            apiCall('post', userUrl.Oauthlogin, userData).then((response)=> {
+                resolve(response);
+            }).catch((err)=> {
+                reject(err)
+            })
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 
 //@dec      Register user
 //method    POST
@@ -59,7 +74,34 @@ export const postRegister = (userData) => {
     })
 }
 
+// @desc    Register google user
+// @route   POST /user/register/Oauth
+// @access  Public
+export const registerOauth = (userData) => {
+    return new Promise((resolve, reject) => {
+        try {
+            apiCall("post", userUrl.OauthReg, userData).then((response) => {
+              resolve(response);
+            }).catch((error) => reject(error))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 
+
+// @desc    Get users with email
+// @route   GET /user/fetch-user/email/:email
+// @access  Public
+export const fetchUserByEmail = (email) => {
+    return new Promise((resolve, reject) => {
+        const url = userUrl.fetchByEmail(email);
+
+        apiCall('get', url).then((response) => {
+            resolve(response)
+        }).catch((err) => reject(err));
+    })
+}
 
 
 //@dec      Create post

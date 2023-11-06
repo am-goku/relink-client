@@ -116,6 +116,7 @@ function SinglePost({postData, setSelectedPost, openEditor}) {
               src={post.image}
               alt=""
               className="object-cover w-full h-full"
+              draggable={false}
             />
           </div>
           {/* show more funtion */}
