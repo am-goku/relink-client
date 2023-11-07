@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import CropImage from '../options/CropImg';
 import uploadCloudinary from '../../hooks/cloudinary';
-import { updateUserData } from '../../services/apiMethods';
+import { requestChangePassword, updateUserData } from '../../services/apiMethods';
 import SettingsIcn from '../icons/SettingsIcn';
 import { updateReduxUser } from '../../utils/reducers/userReducer';
 import { FaSpinner } from 'react-icons/fa';
@@ -95,6 +95,62 @@ function EditProfile({setIsEdit}) {
             setLoading(false);
         }
     }
+
+
+
+/// password section
+const [passError, setPasError] = useState();
+const [passSuccuss, setPassSuccuss] = useState();
+const [password, setPassword] = useState();
+const [cPassword, setCPassword] = useState();
+const [pLoading, setPLoading] = useState(false);
+
+
+const changePassword = () => {
+  try {
+    setPLoading(true);
+    const whitespaceRegExp = /^$|\s+/;
+    
+    if(password?.length < 5 || !password){
+      setPasError("Password must be at least 5 characters.");
+      return false;
+    }
+
+    if(whitespaceRegExp.test(password)){
+      setPasError("Password should not contain whitespaces.");
+      return false;
+    }
+
+    if(password !== cPassword){
+      setPasError("Password is not matching.");
+      console.log(password, cPassword);
+      return false;
+    }
+
+
+    requestChangePassword(user?._id, password).then((response)=> {
+      setPassSuccuss("Verification mail has been sent successfully, Please verify your email to confirm password change.");
+      return;
+    }).catch((err)=> {
+      setError(err);
+      alertError()
+    })
+
+  } catch (error) {
+    console.log(error);
+    setError(error);
+    alertError()
+  } finally {
+    setTimeout(()=> {
+      setPasError('')
+    }, 5000)
+    setPLoading(false);
+  }
+}
+
+
+
+
 
   return (
     <>
@@ -198,7 +254,7 @@ function EditProfile({setIsEdit}) {
                   type="text"
                   name="phone"
                   id="phone"
-                  defaultValue={phone || ''}
+                  defaultValue={phone || ""}
                   onChange={(e) => setPhone(e.target.value.trim())}
                   className="border-x-0 border-t-0 focus:ring-0 bg-transparent"
                 />
@@ -243,6 +299,7 @@ function EditProfile({setIsEdit}) {
             </div>
           </div>
 
+          {/* //////////////////////////////// password change section ////////////////////////////////////////////////////////////////// */}
           <div className="EditCard w-[60rem] h-fit bg-[#C6C1C1] p-5 flex flex-col gap-10 rounded-md">
             <span className="text-xl font-semibold">Change Password</span>
             {/* //new password */}
@@ -255,6 +312,7 @@ function EditProfile({setIsEdit}) {
                   type="password"
                   name="password"
                   id="password"
+                  onChange={(e) => setPassword(e.target.value.trim())}
                   className="bg-transparent focus:border-black focus:ring-0 border-x-0 border-t-0"
                 />
               </div>
@@ -268,11 +326,30 @@ function EditProfile({setIsEdit}) {
               <div className="flex gap-12 justify-center items-center">
                 <input
                   type="password"
-                  name=""
-                  id=""
+                  name="CPassword"
+                  id="CPassword"
+                  onChange={(e) => setCPassword(e.target.value.trim())}
                   className="bg-transparent focus:border-black focus:ring-0 border-x-0 border-t-0"
                 />
+                {passError && (
+                  <span className="text-sm text-red-700 self-end">
+                    ! {passError}
+                  </span>
+                )}
+                {passSuccuss && (
+                  <span className="text-sm text-red-700 self-end">
+                    {passSuccuss}
+                  </span>
+                )}
               </div>
+            </div>
+            <div className="bg-slate-700 rounded w- p-2 h-9 ml-auto flex items-center hover:bg-slate-400">
+              <button
+                className="w-full h-full text-center text-white font-poppins"
+                onClick={changePassword}
+              >
+                Update Password
+              </button>
             </div>
           </div>
         </div>

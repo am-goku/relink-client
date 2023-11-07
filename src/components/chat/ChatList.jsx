@@ -21,6 +21,9 @@ function ChatList({setReciever}) {
       }
     })
 
+    
+    
+
     useEffect(()=> {
       try {
         getRoomWithUserID(user?._id).then((rooms) => {
@@ -32,6 +35,7 @@ function ChatList({setReciever}) {
             }, [])
 
           setList(newList);
+          console.log(newList);
         }).catch((err) => {
           console.log(err);
         })
@@ -39,6 +43,9 @@ function ChatList({setReciever}) {
         console.log(error);
       }
     },[user])
+
+  
+
 
     useEffect(()=> {
       initFlowbite()
@@ -84,11 +91,14 @@ function ChatList({setReciever}) {
                   doFunction={setReciever}
                   userId={userId}
                   key={index}
+
                 />
               );
             })
           : null}
       </div>
+
+
 
       <div
         id="followers"

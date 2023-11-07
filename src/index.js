@@ -15,7 +15,7 @@ import { addNewReduxNotification } from './utils/reducers/notificationReducer';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // Listen for messages from the service worker
-navigator.serviceWorker.addEventListener('message', (event) => {
+navigator?.serviceWorker?.addEventListener('message', (event) => {
   const { messageType } = event.data;
   const { newData } = event.data.data;
 

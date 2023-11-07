@@ -40,7 +40,7 @@ function MessageBox() {
           setError(error);
         });
     }
-  },[user, reciever]);
+  },[user, reciever, navigate]);
 
 
   useEffect(() => {
@@ -57,9 +57,9 @@ function MessageBox() {
   return (
     <>
       <div className="w-full hidden p-5 md:flex items- gap-6">
-        <ChatList setReciever={setReciever} />
+        <ChatList setReciever={setReciever}  />
         {chatRoom && reciever ? (
-          <ChatBox reciever={reciever} chatRoom={chatRoom} />
+          <ChatBox reciever={reciever} chatRoom={chatRoom} setChatRoom={setChatRoom} />
         ) : (
           <div className="w-full h-full flex border-2 border-white rounded-lg flex-col justify-center items-center gap-3">
             <div className="rounded-full w-40 aspect-square border-white border-2 flex justify-center items-center">
@@ -74,9 +74,9 @@ function MessageBox() {
 
       <div className="w-full h-fit p-1 flex items-center md:hidden gap-6 justify-center">
           {chatRoom && reciever ? (
-            <ChatBox reciever={reciever} chatRoom={chatRoom} />
+            <ChatBox reciever={reciever} chatRoom={chatRoom} setChatRoom={setChatRoom} />
           ) : (
-            <ChatList setReciever={setReciever} />
+            <ChatList setReciever={setReciever}  />
           )}
       </div>
     </>

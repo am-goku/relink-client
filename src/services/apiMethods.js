@@ -302,6 +302,35 @@ export const fetchComments = (postId) => {
         }
     })
 };
+
+// @desc    Get reply comments
+//@route    GET /post/comments/replies/:commentId
+// @access  Registerd users
+export const getReplies = (commentId) => {
+    return new Promise((resolve, reject) => {
+        const url = postUrl.fetchReplies(commentId);
+
+        apiCall("get", url).then((response) => {
+            resolve(response)
+        }).catch((err) => reject(err));
+    })
+}
+
+// @desc    Reply comment
+//@route    POST /post/comments/reply-to/:commentId
+// @access  Registerd users
+export const replyToComment = ({commentId, postId, userId, content}) => {
+    return new Promise((resolve, reject) => {
+        const url = postUrl.addReply(commentId);
+        
+        apiCall("post", url, {postId, userId, content}).then((response) => {
+            resolve(response);
+        }).catch((error) => {
+            reject(error);
+        })
+    })
+};
+
 // @desc    Add comment
 //@route    POST /post/add-comment
 // @access  Registerd users
@@ -672,7 +701,23 @@ export const deleteNotifications = (userId) => {
         })
         .catch((error) => reject(error));
     });
-}
+};
+
+
+
+// @desc    Get chatRoom of two
+// @route   /messages/inbox/room/fetch/:firstId/:secondId
+// @access  Users - private
+export const getRoomWithIds = (firstId, secondId) => {
+  return new Promise((resolve, reject) => {
+    const url = messageUrl.getRooms(firstId, secondId);
+    apiCall("get", url)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((err) => reject(err));
+  });
+};
 
 
 
@@ -699,3 +744,19 @@ export const logoutUser = (userId) => {
     }
   });
 };
+
+
+
+
+/////////////////////// password related //////////////////////
+export const requestChangePassword = (userId, password)=> {
+    return new Promise((resolve, reject) => {
+        try {
+            apiCall("post", userUrl.reqChangePassword, {userId, password}).then((res) => {
+                resolve(res)
+            }).catch((err) => reject(err))
+        } catch (error) {
+            reject(error);
+        }
+    })
+}

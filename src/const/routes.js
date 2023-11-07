@@ -37,6 +37,9 @@ export const userUrl = {
   readNote: (notifyId) => `/user/notifications/read/${notifyId}`,
   deleteNotes: (userId) => `/user/notifications/delete/${userId}`,
 
+  //password related
+  reqChangePassword: '/user/password/verify/email',
+
   //logout
   logOut: (userId) => `/user/logout/${userId}`,
 };
@@ -78,7 +81,9 @@ export const postUrl = {
 
   //comments
   fetchComments: (postId) => `/post/fetch-comments/${postId}`,
+  fetchReplies: (commentId) => `/post/comments/replies/${commentId}`,
   addComment: "/post/add-comment",
+  addReply: (commentId) => `/post/comments/reply-to/${commentId}`,
   deleteComment: "/post/delete-comment",
 
   //report
@@ -110,4 +115,6 @@ export const messageUrl = {
     newMessage: (roomId) => `messages/inbox/new-message/${roomId}`,
 
     getRoomFromUser: (userId) => `/messages/inbox/get-room/userID/${userId}`,
+
+    getRooms: (firstId, secondId)=> `/messages/inbox/room/fetch/${firstId}/${secondId}`,
 };

@@ -16,6 +16,7 @@ import ProfilePic from "../profiles/ProfilePic";
 import NameField from "../profiles/NameField";
 import { toast } from "react-toastify";
 import EditPost from "../modal/EditPost";
+import PostSkelt from "../skeletons/PostSkelt";
 
 
 
@@ -85,13 +86,16 @@ function SinglePost({postData, setSelectedPost, openEditor}) {
               className="bg-white ml-1 w-11 h-11 rounded-full self-center cursor-pointer"
               onClick={seeProfile}
             >
-              <ProfilePic styleProp={"rounded-full"} image={postUser?.profilePic} />
+              <ProfilePic
+                styleProp={"rounded-full"}
+                image={postUser?.profilePic}
+              />
             </div>
             <div
               className="text-white font-semibold text-lg self-center cursor-pointer"
               onClick={seeProfile}
             >
-              <NameField name={postUser?.name || postUser?.username}  />
+              <NameField name={postUser?.name || postUser?.username} />
             </div>
             {!owner ? (
               <div className="font-thin font-mono self-center rounded-lg w-16 h-5">
@@ -105,19 +109,24 @@ function SinglePost({postData, setSelectedPost, openEditor}) {
             ) : null}
 
             <div className="self-center ml-auto cursor-pointer">
-              <Dropdown post={post} postUser={postUser} openEditor={openEditor} setSelectedPost={setSelectedPost}  />
+              <Dropdown
+                post={post}
+                postUser={postUser}
+                openEditor={openEditor}
+                setSelectedPost={setSelectedPost}
+              />
             </div>
           </div>
 
           {/* Larger square div for image */}
           <div className="max-w-full min-w-full mt-2 aspect-square bg-gray-300 rounded-lg overflow-hidden">
             {/* You can add your image here */}
-            <img
-              src={post.image}
-              alt=""
-              className="object-cover w-full h-full"
-              draggable={false}
-            />
+              <img
+                src={post.image}
+                alt=""
+                className="object-cover w-full h-full"
+                draggable={false}
+              />
           </div>
           {/* show more funtion */}
           <div className="m-2">
@@ -145,21 +154,17 @@ function SinglePost({postData, setSelectedPost, openEditor}) {
 
               <CommentIcn size={{ width: 33, height: 31 }} post={post} />
 
-              {
-                user?._id !== post?.userId ? <SaveIcn size={{ width: 36, height: 37 }} post={post} setError={setError} /> : null
-              }
+              {user?._id !== post?.userId ? (
+                <SaveIcn
+                  size={{ width: 36, height: 37 }}
+                  post={post}
+                  setError={setError}
+                />
+              ) : null}
             </div>
           </div>
         </div>
       </div>
-
-
-
-              
-      
-
-
-
     </>
   );
 }

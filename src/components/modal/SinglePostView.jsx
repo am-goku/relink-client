@@ -109,8 +109,8 @@ function SinglePostView({postId}) {
           <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128z" />
         </svg>
       </div>
-      <div className="bg-[#C6C1C1] w-full md:w-fit lg:h-fit h-full ml-auto mr-auto p-5 md:flex gap-10 select-none">
-        <div className="postImage border-black lg:border-r-2 p-2 grid gap-3 md:w-fit w-full">
+      <div className="bg-[#C6C1C1] w-full lg:w-fit lg:h-fit h-full ml-auto mr-auto p-5 lg:flex gap-10 select-none">
+        <div className="postImage border-black bg-[#b4b2b2] lg:border-r-2 p-2 grid gap-3 lg:w-fit w-full">
           <div className="userInfo flex items-center gap-3">
             <div
               className="profilePic rounded-full aspect-square w-10"
@@ -129,14 +129,20 @@ function SinglePostView({postId}) {
               {postOwner?.name || postOwner?.username}
             </span>
           </div>
-          <div className="md:w-[40rem] w-fit">
-            <img src={post?.image} alt="" className="rounded select-none" />
-          </div>
-          {post?.description ? (
-            <div className="max-w-xl max-h-40 flex flex-col overflow-y-auto no-scrollbar">
+          <div className="lg:w-[40rem] w-full self-center flex flex-col justify-center gap-2">
+            <img
+              src={post?.image}
+              alt=""
+              className="rounded select-none"
+              draggable={false}
+            />
+            {post?.description ? (
+            <div className="max-w-xl max-h-40 flex flex-col w-full  overflow-y-auto no-scrollbar">
               <span className="font-poppins">{post?.description}</span>
             </div>
           ) : null}
+          </div>
+          
           <div className="flex mt-2 ml-2 gap-8 text-center">
             <div className="">
               <Heart
@@ -157,7 +163,7 @@ function SinglePostView({postId}) {
             </div>
           </div>
         </div>
-        <div className="md:w-[30rem] h-fit w-full mt-5 pb-2 relative">
+        <div className="lg:w-[30rem] h-fit w-full mt-5 pb-2 relative">
           <span className="font-medium">Comments : {comments.length}</span>
           <div className="bg-stone-400 flex gap-3 w-full h-fit rounded-lg mt-3 p-2">
             <textarea
@@ -175,7 +181,7 @@ function SinglePostView({postId}) {
               <SendIcn size={{ width: 35, height: 35 }} />
             </button>
           </div>
-          <div className="bg-slate-500 w-full md:max-h-[45rem] h-fit max-h-[40rem] overflow-auto no-scrollbar mt-4 relative p-5 flex flex-col gap-3 rounded">
+          <div className="border border-black w-full lg:max-h-[38rem] h-fit max-h-[40rem] overflow-auto no-scrollbar mt-4 relative p-5 flex flex-col gap-3 rounded">
             {comments.map((comment, index) => {
               return <Comment data={comment} key={comment._id} />;
             })}

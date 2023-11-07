@@ -6,7 +6,7 @@ import EmojiPicker from 'emoji-picker-react';
 import EmojiIcn from '../icons/EmojiIcn';
 import { initFlowbite } from 'flowbite';
 
-function TypeBox({chatRoom, setMessages, messages, recieverId, socket}) {
+function TypeBox({chatRoom, setMessages, messages, recieverId, socket, setChatRoom}) {
 
   const emojiRef = useRef()
   const emojiIcnRef = useRef();
@@ -20,6 +20,15 @@ function TypeBox({chatRoom, setMessages, messages, recieverId, socket}) {
 
   const user = useSelector((state)=> state?.user?.userData);
 
+  const updateChatRoom = (data) => {
+    const updatedRoom = chatRoom;
+
+    updatedRoom.lastMessage = data?.textMessage;
+    updatedRoom.lastMessageTime = data?.createdAt;
+
+    return updatedRoom;
+  }
+
   const sendNewMessage = () => {
     if(!text){
       return;
@@ -30,6 +39,7 @@ function TypeBox({chatRoom, setMessages, messages, recieverId, socket}) {
         .then((response) => {
           console.log(response);
           setMessages([...messages, response]); 
+          setChatRoom(updateChatRoom(response));
           socket.emit("sendMessage", chatRoom?._id, response, user?._id, (res)=> {
           });
           setText('');
