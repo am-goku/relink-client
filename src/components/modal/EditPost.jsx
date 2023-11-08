@@ -18,7 +18,7 @@ function EditPost({post, setPost, closeEditor}) {
         console.log(comment);
         setComments(comment);
       }).catch((error)=> {
-        setError(error.message);
+        setError(error?.message);
       })
     }, [post])
 
@@ -40,7 +40,7 @@ function EditPost({post, setPost, closeEditor}) {
             setPost(response)
             closeEditor.current.click();
           }).catch((error)=> {
-            setError(error.message)
+            setError(error?.message)
           })
         }
     }

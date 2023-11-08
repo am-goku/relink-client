@@ -22,7 +22,7 @@ function ConnectionList({title, setTitle, user}) {
             setFollowers(response?.followers);
             setFollowing(response?.following);
         }).catch((error)=> {
-            setError(error.message);
+            setError(error?.message);
         });
 
 
@@ -32,7 +32,7 @@ function ConnectionList({title, setTitle, user}) {
             setCurrentUserConnections(response)
           })
           .catch((error) => {
-            setError(error.message);
+            setError(error?.message);
           });
 
     }, [user, currentUser])

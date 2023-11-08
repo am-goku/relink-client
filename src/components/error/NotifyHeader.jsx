@@ -3,11 +3,10 @@ import React from 'react'
 function NotifyHeader({error}) {
   return (
     <>
-      {error ? (
         <div
           id="sticky-banner"
           tabIndex="-1"
-          className="fixed top-0 left-0 z-50 flex justify-between w-full p-4 border-b border-gray-200 bg-red-500 opacity-50 dark:bg-gray-700 dark:border-gray-600"
+          className="fixed top-0 left-0 z-50 flex justify-between w-full p-4 border-b border-gray-200 bg-red-800 opacity-50 dark:bg-gray-700 dark:border-gray-600"
         >
           <div className="flex items-center mx-auto">
             <p className="flex items-center text-sm font-normal text-white opacity-100 dark:text-gray-400">
@@ -51,7 +50,6 @@ function NotifyHeader({error}) {
             </button>
           </div>
         </div>
-      ) : null}
     </>
   );
 }

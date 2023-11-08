@@ -9,6 +9,7 @@ import { initFlowbite } from 'flowbite';
 import { useDispatch } from 'react-redux';
 import { refreshToken, userAuth } from '../../const/localStorage';
 import { setReduxUser } from '../../utils/reducers/userReducer';
+import NotifyHeader from '../error/NotifyHeader';
 
 
 
@@ -43,14 +44,19 @@ function OauthSignin() {
           dispatch(setReduxUser({userData: response?.user, validUser: response?.isValid}));
           window.location.reload();
         }).catch((error) => {
+          console.log(error);
           if(error?.error_code === "USER_NOT_FOUND" && error?.status === 404){
             setUsername('')
             setUserData(data);
             modalRef.current.click();
           }
+
+          if(error?.status === 403){
+            setError("Sorry, Your account has been temporarily blocked.");
+          }
         })
       } catch (error) {
-        setError(error.message)
+        setError(error?.message)
       }
     }
 
@@ -66,7 +72,7 @@ function OauthSignin() {
           }
           googeSignIn(newData);
         }).catch((error) => {
-          setError(error.message)
+          setError(error?.message)
         })
     }
 
@@ -87,12 +93,12 @@ function OauthSignin() {
           dispatch(setReduxUser({userData: response?.user, validUser: response?.isValid}));
           window.location.reload();
         }).catch((error) => {
-          setError(error.message);
+          setError(error?.message);
           console.log(error);
         })
 
       } catch (error) {
-        setError(error.message);
+        setError(error?.message);
       }
     }
 
@@ -113,7 +119,9 @@ function OauthSignin() {
         Sign in with Google
       </button>
 
-
+{
+  error && <NotifyHeader error={error} />
+}
 
 
 {/* modal area for signup and username */}

@@ -20,7 +20,7 @@ function Comment({data}) {
       console.log("comment user:", response);
       setCommenter(response[0]);
     }).catch((error)=> {
-      setError(error.message);
+      setError(error?.message);
     });
   },[data]);
 
@@ -43,7 +43,7 @@ function Comment({data}) {
     getReplies(data?._id).then((replies) =>{
       setReplies(replies);
     }).catch((error) =>{
-      setError(error.message);
+      setError(error?.message);
     })
   })
 

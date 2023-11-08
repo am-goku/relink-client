@@ -19,7 +19,7 @@ function ConnectionBtn({user, color, width, height, setFollowers}) {
         getConnections(currentUser?._id).then((connection)=>{
             setFollowing(connection.following);
         }).catch((error)=>{
-            setError(error.message);
+            setError(error?.message);
         })
     }, [currentUser]);
 
@@ -28,7 +28,7 @@ function ConnectionBtn({user, color, width, height, setFollowers}) {
             setFollowing(response.userConnection.following);
             setFollowers(response.followeeConnection.followers)
         }).catch((error) => {
-            setError(error.message);
+            setError(error?.message);
         })
     }
 
@@ -39,7 +39,7 @@ function ConnectionBtn({user, color, width, height, setFollowers}) {
           setFollowers(response.followeeConnection.followers);
         })
         .catch((error) => {
-          setError(error.message);
+          setError(error?.message);
         });
     };
 

@@ -1,15 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ChatList from '../../components/chat/ChatList'
 import ChatBox from '../../components/chat/ChatBox'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUpChatRoom } from '../../services/apiMethods';
 import { io } from 'socket.io-client';
 import MessageIcn from '../../components/icons/MessageIcn';
 import { useNavigate } from 'react-router-dom';
+import { setCurrentRoom, updateReduxChatRoom } from '../../utils/reducers/userReducer';
 
 function MessageBox() {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch();
   const [error, setError] = useState('')
   const [chatRoom, setChatRoom] = useState();
   const user = useSelector((state)=> state?.user?.userData);
@@ -31,6 +33,7 @@ function MessageBox() {
       setUpChatRoom(user?._id, reciever?._id)
         .then((chatRoom) => {
           setChatRoom(chatRoom);
+          dispatch(setCurrentRoom(chatRoom));
           console.log(chatRoom);
         })
         .catch((error) => {
@@ -40,7 +43,7 @@ function MessageBox() {
           setError(error);
         });
     }
-  },[user, reciever, navigate]);
+  },[user, reciever, navigate, dispatch]);
 
 
   useEffect(() => {
@@ -52,6 +55,7 @@ function MessageBox() {
       socket.on("newMessage", (data, res) => {
         console.log("data recieved from socketIo:", data);
       });
+
   },[chatRoom]);
 
   return (

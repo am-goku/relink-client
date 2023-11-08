@@ -10,7 +10,6 @@ import { io }  from 'socket.io-client'
 import MessageArea from './MessageArea'
 
 function ChatBox({reciever, chatRoom, setChatRoom}) {
-  
 
     const user = useSelector((state)=>state?.user?.userData);
 
@@ -41,7 +40,7 @@ function ChatBox({reciever, chatRoom, setChatRoom}) {
             });
         }
       } catch (error) {
-        setError(error.message)
+        setError(error?.message)
       }
     },[chatRoom, reciever]);
 

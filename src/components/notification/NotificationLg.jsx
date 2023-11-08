@@ -27,7 +27,7 @@ const notifications = useSelector((state) => state?.notification?.notifications)
        dispatch(clearReduxNotifications());
      })
      .catch((error) => {
-       setError(error.message);
+       setError(error?.message);
      });
  };
 

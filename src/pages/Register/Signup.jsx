@@ -62,7 +62,7 @@ function Signup() {
                     setError(response.message);
                   }
                 }).catch((error) => {
-                  setError(error.message)
+                  setError(error?.message)
                 })
             }
         } catch (error) {

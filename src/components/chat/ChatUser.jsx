@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react'
 import ProfilePic from '../profiles/ProfilePic';
 import NameField from '../profiles/NameField';
 import { getRoomWithIds, getUser } from '../../services/apiMethods';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getTimeDifference } from '../../hooks/timeAgo';
+import { setCurrentRoom } from '../../utils/reducers/userReducer';
 
 function ChatUser({userId, doFunction}) {
 
+  const dispatch = useDispatch()
     const currentUser = useSelector((state)=>state?.user?.userData)
     const [online, setOnline] = useState(true);
     const [user, setUser] = useState();
+    const currentRoom = useSelector((state)=>state?.user?.currentRoom);
 
     const [room, setRoom] = useState();
     const [time, setTime] = useState();
@@ -17,11 +20,19 @@ function ChatUser({userId, doFunction}) {
     useEffect(()=> {
       getRoomWithIds(userId, currentUser?._id).then((response) =>{
         setRoom(response);
+        
         if(response?.lastMessage && response?.lastMessageTime){
           setTime(getTimeDifference(response?.lastMessageTime))
         }
       })
-    },[currentUser, userId])
+    },[currentUser, userId, dispatch])
+
+    
+    useEffect(()=> {
+      if(currentRoom?.users?.includes(userId)){
+        setRoom(currentRoom)
+      }
+    }, [currentRoom, userId])
 
     
     useEffect(()=> {

@@ -21,7 +21,7 @@ useEffect(()=> {
     getUser(data?.userId).then((user) => {
         setCommenter(user[0]);
     }).catch((error) => {
-        setError(error.message);
+        setError(error?.message);
     })
 }, [data])
 

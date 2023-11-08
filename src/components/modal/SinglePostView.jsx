@@ -41,7 +41,7 @@ function SinglePostView({postId}) {
           setComments(response);
         })
         .catch((error) => {
-          setError(error.message);
+          setError(error?.message);
         });
     }, [post, postId]);
 
@@ -53,7 +53,7 @@ function SinglePostView({postId}) {
             setPostOwner(response[0]);
           })
           .catch((error) => {
-            setError(error.message);
+            setError(error?.message);
           });
       }
     }, [post]);

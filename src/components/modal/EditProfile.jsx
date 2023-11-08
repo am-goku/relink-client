@@ -90,7 +90,7 @@ function EditProfile({setIsEdit}) {
 
             
         } catch (error) {
-            setError(error.message);
+            setError(error?.message);
             alertError();
             setLoading(false);
         }
@@ -337,7 +337,7 @@ const changePassword = () => {
                   </span>
                 )}
                 {passSuccuss && (
-                  <span className="text-sm text-red-700 self-end">
+                  <span className="text-sm text-green-700 self-end">
                     {passSuccuss}
                   </span>
                 )}
@@ -347,8 +347,18 @@ const changePassword = () => {
               <button
                 className="w-full h-full text-center text-white font-poppins"
                 onClick={changePassword}
+                disabled={pLoading}
               >
-                Update Password
+                {pLoading ? (
+                  <FaSpinner
+                    size={16}
+                    icon="spinner"
+                    spin={true}
+                    className="ml-auto mr-auto rotating-spinner"
+                  />
+                ) : (
+                  "Update Password"
+                )}
               </button>
             </div>
           </div>

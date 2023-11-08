@@ -64,7 +64,7 @@ export const regValidate = async({email, username, password, password2, setErr})
 
             resolve(flag);
         } catch (error) {
-            setErr(error.message)
+            setErr(error?.message)
             console.log("Error in regValidate:", error);
             resolve(false);
         }

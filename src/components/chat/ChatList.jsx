@@ -1,29 +1,39 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ChatUser from './ChatUser';
 import { getConnections, getRoomWithUserID } from '../../services/apiMethods';
 import { initFlowbite } from 'flowbite';
 import { useNavigate } from 'react-router-dom';
+import { setReduxChatRoom, updateReduxChatRoom } from '../../utils/reducers/userReducer';
 
 function ChatList({setReciever}) {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch();
     const user = useSelector((state) => state?.user?.userData)
+    const reduxChatRoom = useSelector((state) => state?.user?.chatRooms)
     const [following, setFollowing] = useState([])
     const [error, setError] = useState('')
     const modalDiv = useRef();
 
     const [list, setList] = useState([])
 
+
+
+
+
+
+    //for validation purposes
     useEffect(()=> {
       if(!user){
         navigate('/login')
       }
     })
 
-    
-    
 
+
+    
+    //fetching rooms and setting it in redux state chat rooms
     useEffect(()=> {
       try {
         getRoomWithUserID(user?._id).then((rooms) => {
@@ -34,19 +44,28 @@ function ChatList({setReciever}) {
               return acc.concat(otherUser);
             }, [])
 
-          setList(newList);
-          console.log(newList);
+          // setList(newList);
+          dispatch(setReduxChatRoom(newList))
         }).catch((err) => {
           console.log(err);
         })
       } catch (error) {
         console.log(error);
       }
-    },[user])
+    },[user, dispatch])
+
+
+    // setting up the chat room in redux state(only user ids are )
+    useEffect(()=> {
+      if(reduxChatRoom){
+        setList(reduxChatRoom)
+      }
+    }, [reduxChatRoom])
+
 
   
 
-
+    //getting connections to show the people user following
     useEffect(()=> {
       initFlowbite()
       try {
@@ -56,16 +75,16 @@ function ChatList({setReciever}) {
               setFollowing(response?.following);
             })
             .catch((error) => {
-              setError(error.message);
+              setError(error?.message);
             });
         }
       } catch (error) {
-        setError(error.message);
+        setError(error?.message);
       }
     }, [user]);
 
 
-
+    // to close a modal
     const closeModal = () => {
       modalDiv.current.click();
     }

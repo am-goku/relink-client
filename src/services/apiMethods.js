@@ -19,7 +19,7 @@ export const getCredentials = () => {
             });
         } catch (error) {
           console.log(error);
-          resolve({ status: 500, message: error.message });
+          resolve({ status: 500, message: error?.message });
         }
     })
 }
@@ -36,7 +36,7 @@ export const postLogin = (userData) => {
             })
         } catch (error) {
             console.log(error);
-            resolve({ status: 500, message: error.message });
+            resolve({ status: 500, message: error?.message });
         }
     })
 
@@ -174,7 +174,7 @@ export const getUser = (userId) =>{
                 reject(error);
             })
         } catch (error) {
-            reject({status:500, message:error.message})
+            reject({status:500, message:error?.message})
         }
     })
 };

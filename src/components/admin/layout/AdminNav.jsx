@@ -28,11 +28,12 @@ function AdminNav() {
 
         <div className="items-center w-full h-fit flex flex-col mt-24">
           <div
+            onClick={()=> navigate("/admin")}
             className={
               "w-full h-fit aspect-square self-center flex mt-3 border-b justify-center   cursor-pointer text-center text-white navSelection rounded-md"
             }
           >
-            <div className="flex self-center justify-end items-center h-fit " onClick={()=> navigate("/admin")}>
+            <div className="flex self-center justify-end items-center h-fit " >
               <ReportIcn />
             </div>
           </div>
@@ -60,11 +61,12 @@ function AdminNav() {
           </div>
 
           <div
+            onClick={()=> navigate("/admin/reports")}
             className={
               "w-full h-fit self-center aspect-square flex mt-3 border-b justify-center  cursor-pointer text-center text-white navSelection rounded-md"
             }
           >
-            <div className="flex self-center justify-end items-center h-fit ">
+            <div className="flex self-center justify-end items-center h-fit " >
               <ChatIcn />
             </div>
           </div>

@@ -21,7 +21,7 @@ import PostSkelt from "../skeletons/PostSkelt";
 
 
 
-function SinglePost({postData, setSelectedPost, openEditor}) {
+function SinglePost({postData, setSelectedPost, openEditor, setLikePost, likeModal}) {
 
   const navigate = useNavigate()
   const user = useSelector((state)=> state?.user?.userData)
@@ -71,6 +71,11 @@ function SinglePost({postData, setSelectedPost, openEditor}) {
     navigate(`/profile/${postUser?.username}`);
   }
 
+
+  const showLikes = () => {
+    setLikePost(post);
+    likeModal.current.click();
+  }
 
 
   //edit section
@@ -134,7 +139,7 @@ function SinglePost({postData, setSelectedPost, openEditor}) {
           </div>
           <div className="mt-1">
             {likes?.length > 0 ? (
-              <span className="pl-2 text-white text-sm font-light select-none">
+              <span onClick={showLikes} className="pl-2 text-white text-sm font-light select-none">
                 {likes?.includes(user?._id)
                   ? `You ${
                       likes.length > 1 ? `and ${likes?.length - 1} other` : ""

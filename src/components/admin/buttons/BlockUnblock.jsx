@@ -22,7 +22,7 @@ function BlockUnblock({user, setUser, setError}) {
               theme: "dark",
             });
         }).catch((error) => {
-            setError(error.message);
+            setError(error?.message);
         });
     }
 

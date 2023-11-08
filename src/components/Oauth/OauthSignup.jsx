@@ -37,7 +37,7 @@ const signIn = (data) => {
     localStorage.setItem(refreshToken, response?.tokens?.refreshToken);
     dispatch(setReduxUser({userData: response?.user, validUser: response?.isValid}))
   }).catch((error)=> {
-    setError(error.message)
+    setError(error?.message)
   })
 }
 
@@ -64,7 +64,7 @@ const signIn = (data) => {
           })
         })
         .catch((error) => {
-          setError(error.message);
+          setError(error?.message);
         });
     };
 
@@ -90,11 +90,11 @@ const signIn = (data) => {
             window.location.reload();
           })
           .catch((error) => {
-            setError(error.message);
+            setError(error?.message);
             console.log(error);
           });
       } catch (error) {
-        setError(error.message);
+        setError(error?.message);
       }
     };
 

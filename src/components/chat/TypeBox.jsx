@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import SendIcn from '../icons/SendIcn'
 import { sendMessage } from '../../services/apiMethods';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import EmojiPicker from 'emoji-picker-react';
 import EmojiIcn from '../icons/EmojiIcn';
 import { initFlowbite } from 'flowbite';
+import { updateCurrentRoom, updateReduxChatRoom } from '../../utils/reducers/userReducer';
 
 function TypeBox({chatRoom, setMessages, messages, recieverId, socket, setChatRoom}) {
 
   const emojiRef = useRef()
   const emojiIcnRef = useRef();
+
+  const dispatch = useDispatch();
 
   useEffect(()=> {
     initFlowbite()
@@ -20,14 +23,8 @@ function TypeBox({chatRoom, setMessages, messages, recieverId, socket, setChatRo
 
   const user = useSelector((state)=> state?.user?.userData);
 
-  const updateChatRoom = (data) => {
-    const updatedRoom = chatRoom;
 
-    updatedRoom.lastMessage = data?.textMessage;
-    updatedRoom.lastMessageTime = data?.createdAt;
 
-    return updatedRoom;
-  }
 
   const sendNewMessage = () => {
     if(!text){
@@ -37,17 +34,24 @@ function TypeBox({chatRoom, setMessages, messages, recieverId, socket, setChatRo
     try {
       sendMessage(chatRoom?._id, text, user?._id)
         .then((response) => {
-          console.log(response);
-          setMessages([...messages, response]); 
-          setChatRoom(updateChatRoom(response));
+          console.log("new updated chat",chatRoom);
+          setMessages([...messages, response]);
+
+
+          dispatch(updateReduxChatRoom(recieverId));// updating chat rooms in redux
+          dispatch(updateCurrentRoom(response)); // updating current chat room in redux
+
+
           socket.emit("sendMessage", chatRoom?._id, response, user?._id, (res)=> {
           });
-          setText('');
-          textRef.current.value = '';
+          
         })
         .catch((err) => {
           console.log(err);
-        });
+        }).finally(()=> {
+          setText("");
+          textRef.current.value = "";
+        })
     } catch (error) {
       console.log(error);
     }

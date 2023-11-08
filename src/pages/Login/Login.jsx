@@ -61,7 +61,9 @@ function Login() {
       } else {
         setError(response.message);
       }
-    });
+    }).catch((error)=> {
+      setError(error.message);
+    })
   };
 
   return (

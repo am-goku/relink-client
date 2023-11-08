@@ -25,7 +25,7 @@ const uploadCloudinary = async (imgData, setErr) => {
               })
               .catch((error) => {
                 console.log("Error uploading: ", error);
-                setErr(error.message);
+                setErr(error?.message);
               });
         })
     } catch (error) {

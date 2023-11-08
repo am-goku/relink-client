@@ -5,7 +5,7 @@ import TableHead from "./TableHead";
 import SearchBar from "./SearchBar";
 import UserFilter from "./UserFilter";
 
-const Table = () => {
+const Table = ({changeUser}) => {
   const [users, setUsers] = useState([])
   const [error, setError] = useState('')
 
@@ -25,7 +25,7 @@ const Table = () => {
           setLastPage(false)
         }
     }).catch((error)=>{
-      setError(error.message);
+      setError(error?.message);
     })
   },[currentPage, searchTerm]);
 
@@ -46,7 +46,7 @@ const Table = () => {
           <TableHead />
           <tbody>
             {users.map((user, index) => {
-              return <TableRow userData={user} key={user._id} />;
+              return <TableRow changeUser={changeUser} userData={user} key={user._id} />;
             })}
           </tbody>
         </table>

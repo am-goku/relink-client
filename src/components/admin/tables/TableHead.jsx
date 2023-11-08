@@ -50,4 +50,35 @@ export const PostTableHead = () => {
   );
 };
 
+
+
+
+
+export const ReportTableHead = () => {
+  return (
+    <>
+      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" className="px-6 py-3">
+            Report
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Reported by
+          </th>
+          <th scope="col" className="px-6 py-3">
+            date
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Reason
+          </th>
+         
+          <th scope="col" className="px-6 py-3">
+            Action
+          </th>
+        </tr>
+      </thead>
+    </>
+  );
+};
+
 export default TableHead

@@ -6,7 +6,7 @@ import ConnectionBtn from "../icons/ConnectionBtn";
 import { getConnections } from "../../services/apiMethods";
 import ConnectionList from "../modal/ConnectionList";
 
-function ProfileCard({ user, setIsEdit }) {
+function ProfileCard({ user, setIsEdit, admin }) {
 
 
   const [owner, setOwner] = useState(false);
@@ -18,17 +18,23 @@ function ProfileCard({ user, setIsEdit }) {
   const [followers, setFollowers] = useState([]);
 
   useEffect(()=> {
-    getConnections(user._id).then((connections)=>{
-      setFollowers(connections.followers);
-      setFollowing(connections.following);
-    }).catch((error)=>{
-      setError(error.message);
-    })
+    if(user){
+      getConnections(user._id)
+        .then((connections) => {
+          setFollowers(connections.followers);
+          setFollowing(connections.following);
+        })
+        .catch((error) => {
+          setError(error?.message);
+        });
+    }
   }, [user])
 
   useEffect(()=> {
-    if(currentUser?._id === user?._id){
-      setOwner(true);
+    if(user && currentUser){
+      if (currentUser?._id === user?._id) {
+        setOwner(true);
+      }
     }
   }, [user, currentUser]);
 
@@ -38,12 +44,16 @@ function ProfileCard({ user, setIsEdit }) {
 
   return (
     <>
-      {title && <ConnectionList title={title} setTitle={setTitle} user={user} />}
+      {title && (
+        <ConnectionList title={title} setTitle={setTitle} user={user} />
+      )}
 
       <div className="bg-[#1E1E1EC4] opacity-70 lg:items-center lg:px-60 lg:py-24 w-full p-7 lg:p-0 lg:w-fit h-fit mr-auto ml-auto lg:mt-7 flex lg:grid lg:grid-flow-col lg:gap-20 gap-12 relative select-none lg:rounded">
-        <div className="absolute lg:w-5 lg:h-5 right-0 top-6 lg:m-8 lg:mr-10">
-          <Options user={user} setIsEdit={setIsEdit} />
-        </div>
+        {!admin && (
+          <div className="absolute lg:w-5 lg:h-5 right-0 top-6 lg:m-8 lg:mr-10">
+            <Options user={user} setIsEdit={setIsEdit} />
+          </div>
+        )}
         <div className="rounded-full lg:w-36 lg:h-36 w-20 h-20 m-3 lg:m-0 bg-gray-50 relative border-white border-x-2 border-y-2 lg:-ml-20">
           <img
             src={user?.profilePic}
@@ -71,7 +81,7 @@ function ProfileCard({ user, setIsEdit }) {
           </div>
           <div className="flex gap-5">
             <div
-              onClick={()=> setTitle("followers")}
+              onClick={() => setTitle("followers")}
               className="mt-8 grid gap-1"
             >
               <span className="lg:text-xl font-poppins text-center">
@@ -94,7 +104,7 @@ function ProfileCard({ user, setIsEdit }) {
             </div>
           </div>
           {/* follow unfollow btn */}
-          {!owner && (
+          {!owner && !admin ? (
             <div className="w-36 mt-3 h-10 flex justify-center items-center">
               <ConnectionBtn
                 user={user}
@@ -102,7 +112,7 @@ function ProfileCard({ user, setIsEdit }) {
                 setFollowers={setFollowers}
               />
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </>

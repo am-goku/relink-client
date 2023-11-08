@@ -36,7 +36,7 @@ function Varifyemail() {
                 console.log(response);
                 setOpen(true);
             }).catch((error) => {
-                setError(error.message);
+                setError(error?.message);
             }).finally(() => {
                 setLoading(false);
             })
@@ -48,7 +48,7 @@ function Varifyemail() {
                 dispatch(setReduxUser({userData:response?.user, validUser: response?.valid}));
                 window.location.reload();
             }).catch((error) => {
-                setError(error.message);
+                setError(error?.message);
             }).finally(() => {
                 setLoading(false);
             })

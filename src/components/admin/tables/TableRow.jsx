@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import BlockUnblock from '../buttons/BlockUnblock';
+import ViewProfile from '../buttons/ViewProfile';
 
-function TableRow({ userData, index, key }) {
+function TableRow({ userData, index, key, changeUser }) {
 
   const [error, setError] = useState('')
   const [user, setUser] = useState(userData);
@@ -38,9 +39,15 @@ function TableRow({ userData, index, key }) {
         </td>
         <td className="px-6 py-4">
           <BlockUnblock user={user} setUser={setUser} setError={setError} />
-          <button className="font-medium text-[#273B4A] dark:text-blue-500 hover:underline ml-5">
+          {/* <ViewProfile user={userData} /> */}
+          <button
+            onClick={()=> changeUser(user)}
+            className="font-medium text-[#273B4A] dark:text-blue-500 hover:underline ml-5"
+          >
             View profile
           </button>
+
+          {/* here change user is passing and thinking topo change the div \vie profile */}
         </td>
       </tr>
     </>

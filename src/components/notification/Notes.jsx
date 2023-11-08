@@ -13,7 +13,7 @@ function Notes({notification}) {
             getUser(notification?.from).then((response)=> {
                 setFromUser(response[0])
             }).catch((error)=> {
-                setError(error.message)
+                setError(error?.message)
             })
         }
     }, [notification])

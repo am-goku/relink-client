@@ -33,7 +33,7 @@ function UserProfile() {
           setUser(response);
         })
         .catch((error) => {
-          setError(error.message);
+          setError(error?.message);
         });
   }, [username]);
 
@@ -43,7 +43,7 @@ function UserProfile() {
         setPosts(response.posts);
       })
       .catch((error) => {
-        setError(error.message);
+        setError(error?.message);
       });
   }, [user]);
 
@@ -62,7 +62,7 @@ function UserProfile() {
             {posts?.length === 0 ? (
               <div className="text-center">No posts to show</div>
             ) : error ? (
-              <div className="text-center">{error.message}</div>
+              <div className="text-center">{error?.message}</div>
             ) : null}
           </div>
         </div>

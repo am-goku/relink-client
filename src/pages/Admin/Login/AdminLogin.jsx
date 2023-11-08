@@ -4,7 +4,7 @@ import { adminPostLogin } from "../../../services/admin/apiMethods";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setReduxAdmin} from "../../../utils/reducers/adminReducer";
-import { adminAuth } from "../../../const/localStorage";
+import { adminAuth, adminRefresh } from "../../../const/localStorage";
 
 function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -51,6 +51,7 @@ function AdminLogin() {
     const response = await adminPostLogin(adminData);
     if (response.status === 200) {
       localStorage.setItem(adminAuth, response?.adminTokens?.accessToken);
+      localStorage.setItem(adminRefresh, response?.adminTokens?.refreshToken)
       dispatch(setReduxAdmin({adminData:response.admin, validAdmin:response.valid}))
       window.location.reload();
     } else {
