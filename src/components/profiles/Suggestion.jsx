@@ -14,7 +14,7 @@ function Suggestion() {
           <div className="w-56 ml-3 flex self-center">
             {/* User name div */}
             <div className="text-white text-lg font-normal font-['Inika']">
-              Gokul Krishna
+              Sample user
             </div>
 
             {/* Follow or unfollow button div */}

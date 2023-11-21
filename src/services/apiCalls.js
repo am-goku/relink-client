@@ -47,7 +47,9 @@ export const apiCall = async (method, url, data) => {
             console.log("error in apiCalls:::::", response);
             resolve(response.data);
           }).catch((error)=>{
-            reject(error?.response?.data);
+            localStorage.setItem(userAuth, "");
+            localStorage.setItem(refreshToken, "");
+            window.location.reload("/login");
           })
         } else{
           reject(error?.response?.data);
@@ -84,7 +86,7 @@ const refreshAccessToken = async (error) => {
               }
             ).catch((err)=> {
               console.log("token refresh error: ", err);
-
+              reject(err);
             })
             if(response){
               const newAccessToken = response.data.newToken;

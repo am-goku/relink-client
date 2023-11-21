@@ -37,7 +37,9 @@ const adminApiCalls = async (method, url, data) => {
               resolve(response.data);
             })
             .catch((error) => {
-              reject(error?.response?.data);
+              localStorage.setItem(adminAuth, "");
+              localStorage.setItem(adminRefresh, "");
+              window.location.reload("/admin/login");
             });
         } else {
           reject(error?.response?.data);
@@ -71,6 +73,7 @@ const refreshAccessToken = async (error) => {
               })
               .catch((err) => {
                 console.log("token refresh error: ", err);
+                reject(err);
               });
             if (response) {
               const newAccessToken = response.data.newToken;
