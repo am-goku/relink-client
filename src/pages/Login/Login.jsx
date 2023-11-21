@@ -62,7 +62,7 @@ function Login() {
         setError(response.message);
       }
     }).catch((error)=> {
-      setError(error.message);
+      setError(error?.response?.message || error?.message);
     })
   };
 

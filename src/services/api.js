@@ -1,5 +1,5 @@
 import axios from "axios";
-import { refreshToken, userAuth } from "../const/localStorage";
+import { userAuth } from "../const/localStorage";
 import { BASE_URL } from "../const/url";
 
 export const api = axios.create({

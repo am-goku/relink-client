@@ -35,14 +35,6 @@ export const apiCall = async (method, url, data) => {
       if(response){
         resolve(response.data);
       } else if (error) {
-
-        if(error.response.status === 403){
-          localStorage.removeItem(userAuth)
-          localStorage.removeItem(refreshToken);
-          window.location.reload();
-        }
-
-
         if(error.response?.status === 401){
           refreshAccessToken(error).then((response)=> {
             console.log("error in apiCalls:::::", response);
