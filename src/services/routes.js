@@ -5,9 +5,7 @@ import Login from "../pages/Login/Login";
 import Signup from "../pages/Register/Signup";
 import Varifyemail from "../pages/Login/Varifyemail";
 import Error from "../pages/Error/Error";
-import Test from "../pages/Test";
 import adminRouter, { adminLoginRouter } from "./admin/routes";
-import Test2 from "../pages/Test2";
 import UserProfile from "../pages/Profile/UserProfile";
 import SinglePostPage from "../pages/Posts/SinglePostPage";
 import Explore from "../pages/Explore/Explore";
@@ -40,10 +38,6 @@ const appRouter = createBrowserRouter([
         path: "/message",
         element: <MessageBox />,
       },
-      {
-        path: "/test2",
-        element: <Test2 />,
-      },
     ],
   },
   {
@@ -62,10 +56,6 @@ const appRouter = createBrowserRouter([
   adminRouter,
   adminLoginRouter,
 
-  {
-    path: "/test",
-    element: <Test />,
-  },
 ]);
 
 
