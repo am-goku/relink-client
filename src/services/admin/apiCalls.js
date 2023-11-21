@@ -1,6 +1,7 @@
 import axios from "axios";
 import { adminAuth, adminRefresh } from "../../const/localStorage";
 import { adminApi } from "./api";
+import { BASE_URL } from "../../const/url";
 
 const adminApiCalls = async (method, url, data) => {
   return new Promise(async (resolve, reject) => {
@@ -67,8 +68,7 @@ const refreshAccessToken = async (error) => {
             //refreshing the access token
             const response = await axios
               .post(
-                //"http://localhost:4000/api/auth/admin/refresh-token",
-                "http://relink.thetrendly.shop/api/auth/admin/refresh-token",
+                `${BASE_URL}/api/auth/admin/refresh-token`,
                 null,
                 {
                   headers: {

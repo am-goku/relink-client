@@ -1,6 +1,7 @@
 import { api } from "./api";
 import { refreshToken, userAuth } from "../const/localStorage";
 import axios from "axios";
+import { BASE_URL } from "../const/url";
 
 
 
@@ -78,7 +79,7 @@ const refreshAccessToken = async (error) => {
             //refreshing the access token
             const response = await axios
               .post(
-                "http://relink.thetrendly.shop/api/auth/user/refresh-token",
+                `${BASE_URL}/api/auth/user/refresh-token`,
                 null,
                 {
                   headers: {

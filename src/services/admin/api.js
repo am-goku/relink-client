@@ -1,9 +1,9 @@
 import axios from "axios";
 import { adminAuth } from "../../const/localStorage";
+import { BASE_URL } from "../../const/url";
 
 export const adminApi = axios.create({
-  baseURL: "http://relink.thetrendly.shop/api",
-  //baseURL: "http://localhost:4000/api",
+  baseURL: `${BASE_URL}/api`,
 });
 
 adminApi.interceptors.request.use(

@@ -7,6 +7,7 @@ import { io } from 'socket.io-client';
 import MessageIcn from '../../components/icons/MessageIcn';
 import { useNavigate } from 'react-router-dom';
 import { setCurrentRoom, updateReduxChatRoom } from '../../utils/reducers/userReducer';
+import { BASE_URL } from '../../const/url';
 
 function MessageBox() {
 
@@ -47,7 +48,7 @@ function MessageBox() {
 
 
   useEffect(() => {
-      const socket = io.connect("http://localhost:4000");
+      const socket = io.connect(BASE_URL);
       socket.emit("newUser", chatRoom?._id, (res) => {
         console.log("res from socketIo:", res);
       });
