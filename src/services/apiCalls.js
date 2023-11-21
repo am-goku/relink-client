@@ -44,9 +44,8 @@ export const apiCall = async (method, url, data) => {
             localStorage.setItem(refreshToken, "");
             window.location.reload("/login");
           })
-        } else{
-          reject(error?.response?.data);
         }
+        reject(error?.response?.data);
       }
     } catch (err) {
         console.log(err);
