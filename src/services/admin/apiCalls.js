@@ -66,11 +66,16 @@ const refreshAccessToken = async (error) => {
           try {
             //refreshing the access token
             const response = await axios
-              .post("http://localhost:4000/api/auth/admin/refresh-token", null, {
-                headers: {
-                  Authorization: tokenRefresh,
-                },
-              })
+              .post(
+                //"http://localhost:4000/api/auth/admin/refresh-token",
+                "http://relink.thetrendly.shop/api/auth/admin/refresh-token",
+                null,
+                {
+                  headers: {
+                    Authorization: tokenRefresh,
+                  },
+                }
+              )
               .catch((err) => {
                 console.log("token refresh error: ", err);
                 reject(err);

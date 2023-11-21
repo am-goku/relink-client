@@ -2,7 +2,8 @@ import axios from "axios";
 import { refreshToken, userAuth } from "../const/localStorage";
 
 export const api = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL: "http://relink.thetrendly.shop/api",
+  //baseURL: "http://localhost:4000/api",
 });
 
 api.interceptors.request.use(

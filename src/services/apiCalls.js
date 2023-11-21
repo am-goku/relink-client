@@ -76,18 +76,20 @@ const refreshAccessToken = async (error) => {
         return new Promise(async (resolve, reject) => {
           try {
             //refreshing the access token
-            const response = await axios.post(
-              "http://localhost:4000/api/auth/user/refresh-token",
-              null,
-              {
-                headers: {
-                  Authorization: tokenRefresh,
-                },
-              }
-            ).catch((err)=> {
-              console.log("token refresh error: ", err);
-              reject(err);
-            })
+            const response = await axios
+              .post(
+                "http://relink.thetrendly.shop/api/auth/user/refresh-token",
+                null,
+                {
+                  headers: {
+                    Authorization: tokenRefresh,
+                  },
+                }
+              )
+              .catch((err) => {
+                console.log("token refresh error: ", err);
+                reject(err);
+              });
             if(response){
               const newAccessToken = response.data.newToken;
               localStorage.setItem(userAuth, newAccessToken);
