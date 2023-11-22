@@ -23,9 +23,7 @@ function AdminHeader() {
 
 
   const signOut = () => {
-    // dispatch(removeReduxAdmin())
     clearAdmin()
-    // navigate("/admin/login")
   }
 
 
