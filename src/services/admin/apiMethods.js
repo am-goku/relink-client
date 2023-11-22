@@ -12,14 +12,13 @@ export const adminPostLogin = (adminData) => {
     return new Promise((resolve, reject) => {
         try {
             adminApiCalls("post", adminUrl.login, adminData).then((response) => {
-                console.log(response);
                 resolve(response);
               }
             ).catch((err) => {
-                throw new Error(err);
+                reject(err);
             })
         } catch (error) {
-            resolve({status: 500, message: error?.message});
+            reject(error);
         }
     })
 };
@@ -34,10 +33,10 @@ export const adminFetchUsers = (currentPage, perPage, searchTerm) => {
             adminApiCalls("get", `${adminUrl.getUsers}/?page=${currentPage}&perPage=${perPage}&search=${searchTerm}`).then((response) => {
                 resolve(response);
             }).catch((err) => {
-                resolve({status:500, message: err.message});
+                reject(err);
             })
         } catch (error) {
-            resolve({ status: 500, message: error?.message });
+            reject(error);
         }
     })
 }
@@ -55,7 +54,7 @@ export const blockUnblockUser = (userId, status) => {
                 reject(error);
             })
         } catch (error) {
-            resolve({status: 500, message: error?.message});
+            reject({status: 500, message: error?.message});
         }
     })
 }

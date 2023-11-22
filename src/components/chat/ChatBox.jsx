@@ -34,7 +34,6 @@ function ChatBox({reciever, chatRoom, setChatRoom}) {
           getMessages(chatRoom?._id)
             .then((messages) => {
               setMessages(messages);
-              console.log("messages:", messages);
             })
             .catch((err) => {
               throw new Error(err);

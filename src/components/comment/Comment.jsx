@@ -17,7 +17,6 @@ function Comment({data}) {
   const [time, setTime] = useState('just now')
   useEffect(()=> {
     getUser(data.userId).then((response)=> {
-      console.log("comment user:", response);
       setCommenter(response[0]);
     }).catch((error)=> {
       setError(error?.message);

@@ -81,7 +81,6 @@ function CreatePost({ setClose }) {
         } else if(response.status === 401) {
           navigate("/login");
         } else {
-          console.log(response);
           setError(response.message);
         };
       }).finally(()=> {

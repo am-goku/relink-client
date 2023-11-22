@@ -18,18 +18,16 @@ const uploadCloudinary = async (imgData, setErr) => {
                 formData
               )
               .then(async(response) => {
-                console.log("Upload successful: ", response.data);
                 setErr("upload_success");
                 const data = response.data;
                 resolve(data)
               })
               .catch((error) => {
-                console.log("Error uploading: ", error);
                 setErr(error?.message);
               });
         })
     } catch (error) {
-        console.log(error);
+      setErr(error.message);
     }
 };
 

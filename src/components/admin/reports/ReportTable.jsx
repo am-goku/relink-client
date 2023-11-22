@@ -20,7 +20,6 @@ function ReportTable() {
 useEffect(()=> {
     if(target === "POST"){
         getPostReports(perPage, searchTerm, currentPage).then((response) => {
-            console.log('postRepos', response);
             setReports(response)
         }).catch((error) => {
             setError(error?.message)
@@ -30,7 +29,6 @@ useEffect(()=> {
     if(target === "USER"){
         getUserReports(perPage, searchTerm, currentPage).then((results) => {
             setReports(results)
-            console.log("user--->", results);
         }).catch((error) => {
             setError(error?.message)
         })
@@ -80,7 +78,7 @@ const handlePageChange = () => {
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          className="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           Previous
         </button>
@@ -88,7 +86,7 @@ const handlePageChange = () => {
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={reports?.length < perPage}
-          class="flex items-center justify-center px-3 h-8 ml- text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          className="flex items-center justify-center px-3 h-8 ml- text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           Next
         </button>

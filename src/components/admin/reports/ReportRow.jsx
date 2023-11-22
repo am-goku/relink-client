@@ -24,10 +24,8 @@ function ReportRow({report, target}) {
 
     useEffect(()=> {
         if(target === "POST") {
-            console.log(report);
             fetchAPost(report?.targetId).then((response)=> {
                 setPost(response)
-                console.log(response);
             })
         }
 

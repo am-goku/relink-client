@@ -37,7 +37,6 @@ const CropImage = ({
       if (setErr) {
         setErr("Please choose an image file...");
       }
-      console.log(error);
     }
   };
 

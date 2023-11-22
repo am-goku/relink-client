@@ -33,11 +33,18 @@ export const apiCall = async (method, url, data) => {
       }
       
       if(response){
+
         resolve(response.data);
       } else if (error) {
-        if(error.response?.status === 401){
+
+        if(error?.data?.status === 403 && error?.data?.error_code === "FORBIDDEN"){
+          localStorage.setItem(userAuth, "");
+          localStorage.setItem(refreshToken, "");
+          reject(error.response)
+        }
+
+        if(error?.response?.status === 401){
           refreshAccessToken(error).then((response)=> {
-            console.log("error in apiCalls:::::", response);
             resolve(response.data);
           }).catch((error)=>{
             localStorage.setItem(userAuth, "");
@@ -48,7 +55,6 @@ export const apiCall = async (method, url, data) => {
         reject(error?.response?.data);
       }
     } catch (err) {
-        console.log(err);
         reject(err);
     }
   });
@@ -79,16 +85,15 @@ const refreshAccessToken = async (error) => {
                 }
               )
               .catch((err) => {
-                console.log("token refresh error: ", err);
                 reject(err);
               });
             if(response){
               const newAccessToken = response.data.newToken;
               localStorage.setItem(userAuth, newAccessToken);
-              console.log("new access token", newAccessToken);
 
               //calling the original request
               error.config.headers["Authorization"] = newAccessToken;
+
 
               axios(error.config)
                 .then((response) => {
@@ -101,18 +106,19 @@ const refreshAccessToken = async (error) => {
           } catch (refreshError) {
             // error while refreshing and sending the original request
             localStorage.removeItem(userAuth);
-            console.log("refresh error", refreshError);
             window.location.reload("/login");
           }
         })
       } else {
         // No refresh token available
-        localStorage.clear();
+        localStorage.setItem(userAuth, "");
+        localStorage.setItem(refreshToken, "");
         window.location.reload("/login");
       }
     }
   } catch (error) {
-    localStorage.clear();
+    localStorage.setItem(userAuth, "");
+    localStorage.setItem(refreshToken, "");
     window.location.reload("/login");
   }
 }

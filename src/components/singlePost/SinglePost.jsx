@@ -42,7 +42,7 @@ function SinglePost({postData, setSelectedPost, openEditor, setLikePost, likeMod
         setPostUser(response[0]);
         user?._id === postUser?._id ? setOwner(true) : setOwner(false);
     }).catch((error)=>{
-      console.log(error);
+      setError(error.message)
     })
     
     setLikes(post?.likes)

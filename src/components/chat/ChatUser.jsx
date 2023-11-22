@@ -13,6 +13,7 @@ function ChatUser({userId, doFunction}) {
     const [online, setOnline] = useState(true);
     const [user, setUser] = useState();
     const currentRoom = useSelector((state)=>state?.user?.currentRoom);
+    const [error, setError] = useState('')
 
     const [room, setRoom] = useState();
     const [time, setTime] = useState();
@@ -42,10 +43,10 @@ function ChatUser({userId, doFunction}) {
             setUser(user[0]);
           })
           .catch((error) => {
-            console.log(error);
+            setError(error);
           });
       } catch (error) {
-        console.log(error);
+        setError(error)
       }
     },[userId])
 

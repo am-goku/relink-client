@@ -35,7 +35,6 @@ function MessageBox() {
         .then((chatRoom) => {
           setChatRoom(chatRoom);
           dispatch(setCurrentRoom(chatRoom));
-          console.log(chatRoom);
         })
         .catch((error) => {
           if(error.status === 401){
@@ -50,11 +49,11 @@ function MessageBox() {
   useEffect(() => {
       const socket = io.connect(BASE_URL);
       socket.emit("newUser", chatRoom?._id, (res) => {
-        console.log("res from socketIo:", res);
+
       });
 
       socket.on("newMessage", (data, res) => {
-        console.log("data recieved from socketIo:", data);
+
       });
 
   },[chatRoom]);

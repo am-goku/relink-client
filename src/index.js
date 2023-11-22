@@ -21,7 +21,6 @@ navigator?.serviceWorker?.addEventListener('message', (event) => {
 
   const newNotify = JSON.parse(newData);
 
-  console.log(messageType);
 
   if (messageType === "push-received") {
     store.dispatch(addNewReduxNotification({ notification: newNotify }));
@@ -34,7 +33,7 @@ Promise.all([persistor.persist(),userAuthenticator(),adminAuthenticator()]).then
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <RouterProvider router={appRouter}>
-          <App />
+            <App />
         </RouterProvider>
       </PersistGate>
     </Provider>
@@ -44,5 +43,4 @@ Promise.all([persistor.persist(),userAuthenticator(),adminAuthenticator()]).then
 
 
 // If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

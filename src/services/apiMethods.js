@@ -14,11 +14,9 @@ export const getCredentials = () => {
               resolve(response);
             })
             .catch((error) => {
-              console.log(error);
               resolve({ status: 500, message: error.response });
             });
         } catch (error) {
-          console.log(error);
           resolve({ status: 500, message: error?.message });
         }
     })
@@ -33,9 +31,10 @@ export const postLogin = (userData) => {
         try {
             apiCall('post', userUrl.login, userData).then((response)=>{
                 resolve(response);
+            }).catch((err)=>{
+                reject(err);
             })
         } catch (error) {
-            console.log(error);
             resolve({ status: 500, message: error?.message });
         }
     })
@@ -68,7 +67,6 @@ export const postRegister = (userData) => {
                 resolve(response);
             })
         } catch (error) {
-            console.log(error);
             resolve({status:500, message: "Somethings wrong."})
         }
     })
@@ -112,11 +110,9 @@ export const postCreatePost = (postData) => {
             apiCall("post", postUrl.create, postData).then((response) => {
                 resolve(response);
             }).catch((error) => {
-                console.log(error);
                 resolve({ status: 500, message: error.response });
             })
         } catch (error) {
-            console.log(error);
             resolve({status:500, message:error.response})
         }
     })
@@ -170,7 +166,6 @@ export const getUser = (userId) =>{
             apiCall("get", `${userUrl.fetchUser}?userId=${userId}`).then((response) => {
                 resolve(response);
             }).catch((error) => {
-                console.log(error);
                 reject(error);
             })
         } catch (error) {
@@ -510,7 +505,6 @@ export const updateUserData = (username, data) => {
         try {
             const url = userUrl.updateData(username);
             apiCall("put", url, data).then((response) => {
-                console.log('call response', response);
                 resolve(response);
             }).catch((err) => reject(err));
         } catch (error) {

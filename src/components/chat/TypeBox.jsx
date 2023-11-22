@@ -11,6 +11,7 @@ function TypeBox({chatRoom, setMessages, messages, recieverId, socket, setChatRo
 
   const emojiRef = useRef()
   const emojiIcnRef = useRef();
+  const [error, setError] = useState('')
 
   const dispatch = useDispatch();
 
@@ -34,7 +35,6 @@ function TypeBox({chatRoom, setMessages, messages, recieverId, socket, setChatRo
     try {
       sendMessage(chatRoom?._id, text, user?._id)
         .then((response) => {
-          console.log("new updated chat",chatRoom);
           setMessages([...messages, response]);
 
 
@@ -47,13 +47,13 @@ function TypeBox({chatRoom, setMessages, messages, recieverId, socket, setChatRo
           
         })
         .catch((err) => {
-          console.log(err);
+          setError(err);
         }).finally(()=> {
           setText("");
           textRef.current.value = "";
         })
     } catch (error) {
-      console.log(error);
+      setError(error)
     }
   };
 

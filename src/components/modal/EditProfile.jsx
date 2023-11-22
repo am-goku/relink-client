@@ -123,7 +123,6 @@ const changePassword = () => {
 
     if(password !== cPassword){
       setPasError("Password is not matching.");
-      console.log(password, cPassword);
       return false;
     }
 
@@ -137,7 +136,6 @@ const changePassword = () => {
     })
 
   } catch (error) {
-    console.log(error);
     setError(error);
     alertError()
   } finally {

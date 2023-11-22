@@ -34,7 +34,6 @@ const adminApiCalls = async (method, url, data) => {
         if (error.response?.status === 401) {
           refreshAccessToken(error)
             .then((response) => {
-              console.log("error in apiCalls:::::", response);
               resolve(response.data);
             })
             .catch((error) => {
@@ -48,8 +47,7 @@ const adminApiCalls = async (method, url, data) => {
       }
 
     } catch (err) {
-      console.log(err);
-      resolve({ status: 500, message: err.message });
+      reject({ status: 500, message: err.message });
     }
   });
 };
@@ -77,13 +75,11 @@ const refreshAccessToken = async (error) => {
                 }
               )
               .catch((err) => {
-                console.log("token refresh error: ", err);
                 reject(err);
               });
             if (response) {
               const newAccessToken = response.data.newToken;
               localStorage.setItem(adminAuth, newAccessToken);
-              console.log("new access token", newAccessToken);
 
               //calling the original request
               error.config.headers["Authorization"] = newAccessToken;
@@ -99,7 +95,6 @@ const refreshAccessToken = async (error) => {
           } catch (refreshError) {
             // error while refreshing and sending the original request
             localStorage.removeItem(adminAuth);
-            console.log("refresh error", refreshError);
             window.location.reload("/admin/login");
           }
         });

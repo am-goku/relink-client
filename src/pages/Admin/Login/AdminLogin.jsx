@@ -55,10 +55,8 @@ function AdminLogin() {
       dispatch(setReduxAdmin({adminData:response.admin, validAdmin:response.valid}))
       window.location.reload();
     } else {
-      console.log(response);
       setError(response.message);
     }
-    console.log("postAdminLoginResponse", response);
   };
 
   return (

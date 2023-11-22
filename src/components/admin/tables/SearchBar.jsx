@@ -7,7 +7,7 @@ function SearchBar({ setSearchTerm, setCurrentPage }) {
   };
   return (
     <>
-      <label for="table-search" className="sr-only">
+      <label htmlFor="table-search" className="sr-only">
         Search
       </label>
       <div className="relative ">

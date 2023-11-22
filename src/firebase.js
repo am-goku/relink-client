@@ -29,10 +29,7 @@ export const subscribeTopic = (token) => {
      }),
    })
      .then((response) => {
-       if (response.status < 200 || response.status >= 400) {
-         console.log(response.status, response);
-       }
-       console.log(`"${topic}" is subscribed`);
+       
      })
      .catch((error) => {
        console.error(error.result);

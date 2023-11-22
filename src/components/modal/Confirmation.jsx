@@ -19,7 +19,6 @@ function Confirmation({ post, setDeleteModal }) {
       })
       .catch((error) => {
         setError("Something went wrong.");
-        console.log(error);
       });
     setDeleteModal(false);
   };

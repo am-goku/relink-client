@@ -11,11 +11,10 @@ export const userAuthMiddleware =()=>{
               resolve({userData, user});
             } else {
                 user = false;
-                resolve(user)
+                reject(user)
             }
         } catch (error) {
-            console.log(error);
-            resolve({user: false})
+            reject({user: false})
         }
     })
 };
@@ -33,11 +32,10 @@ export const adminAuthMiddleware = () => {
                 resolve({adminData, admin})
             } else {
                 admin = false;
-                resolve(admin)
+                reject(admin)
             }
         } catch(error){
-            console.log(error);
-            resolve({ admin: false });
+            reject({ admin: false });
         }
     })
 }

@@ -7,7 +7,6 @@ function Protect( {childern} ) {
   const { userData, validUser } = useSelector((state) => state?.user);
 
   useEffect(() => {
-    console.log(userData, validUser);
     if (!userData || !validUser) {
       navigate("/login");
     }

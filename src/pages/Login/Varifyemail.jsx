@@ -33,7 +33,6 @@ function Varifyemail() {
         setLoading(true);
         if(!otp){
             sentOtp(email).then((response) => {
-                console.log(response);
                 setOpen(true);
             }).catch((error) => {
                 setError(error?.message);
@@ -42,7 +41,6 @@ function Varifyemail() {
             })
         } else {
             verifyOtp(email, otp).then((response) => {
-                console.log(response);
                 localStorage.setItem(userAuth, response?.tokens?.accessToken);
                 localStorage.setItem(refreshToken, response?.tokens?.refreshToken);
                 dispatch(setReduxUser({userData:response?.user, validUser: response?.valid}));

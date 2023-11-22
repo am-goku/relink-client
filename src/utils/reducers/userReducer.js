@@ -72,7 +72,6 @@ const userSlice = createSlice({
 export const userAuthenticator = () => async (dispatch) => {
   try {
     token = localStorage.getItem(userAuth);
-    console.log("token is",token);
     if (token) {
       const data = {
         headers: {

@@ -12,7 +12,6 @@ const notificationSlice = createSlice({
       state.notifications = action.payload.notifications;
     },
     addNewReduxNotification: (state, action) => {
-        console.log(action);
       state.notifications.unshift(action.payload.notification);
     },
     clearReduxNotifications: (state, action) => {

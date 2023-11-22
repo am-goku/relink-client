@@ -87,9 +87,8 @@ function SinglePostView({postId}) {
         setComments([response, ...comments]);
         txtArea.current.value = '';
         setNewComment('');
-        console.log(response);
       }).catch((error) => {
-        console.log(error);
+        setError(error?.message)
       })
     }
 

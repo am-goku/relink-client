@@ -47,10 +47,10 @@ function ChatList({setReciever}) {
           // setList(newList);
           dispatch(setReduxChatRoom(newList))
         }).catch((err) => {
-          console.log(err);
+          setError(err)
         })
       } catch (error) {
-        console.log(error);
+        setError(error)
       }
     },[user, dispatch])
 
@@ -121,7 +121,7 @@ function ChatList({setReciever}) {
 
       <div
         id="followers"
-        tabindex="-1"
+        tabIndex="-1"
         aria-hidden="true"
         className="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
       >
@@ -146,9 +146,9 @@ function ChatList({setReciever}) {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   />
                 </svg>

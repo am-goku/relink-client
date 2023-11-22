@@ -15,7 +15,6 @@ function EditPost({post, setPost, closeEditor}) {
     useEffect(()=> {
       setError('')
       fetchComments(post?._id).then((comment)=> {
-        console.log(comment);
         setComments(comment);
       }).catch((error)=> {
         setError(error?.message);

@@ -56,7 +56,6 @@ const signIn = (data) => {
             if (user) {
               signIn(newData);
             } else {
-              console.log(newData);
               setUserData(newData);
               setUsername("");
               modalRef.current.click();
@@ -91,7 +90,6 @@ const signIn = (data) => {
           })
           .catch((error) => {
             setError(error?.message);
-            console.log(error);
           });
       } catch (error) {
         setError(error?.message);
@@ -128,7 +126,7 @@ const signIn = (data) => {
       </button>
       <div
         id="authentication-modal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-hidden="true"
         className="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
       >
@@ -149,9 +147,9 @@ const signIn = (data) => {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                 />
               </svg>
@@ -168,7 +166,7 @@ const signIn = (data) => {
                 />
                 <div>
                   <label
-                    for="email"
+                    htmlFor="email"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Email
@@ -185,7 +183,7 @@ const signIn = (data) => {
                 </div>
                 <div>
                   <label
-                    for="username"
+                    htmlFor="username"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Username <span className="text-red-700">*</span>

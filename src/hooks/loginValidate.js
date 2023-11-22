@@ -20,7 +20,6 @@ export const loginValidate = (credentails, setErr) =>{
 
             resolve(flag);
         } catch (error) {
-            console.log(error?.message);
             setErr(error?.message);
             resolve(false);
         }
