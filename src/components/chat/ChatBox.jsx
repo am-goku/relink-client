@@ -8,6 +8,7 @@ import { getMessages } from '../../services/apiMethods'
 
 import { io }  from 'socket.io-client'
 import MessageArea from './MessageArea'
+import { BASE_URL } from '../../const/url'
 
 function ChatBox({reciever, chatRoom, setChatRoom}) {
 
@@ -19,7 +20,7 @@ function ChatBox({reciever, chatRoom, setChatRoom}) {
 
     const [theme, setTheme] = useState('')
     
-    const socket = io.connect("http://localhost:4000");
+    const socket = io.connect(BASE_URL);
     useEffect(()=> {
       socket.emit("newUser", chatRoom?._id);
 
