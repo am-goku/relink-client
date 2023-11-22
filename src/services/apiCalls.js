@@ -2,6 +2,8 @@ import { api } from "./api";
 import { refreshToken, userAuth } from "../const/localStorage";
 import axios from "axios";
 import { BASE_URL } from "../const/url";
+import { removeUser } from "../utils/reducers/userReducer";
+import { persistor } from "../utils/store";
 
 
 
@@ -33,26 +35,27 @@ export const apiCall = async (method, url, data) => {
       }
       
       if(response){
-
         resolve(response.data);
       } else if (error) {
-
         if(error?.data?.status === 403 && error?.data?.error_code === "FORBIDDEN"){
           localStorage.setItem(userAuth, "");
           localStorage.setItem(refreshToken, "");
-          reject(error.response)
+          window.location.reload("/login");
         }
-
+        
         if(error?.response?.status === 401){
           refreshAccessToken(error).then((response)=> {
-            resolve(response.data);
+            if(response){
+              resolve(response?.data);
+            } else {
+              clearUser();
+            }
           }).catch((error)=>{
-            localStorage.setItem(userAuth, "");
-            localStorage.setItem(refreshToken, "");
-            window.location.reload("/login");
+            clearUser()
           })
+        } else {
+          reject(error?.response?.data);
         }
-        reject(error?.response?.data);
       }
     } catch (err) {
         reject(err);
@@ -104,21 +107,23 @@ const refreshAccessToken = async (error) => {
                 });
             }
           } catch (refreshError) {
-            // error while refreshing and sending the original request
-            localStorage.removeItem(userAuth);
-            window.location.reload("/login");
+            reject(refreshError);
           }
         })
       } else {
-        // No refresh token available
-        localStorage.setItem(userAuth, "");
-        localStorage.setItem(refreshToken, "");
-        window.location.reload("/login");
+        clearUser();
       }
     }
   } catch (error) {
-    localStorage.setItem(userAuth, "");
-    localStorage.setItem(refreshToken, "");
-    window.location.reload("/login");
+    clearUser()
   }
+}
+
+
+
+export const clearUser = () => {
+  localStorage.removeItem(userAuth);
+  localStorage.removeItem(refreshToken);
+  persistor.purge();
+  window.location.reload("/login");
 }

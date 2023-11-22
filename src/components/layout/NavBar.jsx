@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeReduxUser } from "../../utils/reducers/userReducer";
 import NotificationLg from "../notification/NotificationLg";
 import { logoutUser } from "../../services/apiMethods";
+import { persistor } from "../../utils/store";
+import { clearUser } from "../../services/apiCalls";
 
 function NavBar({ path }) {
   const navigate = useNavigate();
@@ -69,8 +71,7 @@ function NavBar({ path }) {
   const logout = () => {
     logoutUser(userData?._id).then((res)=> {
       if(res){
-        dispatch(removeReduxUser());
-        navigate("/login");
+        clearUser();
       } else {
         throw new Error('error')
       }

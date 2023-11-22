@@ -4,6 +4,7 @@ import icon from "../../../images/relink.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeReduxAdmin } from "../../../utils/reducers/adminReducer";
+import { clearAdmin } from "../../../services/admin/apiCalls";
 
 
 function AdminHeader() {
@@ -22,8 +23,9 @@ function AdminHeader() {
 
 
   const signOut = () => {
-    dispatch(removeReduxAdmin())
-    navigate("/admin/login")
+    // dispatch(removeReduxAdmin())
+    clearAdmin()
+    // navigate("/admin/login")
   }
 
 
