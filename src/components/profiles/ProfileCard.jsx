@@ -22,8 +22,8 @@ function ProfileCard({ user, setIsEdit, admin }) {
     if(user){
       getConnections(user?._id)
         .then((connections) => {
-          setFollowers(connections.followers);
-          setFollowing(connections.following);
+          setFollowers(connections?.followers);
+          setFollowing(connections?.following);
         })
         .catch((error) => {
           setError(error?.message);
