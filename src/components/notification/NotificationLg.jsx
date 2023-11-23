@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Notes from './Notes';
-import { deleteNotifications, fetchNotifications, readNotification } from '../../services/apiMethods';
+import { deleteNotifications } from '../../services/apiMethods';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { clearReduxNotifications } from '../../utils/reducers/notificationReducer';
+import { showError } from '../../hooks/errorManagement';
 
 function NotificationLg({noteToggle, setNoteToggle}) {
 
@@ -18,6 +19,10 @@ function NotificationLg({noteToggle, setNoteToggle}) {
       navigate("/login");
     }
   })
+
+  useEffect(() => {
+    showError(error, setError);
+  }, [error]);
 
 const notifications = useSelector((state) => state?.notification?.notifications)
 

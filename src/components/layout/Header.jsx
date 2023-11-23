@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {} from 'react'
 
 //imported react icons
 import { FaPlus } from 'react-icons/fa';
@@ -8,24 +8,6 @@ import "./style.css"
 
 
 function Header() {
-
-
-
-    
-    const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
-    const [visible, setVisible] = useState(true);
-    useEffect(() => {
-      const handleScroll = () => {
-        const currentScrollPos = window.scrollY || window.pageYOffset;
-        setVisible(prevScrollPos > currentScrollPos);
-        setPrevScrollPos(currentScrollPos);
-      };
-      window.addEventListener("scroll", handleScroll);
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
-    }, [prevScrollPos]);
-
 
 
   return (

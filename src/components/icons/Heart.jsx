@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { likePost, unlikePost } from '../../services/apiMethods';
+import { showError } from '../../hooks/errorManagement';
 
 function Heart({size, color, post, setPost}) {
 
@@ -8,6 +9,11 @@ function Heart({size, color, post, setPost}) {
 
     const user = useSelector((state)=> state?.user?.userData)
     const [error, setError] = useState('')
+
+
+    useEffect(() => {
+      showError(error, setError);
+    }, [error]);
 
     useEffect(()=>{
         if(post?.likes?.includes(user?._id)){

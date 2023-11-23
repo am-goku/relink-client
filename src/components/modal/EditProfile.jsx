@@ -7,14 +7,12 @@ import { requestChangePassword, updateUserData } from '../../services/apiMethods
 import SettingsIcn from '../icons/SettingsIcn';
 import { updateReduxUser } from '../../utils/reducers/userReducer';
 import { FaSpinner } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 
 
 
 function EditProfile({setIsEdit}) {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const [loading, setLoading] = useState(false)
     const user = useSelector((state)=> state?.user?.userData);
@@ -30,6 +28,11 @@ function EditProfile({setIsEdit}) {
     const [selectedImg, setSelectedImg] = useState(false);
     const [image, setImage] = useState(user?.profilePc);
     const [croppedImg, setCroppedImg] = useState();
+
+
+    useEffect(()=> {
+      setUsername(user?.username);
+    }, [user])
 
     const alertError = () => {
         toast.error(error, {

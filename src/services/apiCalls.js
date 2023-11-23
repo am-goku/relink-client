@@ -2,7 +2,6 @@ import { api } from "./api";
 import { refreshToken, userAuth } from "../const/localStorage";
 import axios from "axios";
 import { BASE_URL } from "../const/url";
-import { removeUser } from "../utils/reducers/userReducer";
 import { persistor } from "../utils/store";
 
 

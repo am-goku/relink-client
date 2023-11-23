@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import RecieverText from './RecieverText';
 import SenderText from './SenderText';
-import { updateReduxChatRoom } from '../../utils/reducers/userReducer';
 
 function MessageArea({messages, setMessages, theme, socket, room}) {
 
@@ -10,7 +9,6 @@ const user = useSelector((state)=> state?.user?.userData);
 
 const chatBoxRef = useRef();
 
-const dispatch = useDispatch()
 
 
 

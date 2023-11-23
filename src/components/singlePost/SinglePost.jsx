@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./SinglePost.css";
 
@@ -15,8 +15,6 @@ import { useNavigate } from "react-router-dom";
 import ProfilePic from "../profiles/ProfilePic";
 import NameField from "../profiles/NameField";
 import { toast } from "react-toastify";
-import EditPost from "../modal/EditPost";
-import PostSkelt from "../skeletons/PostSkelt";
 
 
 

@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import SearchResult from './SearchResult';
 import { searchUser } from '../../services/apiMethods';
+import { showError } from '../../hooks/errorManagement';
 
 function ExploreSearchBar() {
 
@@ -17,6 +18,10 @@ function ExploreSearchBar() {
             setError(err);
         })
     }
+
+    useEffect(() => {
+      showError(error, setError);
+    }, [error]);
 
   return (
     <>

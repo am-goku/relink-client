@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SinglePost from "../../components/singlePost/SinglePost";
 // import PostContainer from "../../components/containers/PostContainer";
 import SuggestionContainer from "../../components/containers/SuggestionContainer";
@@ -13,6 +13,7 @@ import { removeReduxUser } from "../../utils/reducers/userReducer";
 import { setReduxNotifications } from "../../utils/reducers/notificationReducer";
 import EditPost from "../../components/modal/EditPost";
 import UserList from "../../components/modal/UserList";
+import { showError } from "../../hooks/errorManagement";
 
 function Home() {
 
@@ -42,7 +43,9 @@ function Home() {
   }, [user, isValid, navigate])
 
   
-
+useEffect(() => {
+  showError(error, setError);
+}, [error]);
 
 
   useEffect(() => {

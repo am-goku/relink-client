@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ChatList from '../../components/chat/ChatList'
 import ChatBox from '../../components/chat/ChatBox'
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,8 +6,9 @@ import { setUpChatRoom } from '../../services/apiMethods';
 import { io } from 'socket.io-client';
 import MessageIcn from '../../components/icons/MessageIcn';
 import { useNavigate } from 'react-router-dom';
-import { setCurrentRoom, updateReduxChatRoom } from '../../utils/reducers/userReducer';
+import { setCurrentRoom } from '../../utils/reducers/userReducer';
 import { BASE_URL } from '../../const/url';
+import { showError } from '../../hooks/errorManagement';
 
 function MessageBox() {
 
@@ -19,7 +20,6 @@ function MessageBox() {
   const isValid = useSelector((state)=> state?.user?.validUser)
 
 
-  const chatRef = useRef()
 
   const [reciever, setReciever] = useState()
 
@@ -28,6 +28,10 @@ function MessageBox() {
       navigate("/login")
     }
   })
+
+  useEffect(() => {
+    showError(error, setError);
+  }, [error]);
 
   useEffect(()=> {
     if(reciever){
@@ -57,6 +61,8 @@ function MessageBox() {
       });
 
   },[chatRoom]);
+
+
 
   return (
     <>

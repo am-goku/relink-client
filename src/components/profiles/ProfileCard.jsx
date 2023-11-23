@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import ConnectionBtn from "../icons/ConnectionBtn";
 import { getConnections } from "../../services/apiMethods";
 import ConnectionList from "../modal/ConnectionList";
+import { showError } from "../../hooks/errorManagement";
 
 function ProfileCard({ user, setIsEdit, admin }) {
 
@@ -19,7 +20,7 @@ function ProfileCard({ user, setIsEdit, admin }) {
 
   useEffect(()=> {
     if(user){
-      getConnections(user._id)
+      getConnections(user?._id)
         .then((connections) => {
           setFollowers(connections.followers);
           setFollowing(connections.following);
@@ -29,6 +30,10 @@ function ProfileCard({ user, setIsEdit, admin }) {
         });
     }
   }, [user])
+
+  useEffect(() => {
+    showError(error, setError);
+  }, [error]);
 
   useEffect(()=> {
     if(user && currentUser){

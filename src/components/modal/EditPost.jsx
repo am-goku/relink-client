@@ -14,11 +14,15 @@ function EditPost({post, setPost, closeEditor}) {
 
     useEffect(()=> {
       setError('')
-      fetchComments(post?._id).then((comment)=> {
-        setComments(comment);
-      }).catch((error)=> {
-        setError(error?.message);
-      })
+      if(post){
+        fetchComments(post?._id)
+          .then((comment) => {
+            setComments(comment);
+          })
+          .catch((error) => {
+            setError(error?.message);
+          });
+      }
     }, [post])
 
 

@@ -11,16 +11,13 @@ import logowithback from "../../images/logowithback.png";
 import CreatePost from "../modal/CreatePost";
 import { initFlowbite } from "flowbite";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { removeReduxUser } from "../../utils/reducers/userReducer";
+import { useSelector } from "react-redux";
 import NotificationLg from "../notification/NotificationLg";
 import { logoutUser } from "../../services/apiMethods";
-import { persistor } from "../../utils/store";
 import { clearUser } from "../../services/apiCalls";
 
 function NavBar({ path }) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [isClosed, setIsClosed] = useState(true);
 
   const userData = useSelector((state) => state?.user?.userData);

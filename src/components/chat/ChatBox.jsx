@@ -9,6 +9,7 @@ import { getMessages } from '../../services/apiMethods'
 import { io }  from 'socket.io-client'
 import MessageArea from './MessageArea'
 import { BASE_URL } from '../../const/url'
+import { showError } from '../../hooks/errorManagement'
 
 function ChatBox({reciever, chatRoom, setChatRoom}) {
 
@@ -19,6 +20,10 @@ function ChatBox({reciever, chatRoom, setChatRoom}) {
     const [error, setError] = useState('')
 
     const [theme, setTheme] = useState('')
+
+    useEffect(() => {
+      showError(error, setError);
+    }, [error]);
     
     const socket = io.connect(BASE_URL);
     useEffect(()=> {

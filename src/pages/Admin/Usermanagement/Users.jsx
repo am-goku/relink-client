@@ -3,7 +3,6 @@ import Table from '../../../components/admin/tables/Table';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { initFlowbite } from 'flowbite';
-import ProfileCard from '../../../components/profiles/ProfileCard';
 import UserData from './UserData';
 
 function Users() {
@@ -30,7 +29,7 @@ function Users() {
 
   return (
     <>
-      <div className="justify-center items-center self-center mr-auto">
+      <div className="justify-center items-center self-center rounded-lg">
         <Table changeUser={setUser} />
       </div>
 

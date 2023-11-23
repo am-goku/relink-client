@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getUser } from '../../services/apiMethods';
 import { getTimeDifference } from '../../hooks/timeAgo';
+import { showError } from '../../hooks/errorManagement';
 
 function Notes({notification}) {
 
@@ -22,6 +23,10 @@ function Notes({notification}) {
         const diff = getTimeDifference(notification?.createdAt)
         setTime(diff);
     }, [notification])
+
+    useEffect(()=> {
+      showError(error, setError)
+    }, [error])
 
 
   return (

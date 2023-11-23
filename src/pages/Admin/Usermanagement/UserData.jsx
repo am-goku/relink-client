@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import ProfileCard from '../../../components/profiles/ProfileCard';
 import { blockUnblockUser } from '../../../services/admin/apiMethods';
 import { toast } from 'react-toastify';
+import { showError } from '../../../hooks/errorManagement';
 
 function UserData({user, setUser}) {
 
     const [error, setError] = useState();
 
-    
+    useEffect(() => {
+      showError(error, setError);
+    }, [error]);
 
 
     const changeBlockStatus = () => {

@@ -4,7 +4,8 @@ import ChatUser from './ChatUser';
 import { getConnections, getRoomWithUserID } from '../../services/apiMethods';
 import { initFlowbite } from 'flowbite';
 import { useNavigate } from 'react-router-dom';
-import { setReduxChatRoom, updateReduxChatRoom } from '../../utils/reducers/userReducer';
+import { setReduxChatRoom } from '../../utils/reducers/userReducer';
+import { showError } from '../../hooks/errorManagement';
 
 function ChatList({setReciever}) {
 
@@ -20,7 +21,9 @@ function ChatList({setReciever}) {
 
 
 
-
+  useEffect(() => {
+    showError(error, setError);
+  }, [error]);
 
 
     //for validation purposes

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import {getMessaging, onMessage} from "firebase/messaging"
+import {getMessaging} from "firebase/messaging"
 import { GoogleAuthProvider, getAuth } from "firebase/auth";
 
 const firebaseConfig = {

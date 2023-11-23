@@ -4,6 +4,7 @@ import ProfilePic from '../profiles/ProfilePic'
 import NameField from '../profiles/NameField'
 import { useNavigate } from 'react-router-dom'
 import { getTimeDifference } from '../../hooks/timeAgo'
+import { showError } from '../../hooks/errorManagement'
 
 function Replies({data}) {
 
@@ -16,6 +17,10 @@ function Replies({data}) {
 
     //error handling
     const [error, setError] = useState(null)
+
+    useEffect(() => {
+      showError(error, setError);
+    }, [error]);
 
 useEffect(()=> {
     getUser(data?.userId).then((user) => {

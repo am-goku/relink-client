@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { } from 'react'
 import ProfileField from '../profiles/ProfileField';
 
 function UserList({userIds, closeModal}) {

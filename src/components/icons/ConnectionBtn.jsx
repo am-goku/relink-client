@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { followUser, getConnections, unfollowUser } from '../../services/apiMethods';
+import { showError } from '../../hooks/errorManagement';
 
 function ConnectionBtn({user, color, width, height, setFollowers}) {
     const currentUser = useSelector((state)=> state?.user?.userData);
-    const [owner, setOwner] = useState(false)
+    // const [owner, setOwner] = useState(false)
 
-    useEffect(() => {
-      if (currentUser?._id === user?._id) {
-        setOwner(true);
-      }
-    }, [user, currentUser]);
+    // useEffect(() => {
+    //   if (currentUser?._id === user?._id) {
+    //     setOwner(true);
+    //   }
+    // }, [user, currentUser]);
 
     const [following, setFollowing] = useState([])
     const [error, setError] = useState('')
+    useEffect(() => {
+      showError(error, setError);
+    }, [error]);
 
     useEffect(()=> {
         getConnections(currentUser?._id).then((connection)=>{

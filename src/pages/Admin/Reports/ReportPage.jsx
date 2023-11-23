@@ -4,7 +4,7 @@ import ReportTable from '../../../components/admin/reports/ReportTable';
 function ReportPage() {
   return (
     <>
-      <div className="h-[40rem]">
+      <div className="h-fit">
         <ReportTable />
       </div>
     </>

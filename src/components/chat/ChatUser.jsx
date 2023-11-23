@@ -4,7 +4,7 @@ import NameField from '../profiles/NameField';
 import { getRoomWithIds, getUser } from '../../services/apiMethods';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTimeDifference } from '../../hooks/timeAgo';
-import { setCurrentRoom } from '../../utils/reducers/userReducer';
+import { showError } from '../../hooks/errorManagement';
 
 function ChatUser({userId, doFunction}) {
 
@@ -15,8 +15,20 @@ function ChatUser({userId, doFunction}) {
     const currentRoom = useSelector((state)=>state?.user?.currentRoom);
     const [error, setError] = useState('')
 
+    
+
     const [room, setRoom] = useState();
     const [time, setTime] = useState();
+
+
+
+    useEffect(()=> {
+      setOnline(true);
+    }, [])
+
+    useEffect(() => {
+      showError(error, setError);
+    }, [error]);
 
     useEffect(()=> {
       getRoomWithIds(userId, currentUser?._id).then((response) =>{

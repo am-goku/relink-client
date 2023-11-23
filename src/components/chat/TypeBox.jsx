@@ -6,6 +6,7 @@ import EmojiPicker from 'emoji-picker-react';
 import EmojiIcn from '../icons/EmojiIcn';
 import { initFlowbite } from 'flowbite';
 import { updateCurrentRoom, updateReduxChatRoom } from '../../utils/reducers/userReducer';
+import { showError } from '../../hooks/errorManagement';
 
 function TypeBox({chatRoom, setMessages, messages, recieverId, socket, setChatRoom}) {
 
@@ -24,7 +25,9 @@ function TypeBox({chatRoom, setMessages, messages, recieverId, socket, setChatRo
 
   const user = useSelector((state)=> state?.user?.userData);
 
-
+  useEffect(() => {
+    showError(error, setError);
+  }, [error]);
 
 
   const sendNewMessage = () => {

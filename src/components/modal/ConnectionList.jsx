@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getConnections } from "../../services/apiMethods";
 import ProfileField from "../profiles/ProfileField";
+import { showError } from "../../hooks/errorManagement";
 
 function ConnectionList({title, setTitle, user}) {
 
@@ -36,6 +37,10 @@ function ConnectionList({title, setTitle, user}) {
           });
 
     }, [user, currentUser])
+
+    useEffect(() => {
+      showError(error, setError);
+    }, [error]);
 
     useEffect(()=> {
         if (title === "followers") {

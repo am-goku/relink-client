@@ -4,7 +4,7 @@ import PostTable from '../../../components/admin/postTable/PostTable'
 function Posts() {
   return (
     <>
-      <div className='h-[40rem]'>
+      <div className='h-full max-h-screen'>
         <PostTable />
       </div>
     </>

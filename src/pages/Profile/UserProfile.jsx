@@ -38,13 +38,15 @@ function UserProfile() {
   }, [username]);
 
   useEffect(() => {
-    fetchUserPosts(user?._id)
-      .then((response) => {
-        setPosts(response.posts);
-      })
-      .catch((error) => {
-        setError(error?.message);
-      });
+    if(user){
+      fetchUserPosts(user?._id)
+        .then((response) => {
+          setPosts(response.posts);
+        })
+        .catch((error) => {
+          setError(error?.message);
+        });
+    }
   }, [user]);
 
   return (

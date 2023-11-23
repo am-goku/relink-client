@@ -1,16 +1,14 @@
-import React, { useState } from 'react'
-import { convertDate, getTimeDifference } from '../../../hooks/timeAgo'
+import React from 'react'
+import { convertDate } from '../../../hooks/timeAgo'
 
 function PostRow({post}) {
 
-const [user, setUser] = useState()
-
 
   return (
-    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 h-24 hover:bg-gray-50 dark:hover:bg-gray-600">
       <th
         scope="row"
-        className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+        className="flex items-center px-6 py-4 w-44 text-gray-900 whitespace-nowrap dark:text-white"
       >
         <img className="w-10 h-10 rounded" src={post?.image} alt="" />
         <div className="pl-3">

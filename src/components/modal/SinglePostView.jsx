@@ -36,13 +36,15 @@ function SinglePostView({postId}) {
 
     //fetching the comments for a post with postId
     useEffect(() => {
-      fetchComments(postId)
-        .then((response) => {
-          setComments(response);
-        })
-        .catch((error) => {
-          setError(error?.message);
-        });
+      if(post && postId){
+        fetchComments(postId)
+          .then((response) => {
+            setComments(response);
+          })
+          .catch((error) => {
+            setError(error?.message);
+          });
+      }
     }, [post, postId]);
 
     //fetching the details of the user posted the post with userId inside post

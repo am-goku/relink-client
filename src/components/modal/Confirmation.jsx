@@ -6,8 +6,11 @@ function Confirmation({ post, setDeleteModal }) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  const [postId, setPostId] = useState(post?._id || "");
+  const [postId, setPostId] = useState(null);
 
+  useEffect(()=> {
+    setPostId(post?._id)
+  },[post])
 
 
 

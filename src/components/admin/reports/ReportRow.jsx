@@ -3,31 +3,39 @@ import { fetchAPost, getUser } from '../../../services/apiMethods'
 import { blockPost, blockUnblockUser } from '../../../services/admin/apiMethods'
 import { convertDate } from '../../../hooks/timeAgo'
 import { initFlowbite } from 'flowbite'
+import { showError } from '../../../hooks/errorManagement'
 
 function ReportRow({report, target}) {
 
-    const [data, setData] = useState()
     const [post, setPost] = useState()
+    const [postUser, setPostUser] = useState(null)
     const [user, setUser] = useState()
-    const [reporter, setReporter] = useState()
     const [error, setError] = useState()
 
-    const [reason, setReason] = useState()
+    // const [reason, setReason] = useState()
 
     const [date, setDate] = useState('')
 
     useEffect(()=> {
-        setReason(report?.datails);
+        // setReason(report?.datails);
         initFlowbite()
         setDate(convertDate(report?.createdAt))
     }, [report])
+
+    useEffect(() => {
+      showError(error, setError);
+    }, [error]);
 
     useEffect(()=> {
         if(target === "POST") {
             fetchAPost(report?.targetId).then((response)=> {
                 setPost(response)
+                getUser(response?.userId).then((res) => {
+                  setPostUser(res[0]);
+                });
             })
         }
+
 
         if(target === "USER") {
             getUser(report?.targetId).then((response)=> {
@@ -60,7 +68,7 @@ function ReportRow({report, target}) {
 
   return (
     <>
-      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 h-24">
         <th
           scope="row"
           className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
@@ -73,12 +81,14 @@ function ReportRow({report, target}) {
           <div className="pl-3">
             <div className="text-base font-semibold">
               {user?.name || post?.description}
+              {
+                (post && !post?.description)? <span className='font-normal text-[#686767e1]'>(no description)</span> : null
+              }
             </div>
-            {user && (
-              <div className="font-normal text-gray-500">
-                {"@" + user?.username || ""}
-              </div>
-            )}
+
+            <div className="font-normal text-gray-500">
+              {"@" + (user?.username || postUser?.username)}
+            </div>
           </div>
         </th>
         <td className="px-6 py-4">@{report?.reporterUsername}</td>
@@ -87,7 +97,7 @@ function ReportRow({report, target}) {
           <span
             data-popover-target="popover-left"
             data-popover-placement="left"
-            id='reasonSpan'
+            id="reasonSpan"
           >
             {report?.details}
           </span>

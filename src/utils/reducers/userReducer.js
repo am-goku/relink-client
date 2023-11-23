@@ -4,7 +4,7 @@ import { authUrl } from "../../const/routes";
 import { apiCall } from "../../services/apiCalls";
 
 
-let token, isValidUser, userData, chatRooms, currentRoom;
+let token, isValidUser, userData, currentRoom;
 
 
 const userSlice = createSlice({

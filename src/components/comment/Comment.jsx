@@ -6,6 +6,7 @@ import ProfilePic from "../profiles/ProfilePic";
 import NameField from "../profiles/NameField";
 import { useSelector } from "react-redux";
 import Replies from "./Replies";
+import { showError } from "../../hooks/errorManagement";
 
 function Comment({data}) {
 
@@ -47,6 +48,9 @@ function Comment({data}) {
   }, [data])
 
 
+  useEffect(() => {
+    showError(error, setError);
+  }, [error]);
 
 
   //ADD REPLY SECTION
