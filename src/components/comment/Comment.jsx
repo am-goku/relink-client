@@ -44,7 +44,7 @@ function Comment({data}) {
     }).catch((error) =>{
       setError(error?.message);
     })
-  })
+  }, [data])
 
 
 

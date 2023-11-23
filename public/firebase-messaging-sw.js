@@ -27,10 +27,11 @@ self.addEventListener("push", function (event) {
 
   const newNotify = JSON.parse(options?.data.newData);
 
+  console.log(newNotify);
 
   event.waitUntil(
     self.registration.showNotification("Relink App", {
-      body: newNotify?.message,
+      body: `${newNotify?.fromUser} ${newNotify?.message}`,
     })
   );
 
