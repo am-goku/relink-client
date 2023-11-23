@@ -13,12 +13,13 @@ function AdminNav() {
 
   const navigate = useNavigate()
   const admin = useSelector((state)=>state?.admin?.validAdmin)
+  const adminData = useSelector((state) => state?.admin?.adminData);
 
   useEffect(()=>{
-    if(!admin){
+    if(!admin || !adminData){
       navigate("/admin/login")
     }
-  },[navigate, admin])
+  },[navigate, admin, adminData])
 
 
     const signOut = () => {

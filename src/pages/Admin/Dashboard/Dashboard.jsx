@@ -11,12 +11,14 @@ function Dashboard() {
   
 
   const isValid = useSelector((state)=>state?.admin?.validAdmin)
+  const adminData = useSelector((state) => state?.admin?.adminData);
+
 
   useEffect(()=>{
-    if (!isValid) {
+    if (!isValid || !adminData) {
       navigate("/admin/login");
     }
-  },[isValid, navigate])
+  },[isValid, navigate, adminData])
 
   
 

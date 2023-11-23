@@ -14,7 +14,7 @@ function Admin() {
     if(!adminData || !validAdmin){
       navigate("/admin/login")
     }
-  })
+  }, [adminData, validAdmin, navigate])
   return (
     <>
     <ToastContainer />

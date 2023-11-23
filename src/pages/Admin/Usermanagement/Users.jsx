@@ -8,15 +8,15 @@ import UserData from './UserData';
 function Users() {
 
   const navigate = useNavigate()
-  const isValid = useSelector((state) => state?.admin?.validAdmin)
+  const adminData = useSelector((state) => state?.admin?.adminData);
+  const isValid = useSelector((state) => state?.admin?.validAdmin);
   useEffect(() => {
-    if (!isValid) {
+    if (!isValid || !adminData) {
       navigate("/admin/login");
     }
-
-    initFlowbite()
-  })
-
+  }, [adminData, isValid, navigate])
+  
+  initFlowbite()
   const [user, setUser] = useState()
   const userModal = useRef()
 
