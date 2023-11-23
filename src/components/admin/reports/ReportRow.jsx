@@ -81,9 +81,11 @@ function ReportRow({report, target}) {
           <div className="pl-3">
             <div className="text-base font-semibold">
               {user?.name || post?.description}
-              {
-                (post && !post?.description)? <span className='font-normal text-[#686767e1]'>(no description)</span> : null
-              }
+              {post && !post?.description ? (
+                <span className="font-normal text-[#686767e1]">
+                  (no description)
+                </span>
+              ) : null}
             </div>
 
             <div className="font-normal text-gray-500">
@@ -94,13 +96,7 @@ function ReportRow({report, target}) {
         <td className="px-6 py-4">@{report?.reporterUsername}</td>
         <td className="px-6 py-4">{date}</td>
         <td className="px-6 py-4 truncate max-w-sm">
-          <span
-            data-popover-target="popover-left"
-            data-popover-placement="left"
-            id="reasonSpan"
-          >
-            {report?.details}
-          </span>
+          <span>{report?.details}</span>
         </td>
         <td className="px-6 py-4">
           <div

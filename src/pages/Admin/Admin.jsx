@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import AdminNav from '../../components/admin/layout/AdminNav';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from 'react-redux';
-import { adminAuthenticator } from '../../utils/reducers/adminReducer';
+import { useSelector } from 'react-redux';
 
 function Admin() {
-  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const validAdmin = useSelector((state)=> state?.admin?.validAdmin);
+  const adminData = useSelector((state)=> state?.admin?.adminData);
+
   useEffect(()=> {
-    dispatch(adminAuthenticator());
+    if(!adminData || !validAdmin){
+      navigate("/admin/login")
+    }
   })
   return (
     <>
@@ -26,7 +30,7 @@ function Admin() {
             <Outlet />
           </div>
 
-          
+
       </div>
     </>
   );

@@ -14,12 +14,13 @@ function AdminLogin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  const isValid = useSelector((state)=>state?.admin?.validAdmin);
+  const adminData = useSelector((state) => state?.admin?.adminData);
+  const isValid = useSelector((state) => state?.admin?.validAdmin);
   useEffect(()=>{
-    if(isValid){
+    if(isValid && adminData){
       navigate("/admin");
     }
-  }, [isValid, navigate])
+  }, [isValid, navigate, adminData])
 
   //@dec    Credentials validation
   const setCredentials = () => {
