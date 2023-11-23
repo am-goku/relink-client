@@ -50,7 +50,11 @@ export const apiCall = async (method, url, data) => {
               clearUser();
             }
           }).catch((error)=>{
-            clearUser()
+            if(error.response?.status === 401){
+              clearUser()
+            } else {
+              reject(error);
+            }
           })
         } else {
           reject(error?.response?.data);

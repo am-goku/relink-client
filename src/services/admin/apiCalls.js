@@ -39,9 +39,11 @@ const adminApiCalls = async (method, url, data) => {
               resolve(response.data);
             })
             .catch((error) => {
-              localStorage.setItem(adminAuth, "");
-              localStorage.setItem(adminRefresh, "");
-              window.location.reload("/admin/login");
+              if(error?.response?.status === 401){
+                clearAdmin()
+              } else {
+                reject(error);
+              }
             });
         } else {
           reject(error?.response?.data);
@@ -49,7 +51,7 @@ const adminApiCalls = async (method, url, data) => {
       }
 
     } catch (err) {
-      reject({ status: 500, message: err.message });
+      reject(err);
     }
   });
 };
@@ -95,22 +97,16 @@ const refreshAccessToken = async (error) => {
                 });
             }
           } catch (refreshError) {
-            // error while refreshing and sending the original request
-            localStorage.removeItem(adminAuth);
-            window.location.reload("/admin/login");
+            clearAdmin()
           }
         });
       } else {
         // No refresh token available
-        localStorage.removeItem(adminAuth);
-        localStorage.removeItem(adminRefresh);
-        window.location.reload("/admin/login");
+        clearAdmin()
       }
     }
   } catch (error) {
-    localStorage.removeItem(adminAuth);
-    localStorage.removeItem(adminRefresh);
-    window.location.reload("/admin/login");
+    clearAdmin()
   }
 };
 
