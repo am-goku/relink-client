@@ -28,13 +28,15 @@ function UserProfile() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-      fetchUserByUsername(username)
-        .then((response) => {
-          setUser(response);
-        })
-        .catch((error) => {
-          setError(error?.message);
-        });
+      if(username){
+        fetchUserByUsername(username)
+          .then((response) => {
+            setUser(response);
+          })
+          .catch((error) => {
+            setError(error?.message);
+          });
+      }
   }, [username]);
 
   useEffect(() => {
