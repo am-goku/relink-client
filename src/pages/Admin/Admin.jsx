@@ -4,12 +4,13 @@ import AdminNav from '../../components/admin/layout/AdminNav';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from 'react-redux';
+import AdminProtect from '../../components/admin/layout/AdminProtect';
+
 
 function Admin() {
   const navigate = useNavigate()
   const validAdmin = useSelector((state)=> state?.admin?.validAdmin);
   const adminData = useSelector((state)=> state?.admin?.adminData);
-
   useEffect(()=> {
     if(!adminData || !validAdmin){
       navigate("/admin/login")
@@ -17,21 +18,20 @@ function Admin() {
   }, [adminData, validAdmin, navigate])
   return (
     <>
-    <ToastContainer />
-      <div className="flex h-screen bg-[#C6C1C1]">
-        {/* Sidebar */}
-        <div className="">
-          <AdminNav />
-        </div>
+      <ToastContainer />
+      <AdminProtect>
+        <div className="flex h-screen bg-[#C6C1C1]">
+          {/* Sidebar */}
+          <div className="">
+            <AdminNav />
+          </div>
 
-        
           {/* Main Content */}
           <div className="p-5 flex-1 overflow-auto relative">
             <Outlet />
           </div>
-
-
-      </div>
+        </div>
+      </AdminProtect>
     </>
   );
 }

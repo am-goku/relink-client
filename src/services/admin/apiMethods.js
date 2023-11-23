@@ -24,6 +24,21 @@ export const adminPostLogin = (adminData) => {
 };
 
 
+export const fetchSinglePost = (postId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = adminUrl.fetchSinglePost(postId);
+
+            adminApiCalls("get", url).then((response)=> {
+                resolve(response)
+            }).catch((err)=> reject(err))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+
 
 //@dec      Fetch user data
 //method    GET

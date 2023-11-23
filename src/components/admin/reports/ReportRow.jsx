@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { fetchAPost, getUser } from '../../../services/apiMethods'
-import { blockPost, blockUnblockUser } from '../../../services/admin/apiMethods'
+import { getUser } from '../../../services/apiMethods'
+import { blockPost, blockUnblockUser, fetchSinglePost } from '../../../services/admin/apiMethods'
 import { convertDate } from '../../../hooks/timeAgo'
 import { initFlowbite } from 'flowbite'
 import { showError } from '../../../hooks/errorManagement'
@@ -12,12 +12,10 @@ function ReportRow({report, target}) {
     const [user, setUser] = useState()
     const [error, setError] = useState()
 
-    // const [reason, setReason] = useState()
 
     const [date, setDate] = useState('')
 
     useEffect(()=> {
-        // setReason(report?.datails);
         initFlowbite()
         setDate(convertDate(report?.createdAt))
     }, [report])
@@ -28,7 +26,7 @@ function ReportRow({report, target}) {
 
     useEffect(()=> {
         if(target === "POST") {
-            fetchAPost(report?.targetId).then((response)=> {
+            fetchSinglePost(report?.targetId).then((response)=> {
                 setPost(response)
                 getUser(response?.userId).then((res) => {
                   setPostUser(res[0]);

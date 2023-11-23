@@ -59,6 +59,8 @@ export const adminUrl = {
   //post related
   fetchPosts: "/admin/fetch-posts",
 
+  fetchSinglePost: (postId) => `/admin/fetch-single-post/${postId}`,
+
   //block a post
   blockPost: (postId) => `/admin/post/block/${postId}`
 };

@@ -2,8 +2,6 @@ import axios from "axios";
 import { adminAuth, adminRefresh } from "../../const/localStorage";
 import { adminApi } from "./api";
 import { BASE_URL } from "../../const/url";
-import { persistor } from "../../utils/store";
-import { removeReduxAdmin } from "../../utils/reducers/adminReducer";
 
 const adminApiCalls = async (method, url, data) => {
   return new Promise(async (resolve, reject) => {
@@ -115,7 +113,6 @@ const refreshAccessToken = async (error) => {
 export const clearAdmin = () => {
   localStorage.removeItem(adminAuth);
   localStorage.removeItem(adminRefresh);
-  persistor.dispatch(removeReduxAdmin())
   window.location.reload("/admin/login");
 };
 

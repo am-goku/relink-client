@@ -4,14 +4,16 @@ import UsersIcn from "../icons/UsersIcn";
 import GalleryIcn from "../icons/GalleryIcn";
 import ChatIcn from "../icons/ChatIcn";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearAdmin } from "../../../services/admin/apiCalls";
 
 import icon from "../../../images/relinkicon.png"
+import { removeReduxAdmin } from "../../../utils/reducers/adminReducer";
 
 function AdminNav() {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const admin = useSelector((state)=>state?.admin?.validAdmin)
   const adminData = useSelector((state) => state?.admin?.adminData);
 
@@ -24,6 +26,7 @@ function AdminNav() {
 
     const signOut = () => {
       clearAdmin();
+      dispatch(removeReduxAdmin())
     };
 
 
