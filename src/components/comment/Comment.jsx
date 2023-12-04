@@ -85,7 +85,7 @@ function Comment({data}) {
 
   return (
     <>
-      <div className="bg-[#b4b2b2] py-2 rounded">
+      <div className="bg-black bg-opacity-30 py-2 rounded">
         <div className="flex-col flex ">
           <div className="w-fit h-fit  flex gap-2 items-center rounded-lg p-5 relative">
             <div
@@ -110,11 +110,11 @@ function Comment({data}) {
                 >
                   {data?.content}
                 </span>
-                <div className="p-1 text-xs self-end bottom-0 right-0 text-gray-700">
+                <div className="p-1 text-xs self-end bottom-0 right-0 text-gray-300">
                   <span className="">{time}</span>
                 </div>
               </div>
-              <div className="flex border-black border w-52 max-w-60 items-center rounded-full relative">
+              <div className="flex border-gray-500 border w-52 max-w-60 items-center rounded-full relative">
                 <input
                   type="text"
                   placeholder="Reply"

@@ -21,9 +21,10 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const user = useSelector((state)=> state?.user?.validUser);
+  const userData = useSelector((state)=> state?.user?.userData)
   
   useEffect(() => {
-    if(user){
+    if(user && userData){
         navigate("/")
     }
   });
@@ -58,7 +59,7 @@ function Login() {
         localStorage.setItem(userAuth, response.tokens.accessToken);
         localStorage.setItem(refreshToken, response.tokens.refreshToken);
         dispatch(setReduxUser({userData:response.user, validUser: true}));
-        window.location.reload("/");
+        navigate("/")
       } else {
         setError(response.message);
       }

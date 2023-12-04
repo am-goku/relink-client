@@ -14,6 +14,10 @@ import { getToken, isSupported } from "firebase/messaging";
 import { fcmToken } from "./const/localStorage";
 import { registerFcmToken } from "./services/apiMethods";
 import ErrorBoundary from "./components/error/ErrorBoundary";
+import Protect from "./components/Protect/Protect";
+import { userAuthenticator } from "./utils/reducers/userReducer";
+import { io } from "socket.io-client";
+import { BASE_URL } from "./const/url";
 
 function App() {
   const user = useSelector((state) => state?.user?.userData);
@@ -34,13 +38,13 @@ function App() {
 
   useEffect(() => {
     setPath(location.pathname);
-    // dispatch(userAuthenticator());
+    dispatch(userAuthenticator());
     initFlowbite();
   }, [location, path, dispatch]);
 
   //token section
   useEffect(() => {
-    if (user) {
+    if (user && isValid) {
       Notification.requestPermission().then((res) => {
         if (res === "granted") {
           if (isSupported()) {
@@ -59,26 +63,34 @@ function App() {
         }
       });
     }
-  }, [user]);
+  }, [user, isValid]);
+
+
+
+ 
+
+
 
 
   
   return (
     <>
       <ErrorBoundary>
-        <ToastContainer />
-        <div className="md:hidden sticky top-0 z-50">
-          <Header />
-        </div>
-        <div className="flex overflow-hidden mb-16 md:mb-0 select-none">
-          <div className="hidden md:block">
-            <NavBar path={path} />
+        <Protect>
+          <ToastContainer />
+          <div className="md:hidden sticky top-0 z-50">
+            <Header />
           </div>
-          <Outlet />
-        </div>
-        <div className="md:hidden sticky bottom-0 z-50">
-          <NavBarSm />
-        </div>
+          <div className="flex overflow-hidden mb-16 md:mb-0 select-none">
+            <div className="hidden md:block">
+              <NavBar path={path} />
+            </div>
+            <Outlet />
+          </div>
+          <div className="md:hidden sticky bottom-0 z-50">
+            <NavBarSm />
+          </div>
+        </Protect>
       </ErrorBoundary>
     </>
   );

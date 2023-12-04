@@ -6,9 +6,11 @@ import ConnectionBtn from "../icons/ConnectionBtn";
 import { getConnections } from "../../services/apiMethods";
 import ConnectionList from "../modal/ConnectionList";
 import { showError } from "../../hooks/errorManagement";
+import { useNavigate } from "react-router-dom";
 
-function ProfileCard({ user, setIsEdit, admin }) {
+function ProfileCard({ user, admin }) {
 
+  const navigate = useNavigate()
 
   const [owner, setOwner] = useState(false);
 
@@ -56,7 +58,7 @@ function ProfileCard({ user, setIsEdit, admin }) {
       <div className="bg-[#1E1E1EC4] opacity-70 lg:items-center lg:px-60 lg:py-24 w-full p-7 lg:p-0 lg:w-fit h-fit mr-auto ml-auto lg:mt-7 flex lg:grid lg:grid-flow-col lg:gap-20 gap-12 relative select-none lg:rounded">
         {!admin && (
           <div className="absolute lg:w-5 lg:h-5 right-0 top-6 lg:m-8 lg:mr-10">
-            <Options user={user} setIsEdit={setIsEdit} />
+            <Options user={user} />
           </div>
         )}
         <div className="rounded-full lg:w-36 lg:h-36 w-20 h-20 m-3 lg:m-0 bg-gray-50 relative border-white border-x-2 border-y-2 lg:-ml-20">
@@ -68,7 +70,7 @@ function ProfileCard({ user, setIsEdit, admin }) {
           {owner ? (
             <div
               className="lg:w-9 lg:h-9 hidden lg:block rounded-full absolute bottom-0 right-0 cursor-pointer"
-              onClick={() => setIsEdit(true)}
+              onClick={() => navigate(`/profile/${currentUser?.username}/edit`)}
             >
               <SettingsIcn size={{ width: 36, height: 36 }} />
             </div>

@@ -1,11 +1,12 @@
 import { initFlowbite } from "flowbite";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-function Options({user, setIsEdit}) {
+function Options({user}) {
 
   const [owner, setOwner] = useState(false);
-
+  const navigate = useNavigate()
   const currentUser = useSelector((state) => state?.user?.userData)
 
   const reportModal = useRef()
@@ -133,7 +134,7 @@ function Options({user, setIsEdit}) {
           {owner ? (
             owner && <li>
               <button
-                onClick={() => setIsEdit(true)}
+                onClick={() => navigate(`/profile/${currentUser?.username}/edit`)}
                 className="block px-4 py-2 w-full text-start hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Edit profile

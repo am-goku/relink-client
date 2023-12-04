@@ -6,25 +6,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTimeDifference } from '../../hooks/timeAgo';
 import { showError } from '../../hooks/errorManagement';
 
-function ChatUser({userId, doFunction}) {
+function ChatUser({userId, doFunction, key}) {
 
   const dispatch = useDispatch()
     const currentUser = useSelector((state)=>state?.user?.userData)
-    const [online, setOnline] = useState(true);
+    const [online, setOnline] = useState(false);
     const [user, setUser] = useState();
     const currentRoom = useSelector((state)=>state?.user?.currentRoom);
     const [error, setError] = useState('')
 
-    
 
     const [room, setRoom] = useState();
     const [time, setTime] = useState();
 
 
 
-    useEffect(()=> {
-      setOnline(true);
-    }, [])
+    
 
     useEffect(() => {
       showError(error, setError);
@@ -61,6 +58,11 @@ function ChatUser({userId, doFunction}) {
         setError(error)
       }
     },[userId])
+
+
+    useEffect(() => {
+      setOnline(user?.online)
+    }, [user]);
 
 
   return (

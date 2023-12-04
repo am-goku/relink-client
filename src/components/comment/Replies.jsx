@@ -59,7 +59,7 @@ const seeProfile = () => {
             />
             <div className="content pr-2 text-sm flex relative gap-10">
               <span>{data?.content}</span>
-              <div className="p-1 text-xs self-end bottom-0 right-0 text-gray-700">
+              <div className="p-1 text-xs self-end bottom-0 right-0 text-gray-300">
                 <span className="">{time}</span>
               </div>
             </div>

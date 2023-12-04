@@ -97,7 +97,7 @@ function SinglePostView({postId}) {
 
   return (
     <>
-      <div
+      {/* <div
         className="w-fit hidden lg:block h-fit absolute top-28 left-96 cursor-pointer"
         onClick={() => navigate(-1)}
       >
@@ -109,69 +109,70 @@ function SinglePostView({postId}) {
         >
           <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128z" />
         </svg>
-      </div>
-      <div className="bg-[#C6C1C1] w-full lg:w-fit lg:h-fit h-full ml-auto mr-auto p-5 lg:flex gap-10 select-none">
-        <div className="postImage border-black bg-[#b4b2b2] lg:border-r-2 p-2 grid gap-3 lg:w-fit w-full">
-          <div className="userInfo flex items-center gap-3">
-            <div
-              className="profilePic rounded-full aspect-square w-10"
-              onClick={() => navigate(`/profile/${postOwner?.username}`)}
-            >
+      </div> */}
+      <div className="w-full lg:w-fit lg:h-fit h-full ml-auto mr-auto p-5 lg:flex gap-10 select-none">
+        <div className="postImage md:flex md:px-10 md:gap-20 md:bg-black md:bg-opacity-50  text-white rounded-lg p-2 lg:w-fit w-full">
+          <div className="postImage bg-black md:bg-opacity-0 text-white rounded-lg p-2 grid gap-3 lg:w-fit w-full">
+            <div className="userInfo flex items-center gap-3">
+              <div
+                className="profilePic rounded-full aspect-square w-10"
+                onClick={() => navigate(`/profile/${postOwner?.username}`)}
+              >
+                <img
+                  src={postOwner?.profilePic}
+                  alt=""
+                  className="rounded-full"
+                />
+              </div>
+              <span
+                className="font-medium text-lg"
+                onClick={() => navigate(`/profile/${postOwner?.username}`)}
+              >
+                {postOwner?.name || postOwner?.username}
+              </span>
+            </div>
+            <div className="lg:w-[40rem] w-full self-center flex flex-col justify-center gap-2">
               <img
-                src={postOwner?.profilePic}
+                src={post?.image}
                 alt=""
-                className="rounded-full"
+                className="rounded select-none"
+                draggable={false}
               />
+              {post?.description ? (
+                <div className="max-w-xl max-h-40 flex flex-col w-full  overflow-y-auto no-scrollbar">
+                  <span className="font-poppins">{post?.description}</span>
+                </div>
+              ) : null}
             </div>
-            <span
-              className="font-medium text-lg"
-              onClick={() => navigate(`/profile/${postOwner?.username}`)}
-            >
-              {postOwner?.name || postOwner?.username}
-            </span>
-          </div>
-          <div className="lg:w-[40rem] w-full self-center flex flex-col justify-center gap-2">
-            <img
-              src={post?.image}
-              alt=""
-              className="rounded select-none"
-              draggable={false}
-            />
-            {post?.description ? (
-            <div className="max-w-xl max-h-40 flex flex-col w-full  overflow-y-auto no-scrollbar">
-              <span className="font-poppins">{post?.description}</span>
-            </div>
-          ) : null}
-          </div>
-          
-          <div className="flex mt-2 ml-2 gap-8 text-center">
-            <div className="">
-              <Heart
-                size={{ width: 32, height: 32 }}
-                post={post}
-                setPost={setPost}
-              />
-              <span className="">{post?.likes?.length}</span>
-            </div>
-            <div className="">
-              <SaveIcn
-                size={{ width: 32, height: 32 }}
-                post={post}
-                setPost={setPost}
-                setError={setError}
-              />
-              <span>{post?.saved?.length}</span>
+
+            <div className="flex mt-2 ml-2 gap-8 text-center">
+              <div className="">
+                <Heart
+                  size={{ width: 32, height: 32 }}
+                  post={post}
+                  setPost={setPost}
+                />
+                <span className="">{post?.likes?.length}</span>
+              </div>
+              <div className="">
+                <SaveIcn
+                  size={{ width: 32, height: 32 }}
+                  post={post}
+                  setPost={setPost}
+                  setError={setError}
+                />
+                <span>{post?.saved?.length}</span>
+              </div>
             </div>
           </div>
-        </div>
         <div className="lg:w-[30rem] h-fit w-full mt-5 pb-2 relative">
           <span className="font-medium">Comments : {comments.length}</span>
-          <div className="bg-stone-400 flex gap-3 w-full h-fit rounded-lg mt-3 p-2">
+          <div className="bg-black bg-opacity-50 flex gap-3 w-full h-fit rounded-lg mt-3 p-2">
             <textarea
               ref={txtArea}
               placeholder="Add a comment"
               type="text"
-              className="bg-transparent w-full rounded-lg"
+              className="bg-transparent w-full rounded-lg text-white placeholder-white"
               onChange={(e) => setNewComment(e.target.value.trim())}
             />
 
@@ -188,6 +189,7 @@ function SinglePostView({postId}) {
             })}
             {comments?.length === 0 ? <span>No comments</span> : null}
           </div>
+        </div>
         </div>
       </div>
     </>

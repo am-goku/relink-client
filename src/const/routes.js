@@ -12,7 +12,7 @@ export const userUrl = {
   getCredentials: "/user/userdetails",
   searchUser: (key) => `/user/search/${key}`,
   fetchByUsername: (username) => `/user/fetch/username/${username}`,
-  fetchByEmail: (email)=> `/user/fetch-user/email/${email}`,
+  fetchByEmail: (email) => `/user/fetch-user/email/${email}`,
 
   //saved posts
   savePost: (userId, postId) => `/user/${userId}/save/post/${postId}`,
@@ -20,7 +20,8 @@ export const userUrl = {
 
   //connection
   followUser: (userId, followeeId) => `/user/${userId}/follow/${followeeId}`,
-  unfollowUser: (userId, followeeId) => `/user/${userId}/unfollow/${followeeId}`,
+  unfollowUser: (userId, followeeId) =>
+    `/user/${userId}/unfollow/${followeeId}`,
   getConnections: (userId) => `/user/fetch/connection/${userId}`,
 
   //update user
@@ -38,10 +39,12 @@ export const userUrl = {
   deleteNotes: (userId) => `/user/notifications/delete/${userId}`,
 
   //password related
-  reqChangePassword: '/user/password/verify/email',
+  reqChangePassword: "/user/password/verify/email",
 
   //logout
   logOut: (userId) => `/user/logout/${userId}`,
+
+  suggestions: (userId) => `/user/fetch-suggested-users/${userId}`,
 };
 
 

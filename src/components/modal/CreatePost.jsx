@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import {FaSpinner} from "react-icons/fa";
 
 import "./CreatePost.css"
-import { addNewPost, updateUserPosts } from "../../utils/reducers/postReducer";
+import { addCreatedPost, updateUserPosts } from "../../utils/reducers/postReducer";
 
 function CreatePost({ setClose }) {
 
@@ -76,7 +76,7 @@ function CreatePost({ setClose }) {
         if (response.status === 200) {
 
           dispatch(updateUserPosts(response));
-          dispatch(addNewPost(response.post));
+          dispatch(addCreatedPost(response.post));
           setClose(true);
         } else if(response.status === 401) {
           navigate("/login");

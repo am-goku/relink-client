@@ -28,6 +28,7 @@ navigator?.serviceWorker?.addEventListener('message', (event) => {
 });
 
 
+
 Promise.all([persistor.persist(),userAuthenticator(),adminAuthenticator()]).then(()=> {
   root.render(
     <Provider store={store}>

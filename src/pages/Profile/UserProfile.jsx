@@ -55,7 +55,7 @@ function UserProfile() {
     <>
       {!isEdit ? (
         <div className="w-full lg:h-screen justify-center items-center overflow-scroll no-scrollbar p-1">
-          <ProfileCard user={user} setIsEdit={setIsEdit} />
+          <ProfileCard user={user} />
           <div className="bg-black h-1 w-[60%] lg:mt-20 mt-5 ml-auto mr-auto"></div>
           <div className="overflow-auto h-full no-scrollbar">
               <div className=" grid lg:grid-cols-4 grid-cols-3 grid-flow-row lg:gap-9 gap-1 lg:p-5 p-1 w-fit h-fit ml-auto mr-auto overflow-hidden ">

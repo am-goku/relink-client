@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 import "./SinglePost.css";
 
@@ -172,4 +172,4 @@ function SinglePost({postData, setSelectedPost, openEditor, setLikePost, likeMod
   );
 }
 
-export default SinglePost;
+export default memo(SinglePost);

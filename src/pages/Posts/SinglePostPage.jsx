@@ -22,7 +22,7 @@ function SinglePostPage() {
     <>
       {postId? 
 
-      <div className="h-screen bg-[#C6C1C1] md:w-full w-full items-center flex md:p-20 lg:p-5 overflow-auto">
+      <div className="h-screen md:w-full w-full items-center flex md:p-20 lg:p-5 overflow-auto">
         <SinglePostView postId={postId} />
       </div> : null
 

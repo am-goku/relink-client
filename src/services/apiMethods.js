@@ -754,3 +754,20 @@ export const requestChangePassword = (userId, password)=> {
         }
     })
 }
+
+
+
+
+//suggested users
+export const getSuggesions = (userId) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = userUrl.suggestions(userId);
+            apiCall("get", url).then((response) => {
+                resolve(response)
+            }).catch((err) => reject(err))
+        } catch (error) {
+            reject(error);
+        }
+    })
+}

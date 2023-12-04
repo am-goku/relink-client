@@ -6,6 +6,16 @@ import { persistor } from "../utils/store";
 
 
 
+
+export const clearUser = () => {
+  localStorage.removeItem(userAuth);
+  localStorage.removeItem(refreshToken);
+  persistor.purge();
+  window.location.reload("/login");
+};
+
+
+
 export const apiCall = async (method, url, data) => {
   return await new Promise(async (resolve, reject) => {
     try {
@@ -39,16 +49,13 @@ export const apiCall = async (method, url, data) => {
         if(error?.data?.status === 403 && error?.data?.error_code === "FORBIDDEN"){
           localStorage.setItem(userAuth, "");
           localStorage.setItem(refreshToken, "");
+          clearUser();
           window.location.reload("/login");
         }
         
         if(error?.response?.status === 401){
           refreshAccessToken(error).then((response)=> {
-            if(response){
               resolve(response?.data);
-            } else {
-              clearUser();
-            }
           }).catch((error)=>{
             if(error.response?.status === 401){
               clearUser()
@@ -123,10 +130,3 @@ const refreshAccessToken = async (error) => {
 }
 
 
-
-export const clearUser = () => {
-  localStorage.removeItem(userAuth);
-  localStorage.removeItem(refreshToken);
-  persistor.purge();
-  window.location.reload("/login");
-}

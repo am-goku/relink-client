@@ -69,11 +69,10 @@ function NavBar({ path }) {
     logoutUser(userData?._id).then((res)=> {
       if(res){
         clearUser();
-      } else {
-        throw new Error('error')
       }
+        navigate("/login");
     }).catch((err) => {
-      window.location.reload();
+      navigate("/login")
     })
   };
 

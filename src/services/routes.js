@@ -10,6 +10,7 @@ import UserProfile from "../pages/Profile/UserProfile";
 import SinglePostPage from "../pages/Posts/SinglePostPage";
 import Explore from "../pages/Explore/Explore";
 import MessageBox from "../pages/Message/MessageBox";
+import EditProfile from "../components/modal/EditProfile";
 
 
 const appRouter = createBrowserRouter([
@@ -25,6 +26,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/profile/:username",
         element: <UserProfile />,
+      },
+      {
+        path: "/profile/:username/edit",
+        element: <EditProfile />,
       },
       {
         path: "/post/:postId",

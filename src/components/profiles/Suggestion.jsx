@@ -1,20 +1,20 @@
 import React from "react";
 
-function Suggestion() {
+function Suggestion({user}) {
   return (
     <>
         <div className="w-fit h-14 flex mt-4 bg-black bg-opacity-80 rounded-3xl">
           {/* User profile image div */}
           <img
             className="w-12 h-12 ml-1 self-center rounded-full"
-            src="https://via.placeholder.com/50x50"
+            src={user?.profilePic}
             alt=""
           />
 
           <div className="w-56 ml-3 flex self-center">
             {/* User name div */}
             <div className="text-white text-lg font-normal font-['Inika']">
-              Sample user
+              {user?.name || user?.username}
             </div>
 
             {/* Follow or unfollow button div */}

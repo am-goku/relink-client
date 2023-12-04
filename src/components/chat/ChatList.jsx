@@ -113,7 +113,6 @@ function ChatList({setReciever}) {
                   doFunction={setReciever}
                   userId={userId}
                   key={index}
-
                 />
               );
             })

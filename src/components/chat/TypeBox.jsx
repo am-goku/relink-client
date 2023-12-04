@@ -87,6 +87,9 @@ function TypeBox({chatRoom, setMessages, messages, recieverId, socket, setChatRo
   },[]);
 
 
+  
+
+
   return (
     <>
       <div className="absolute bottom-16 left-2 w-fit h-fit bg-white z-10 rounded-lg" hidden ref={emojiRef}>
@@ -107,7 +110,11 @@ function TypeBox({chatRoom, setMessages, messages, recieverId, socket, setChatRo
           type="text"
           placeholder="Type something ..."
           className="w-full h-full rounded-full bg-transparent text-white placeholder-slate-300 focus:ring-0 border-0 focus:border-none"
-          onChange={(e) => setText(e.target.value.trim())}
+          onChange={(e) => {
+            setText(e.target.value.trim());
+            // socket.emit("typing", true, user?._id, (res) => {});
+          }}
+          onBlur={()=>{socket.emit("typing", false, (res) => {})}}
         />
         {text ? (
           <div

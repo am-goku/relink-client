@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 
@@ -6,20 +5,15 @@ function Protect({children}) {
 
     const navigate = useNavigate()
     const isValid = useSelector((state)=> state?.user?.validUser);
+    const user = useSelector((state)=> state?.user?.userData);
 
-    useEffect(()=> {
-        if(!isValid){
-            navigate("/login");
-        }
-    })
+    if(user && isValid){
+      return children
+    } else {
+      navigate("/login")
+    }
 
-
-
-  return (
-    <>
-        {children}
-    </>
-  )
+  
 }
 
 export default Protect
