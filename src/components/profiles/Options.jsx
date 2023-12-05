@@ -2,6 +2,8 @@ import { initFlowbite } from "flowbite";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../../services/apiMethods";
+import { clearUser } from "../../services/apiCalls";
 
 function Options({user}) {
 
@@ -18,6 +20,23 @@ function Options({user}) {
         setOwner(true);
     }
   },[currentUser, user]);
+
+
+
+
+
+  const logout = () => {
+    logoutUser(currentUser?._id)
+      .then((res) => {
+        if (res) {
+          clearUser();
+        }
+        navigate("/login");
+      })
+      .catch((err) => {
+        navigate("/login");
+      });
+  };
 
   return (
     <>
@@ -96,16 +115,6 @@ function Options({user}) {
         </div>
       </div>
 
-
-
-
-
-
-
-
-
-
-
       <button
         id="dropdownMenuIconButton"
         data-dropdown-toggle="dropdownDots"
@@ -125,21 +134,35 @@ function Options({user}) {
 
       <div
         id="dropdownDots"
-        className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-32 dark:bg-gray-700 dark:divide-gray-600"
+        className="z-10 hidden bg-white text-white divide-y divide-gray-100 rounded-lg shadow w-32 dark:bg-gray-700 dark:divide-gray-600"
       >
         <ul
           className="py-2 text-sm text-gray-700 dark:text-gray-200"
           aria-labelledby="dropdownMenuIconButton"
         >
           {owner ? (
-            owner && <li>
-              <button
-                onClick={() => navigate(`/profile/${currentUser?.username}/edit`)}
-                className="block px-4 py-2 w-full text-start hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Edit profile
-              </button>
-            </li>
+            owner && (
+              <>
+                <li>
+                  <div
+                    onClick={() =>
+                      navigate(`/profile/${currentUser?.username}/edit`)
+                    }
+                    className="block px-4 py-2 w-full text-start hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    Edit profile
+                  </div>
+                </li>
+                <li>
+                  <div
+                    onClick={logout}
+                    className="block px-4 py-2 w-full text-start hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    Logout
+                  </div>
+                </li>
+              </>
+            )
           ) : (
             <li>
               <button

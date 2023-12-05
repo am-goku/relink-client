@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import bgIcon from "../../assets/icon_assets/pngwing.com.png";
 import CropImage from "../options/CropImg";
@@ -15,6 +15,7 @@ function CreatePost({ setClose }) {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const txtArea = useRef()
   const [error, setError] = useState(""); // state for setting error occurs
   const [selectedImg, setSelectedImg] = useState(false); //state to set the image selected by client
   const [bg, setBg] = useState(bgIcon);
@@ -26,6 +27,10 @@ function CreatePost({ setClose }) {
   const [loading, setLoading] = useState(false); // state to set the loading
 
   const userData = useSelector((state)=>state?.user?.userData);
+
+  useEffect(()=> {
+    clearComponent()
+  },[])
 
 
   useEffect(() => {
@@ -50,6 +55,7 @@ function CreatePost({ setClose }) {
     setDescription("");
     setCroppedImg(null);
     setImage(null);
+    txtArea.current.value = ''
   }
 
   const handleSubmit = async () => {
@@ -77,10 +83,13 @@ function CreatePost({ setClose }) {
 
           dispatch(updateUserPosts(response));
           dispatch(addCreatedPost(response.post));
+          clearComponent()
           setClose(true);
         } else if(response.status === 401) {
+          clearComponent()
           navigate("/login");
         } else {
+          clearComponent()
           setError(response.message);
         };
       }).finally(()=> {
@@ -103,28 +112,38 @@ function CreatePost({ setClose }) {
           />
         ) : null}
 
-        <div className="md:flex grid md:gap-5 gap-10 w-fit h-fit bg-slate-700 p-14 m-auto rounded-lg">
-          <div className="bg-neutral-500 w-72 h-72 flex-1 relative rounded-md flex justify-center">
-            <img src={bg} alt="" className="w-64 h-64 self-center " />
+        <div className="md:flex grid md:gap-16 gap-10 w-fit h-fit text-white bg-black bg-opacity-75 p-40 m-auto rounded-lg relative">
 
-            <input
-              type="file"
-              accept="image/jpeg, image/png, image/webp, image/jpg"
-              name="image"
-              id="image"
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              onChange={handleImage}
-            />
+
+          <div className="absolute top-10 left-[50%] -translate-x-2/4 text-2xl font-semibold font-poppins">Create new post</div>
+          <div className="w-fit h-fit">
+            <div className="bg-neutral-500 w-72 h-72 flex-1 relative rounded-md flex justify-center">
+              <img src={bg} alt="" className="w-64 h-64 self-center " />
+
+              <input
+                type="file"
+                accept="image/jpeg, image/png, image/webp, image/jpg"
+                name="image"
+                id="image"
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                onChange={handleImage}
+              />
+            </div>
           </div>
 
           <div className="flex flex-col gap-5">
-            <div className="forForm w-96 md:h-56 h-40  bg-slate-500 overflow-scroll no-scrollbar relative rounded-md">
+            <div className="forForm overflow-scroll no-scrollbar relative rounded-md flex flex-col gap-3">
+              <span className="font-medium font-poppins">Add a caption</span>
               <textarea
+                ref={txtArea}
                 type="text"
                 name="caption"
                 id="caption"
-                placeholder="Write a caption ...."
-                className="w-full h-full bg-transparent placeholder-slate-300 absolute top-0 left-0"
+                cols={30}
+                rows={8}
+                defaultValue={description}
+                placeholder="Write a something ...."
+                className="w-full h-full placeholder-slate-300 bg-black top-0 left-0 focus:border-white"
                 onChange={(e) => {
                   setDescription(e.target.value);
                 }}
@@ -139,6 +158,7 @@ function CreatePost({ setClose }) {
               <button
                 className="flex-1 w-28 h-8 bg-red-900 bg-opacity-80 rounded-lg mr-5"
                 onClick={() => {
+                  clearComponent()
                   setClose(true);
                   setSelectedImg(false);
                   setDescription("");
@@ -149,19 +169,24 @@ function CreatePost({ setClose }) {
               >
                 Cancel
               </button>
-              {
-                !loading?
+              {!loading ? (
                 <button
-                className="flex-1 w-28 h-8 bg-sky-700 bg-opacity-80 rounded-lg"
-                onClick={handleSubmit}
-              >
-                Post
-              </button>
-              : <button
-                className=" flex-1 w-28 h-8 bg-sky-700 bg-opacity-80 rounded-lg items-center justify-center"
-              > <FaSpinner size={16} icon="spinner" spin={true} className="ml-auto mr-auto rotating-spinner"  />
-              </button>
-              }
+                  className="flex-1 w-28 h-8 bg-sky-700 bg-opacity-80 rounded-lg"
+                  onClick={handleSubmit}
+                >
+                  Post
+                </button>
+              ) : (
+                <button className=" flex-1 w-28 h-8 bg-sky-700 bg-opacity-80 rounded-lg items-center justify-center">
+                  {" "}
+                  <FaSpinner
+                    size={16}
+                    icon="spinner"
+                    spin={true}
+                    className="ml-auto mr-auto rotating-spinner"
+                  />
+                </button>
+              )}
             </div>
           </div>
         </div>
