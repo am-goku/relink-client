@@ -112,7 +112,7 @@ function SinglePostView({postId}) {
       </div> */}
       <div className="w-full lg:w-fit lg:h-fit h-full ml-auto mr-auto p-5 lg:flex gap-10 select-none">
         <div className="postImage md:flex md:px-10 md:gap-20 md:bg-black md:bg-opacity-50  text-white rounded-lg p-2 lg:w-fit w-full">
-          <div className="postImage bg-black md:bg-opacity-0 text-white rounded-lg p-2 grid gap-3 lg:w-fit w-full">
+          <div className="postImage bg-black bg-opacity-75 md:bg-opacity-0 text-white rounded-lg p-2 grid gap-3 lg:w-fit w-full">
             <div className="userInfo flex items-center gap-3">
               <div
                 className="profilePic rounded-full aspect-square w-10"
@@ -167,7 +167,7 @@ function SinglePostView({postId}) {
           </div>
         <div className="lg:w-[30rem] h-fit w-full mt-5 pb-2 relative">
           <span className="font-medium">Comments : {comments.length}</span>
-          <div className="bg-black bg-opacity-50 flex gap-3 w-full h-fit rounded-lg mt-3 p-2">
+          <div className="bg-black bg-opacity-75 flex gap-3 w-full h-fit rounded-lg mt-3 p-2">
             <textarea
               ref={txtArea}
               placeholder="Add a comment"

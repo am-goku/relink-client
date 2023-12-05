@@ -122,36 +122,43 @@ const changePassword = () => {
     
     if(password?.length < 5 || !password){
       setPasError("Password must be at least 5 characters.");
+      setPLoading(false);
       return false;
     }
 
     if(whitespaceRegExp.test(password)){
       setPasError("Password should not contain whitespaces.");
+      setPLoading(false);
       return false;
     }
 
     if(password !== cPassword){
       setPasError("Password is not matching.");
+      setPLoading(false);
       return false;
     }
 
 
     requestChangePassword(user?._id, password).then((response)=> {
       setPassSuccuss("Verification mail has been sent successfully, Please verify your email to confirm password change.");
+      setPLoading(false);
       return;
     }).catch((err)=> {
+      setPLoading(false);
       setError(err);
       alertError()
     })
 
   } catch (error) {
+    setPLoading(false);
     setError(error);
     alertError()
   } finally {
     setTimeout(()=> {
       setPasError('')
-    }, 5000)
-    setPLoading(false);
+      setPassSuccuss('')
+    }, 7000)
+    
   }
 }
 

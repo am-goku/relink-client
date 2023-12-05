@@ -80,7 +80,6 @@ function CreatePost({ setClose }) {
       postCreatePost(postData).then((response) => {
         setLoading(false);
         if (response.status === 200) {
-
           dispatch(updateUserPosts(response));
           dispatch(addCreatedPost(response.post));
           clearComponent()

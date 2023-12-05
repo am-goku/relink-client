@@ -57,7 +57,7 @@ const CropImage = ({
           onCropComplete={onCropComplete}
         />
       </div>
-      <div className="fixed bottom-0 w-[60%] h-[80px] z-20">
+      <div className="fixed bottom-32 left-0 w-[100%] h-[80px] z-20">
         <div className="text-center">
           <input
             type="range"
@@ -73,18 +73,18 @@ const CropImage = ({
         </div>
         <div className="text-center">
           <button
-            className="bg-red-500 text-white px-3 mr-5 rounded-lg"
+            className="bg-red-500 text-white px-4 p-1 mr-5 rounded-lg"
             onClick={() => setimgSelected(false)}
           >
             cancel
           </button>
           {disable ? (
-            <button className="bg-green-500 text-white px-3 rounded-lg pointer-events-none">
+            <button className="bg-green-500 text-white px-4 p-1 rounded-lg pointer-events-none">
               crop
             </button>
           ) : (
             <button
-              className="bg-green-500 text-white px-3 rounded-lg"
+              className="bg-green-500 text-white px-4 p-1 rounded-lg"
               onClick={onCrop}
             >
               crop
