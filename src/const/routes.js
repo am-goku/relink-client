@@ -81,7 +81,7 @@ export const postUrl = {
   getUserPosts: "/post/fetchUserPosts",
 
   //delete post
-  deletePost: (postId) =>`/post/delete/post/${postId}`,
+  deletePost: (postId) => `/post/delete/post/${postId}`,
 
   //likes
   likePost: "/post/like-post",
@@ -99,7 +99,9 @@ export const postUrl = {
 
   //update post
   update: (postId) => `/post/update-post/${postId}`,
-  
+
+  //toget evry posts 20 per req.
+  getAll: `/post/get-every-posts`,
 };
 
 

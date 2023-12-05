@@ -7,7 +7,7 @@ function SearchResult({ users }) {
 
   return (
     <>
-      <div className="bg-white w-full h-full rounded grid gap-2 max-h-[40rem] overflow-auto no-scrollbar">
+      <div className="bg-opacity-75 text-white w-full h- rounded grid gap-2 overflow-auto no-scrollbar">
         {users.map((user, index) => {
           return (
             <div
@@ -32,6 +32,16 @@ function SearchResult({ users }) {
           );
         })}
       </div>
+
+
+
+
+
+
+
+
+
+
     </>
   );
 }

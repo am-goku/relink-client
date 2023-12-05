@@ -450,10 +450,14 @@ export const getConnections = (userId) => {
 export const searchUser = (key) => {
     return new Promise((resolve, reject) => {
         try {
-            const url = userUrl.searchUser(key);
-            apiCall("get", url).then((response) => {
-                resolve(response);
-            }).catch((error) => reject(error));
+            if(key){
+                const url = userUrl.searchUser(key);
+                apiCall("get", url)
+                  .then((response) => {
+                    resolve(response);
+                  })
+                  .catch((error) => reject(error));
+            }
         } catch (error) {
             reject(error);
         }
@@ -763,6 +767,21 @@ export const getSuggesions = (userId) => {
     return new Promise((resolve, reject) => {
         try {
             const url = userUrl.suggestions(userId);
+            apiCall("get", url).then((response) => {
+                resolve(response)
+            }).catch((err) => reject(err))
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+
+
+export const getEveryPosts = (page) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const url = `${postUrl.getAll}?page=${page}`;
             apiCall("get", url).then((response) => {
                 resolve(response)
             }).catch((err) => reject(err))
