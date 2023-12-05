@@ -14,12 +14,16 @@ useEffect(()=> {
 
   return (
     <>
-      <div className="w-full h-full md:p-5 grid grid-cols-3 md:grid-cols-5 gap-2">
+      <div className="w-full  md:p-5 flex md:flex gap-6 flex-wrap justify-center overflow-auto">
         {
-          posts.map((post) =>{
-            return <div className="bg-white w-28 md:w-80 aspect-square rounded">
-              <img src={post.image} alt="" />
-            </div>;
+          [...posts, ...posts, ...posts, ...posts].map((post) =>{
+            return (
+              <>
+                <div className="bg-white w-28 md:w-72 aspect-square rounded">
+                  <img src={post.image} alt="" />
+                </div>
+              </>
+            );
           })
         }
         

@@ -4,7 +4,7 @@ import UserPosts from "../../components/profiles/UserPosts";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserByUsername, fetchUserPosts } from "../../services/apiMethods";
-import EditProfile from "../../components/modal/EditProfile";
+// import EditProfile from "../../components/modal/EditProfile";
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function UserProfile() {
     (state) => state?.user
   );
 
-  const [isEdit, setIsEdit] = useState(false);
+  // const [isEdit, setIsEdit] = useState(false);
 
   const { username } = useParams();
 
@@ -23,7 +23,7 @@ function UserProfile() {
     }
   }, [validUser, userData, navigate]);
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState("");
 
@@ -53,7 +53,7 @@ function UserProfile() {
 
   return (
     <>
-      {!isEdit ? (
+      {/* {!isEdit ? ( */}
         <div className="w-full lg:h-screen justify-center items-center overflow-scroll no-scrollbar p-1">
           <ProfileCard user={user} />
           <div className="bg-black h-1 w-[60%] lg:mt-20 mt-5 ml-auto mr-auto"></div>
@@ -70,11 +70,11 @@ function UserProfile() {
             ) : null}
           </div>
         </div>
-      ) : (
+      {/* ) : (
         <div className="w-full lg:h-screen flex flex-col justify-center items-center overflow-scroll no-scrollbar p-1">
           <EditProfile setIsEdit={setIsEdit} />
         </div>
-      )}
+      )} */}
     </>
   );
 }

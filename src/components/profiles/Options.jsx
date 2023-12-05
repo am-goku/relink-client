@@ -109,7 +109,7 @@ function Options({user}) {
       <button
         id="dropdownMenuIconButton"
         data-dropdown-toggle="dropdownDots"
-        className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 lg:bg-white rounded-lg"
+        className="inline-flex items-center p-2 text-sm font-medium text-center text-white rounded-lg"
         type="button"
       >
         <svg

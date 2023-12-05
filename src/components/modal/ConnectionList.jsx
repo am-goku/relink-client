@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { getConnections } from "../../services/apiMethods";
 import ProfileField from "../profiles/ProfileField";
 import { showError } from "../../hooks/errorManagement";
+import { FaCircleNotch } from "react-icons/fa";
 
 function ConnectionList({title, setTitle, user}) {
 
@@ -15,7 +16,10 @@ function ConnectionList({title, setTitle, user}) {
     const [connections, setConnections] = useState([]);
     const [currentUserConnections, setCurrentUserConnections] = useState([]);
 
+    const [loading, setLoading] = useState(true);
 
+
+    
     
 
     useEffect(()=> {
@@ -53,6 +57,13 @@ function ConnectionList({title, setTitle, user}) {
     },[followers, following, title])
 
 
+    useEffect(() => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }, []);
+
+
 
   return (
     <>
@@ -63,9 +74,9 @@ function ConnectionList({title, setTitle, user}) {
         className="fixed top-0 left-0 right-0 z-50 flex justify-center items-center bg-[#180f1f52] w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full"
       >
         <div className="relative w-full max-w-md max-h-full">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div className="relative bg-[#bdbaba] rounded-lg shadow dark:bg-gray-700">
             <button
-                onClick={()=> setTitle('')}
+              onClick={() => setTitle("")}
               type="button"
               className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
               data-modal-hide="crypto-modal"
@@ -93,25 +104,37 @@ function ConnectionList({title, setTitle, user}) {
               </h3>
             </div>
             <div className="p-6 max-h-[40rem] overflow-auto">
-              
               <ul className="my-4 space-y-3">
+                {!loading &&
+                  (connections.length > 0 ? (
+                    connections.map((item, index) => {
+                      const follow =
+                        currentUserConnections?.following?.includes(item);
+                      return (
+                        <li>
+                          <ProfileField
+                            userId={item}
+                            key={index}
+                            follow={follow}
+                            setTitle={setTitle}
+                          />
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <div className="w-full text-center">No followers</div>
+                  ))}
 
-                {
-                    connections.length > 0 ?
-                        connections.map((item, index)=> {
-                        const follow = currentUserConnections?.following?.includes(item);
-                        return (
-                          <li>
-                            <ProfileField userId={item} key={index} follow={follow} setTitle={setTitle} />
-                          </li>
-                        );
-                    }) : <div className="w-full text-center">No followers</div>
-                }
-
+                {loading && (
+                  <FaCircleNotch
+                    size={16}
+                    icon="spinner"
+                    spin={true}
+                    className="ml-auto mr-auto rotating-spinner"
+                  />
+                )}
               </ul>
-              <div>
-                
-              </div>
+              <div></div>
             </div>
           </div>
         </div>
