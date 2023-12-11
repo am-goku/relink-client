@@ -113,7 +113,7 @@ const signIn = (data) => {
         Sign up with Google
       </button>
 
-      <NotifyHeader error={error} />
+      { error && <NotifyHeader error={error} />}
 
       <button
         ref={modalRef}

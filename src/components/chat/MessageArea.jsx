@@ -57,9 +57,9 @@ useEffect(()=> {
 
         {/* {isTyping && (
           <div className="bg-white w-fit p-3 px-4 gap-2 flex max-w-lg rounded-b-lg justify-center items-center rounded-r-lg">
-            <div class="w-2 h-2 rounded-full bg-gray-700 animate-bounce"></div>
-            <div class="w-2 h-2 rounded-full bg-gray-700 animate-bounce [animation-delay:-.3s]"></div>
-            <div class="w-2 h-2 rounded-full bg-gray-700 animate-bounce [animation-delay:-.5s]"></div>
+            <div className="w-2 h-2 rounded-full bg-gray-700 animate-bounce"></div>
+            <div className="w-2 h-2 rounded-full bg-gray-700 animate-bounce [animation-delay:-.3s]"></div>
+            <div className="w-2 h-2 rounded-full bg-gray-700 animate-bounce [animation-delay:-.5s]"></div>
           </div>
         )} */}
       </div>

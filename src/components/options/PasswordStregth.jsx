@@ -19,7 +19,7 @@ function StrengthMeter({
           <div className="bg-gradient-to-r  from-amber-700 to-green-600 w-20 h-1" />
         ) : null}
       </div>
-        <p className="text-xs">{passwordError}</p>
+        <p className="text-xs text-white md:text-black">{passwordError}</p>
     </>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useEffect, useState } from "react";
 import SettingsIcn from "../icons/SettingsIcn";
 import Options from "./Options";
@@ -65,6 +66,7 @@ function ProfileCard({ user, admin }) {
           <img
             src={user?.profilePic}
             alt=""
+            loading="lazy"
             className="rounded-full aspect-square w-full"
           />
           {owner ? (

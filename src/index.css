@@ -30,7 +30,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-    background: linear-gradient(90deg, #732ADA 0%, #EDD8CA 100%);
+    /* background: linear-gradient(90deg, #732ADA 0%, #EDD8CA 100%); */
+    /* background: transparent radial-gradient(circle at top right, #000000 10%, #17008D 100%) 0% 0%; */
+    background: linear-gradient(90deg,#000000 10%, #17008D 100%);
     background-blend-mode: difference;
 }
 

@@ -56,11 +56,11 @@ function Varifyemail() {
 
   return (
     <>
-      <div className="w-screen h-screen flex justify-center">
+      <div className="w-screen h-screen flex justify-center overflow-hidden">
         <div className="formContainer md:w-3/5 w-auto h-screen flex justify-center lg:justify-start md:items-center mt-20 md:mt-0">
           <div className=" max-h-full w-80 flex-col justify-start px-6 py-12 lg:px-8 md:bg-gradient-to-r from-gray-300 to-transparent rounded-lg">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-              <h2 className="mb-14 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+              <h2 className="mb-14 text-center text-2xl font-bold leading-9 tracking-tight text-white md:text-gray-900">
                 Verify email
               </h2>
             </div>
@@ -81,8 +81,9 @@ function Varifyemail() {
                       name="email"
                       //   type="email"
                       autoComplete="email"
+                      placeholder="Email address"
                       // required
-                      className="block w-full border-b bg-transparent border-black py-1.5 text-gray-900 placeholder:text-gray-950 focus:outline-none sm:text-sm sm:leading-6"
+                      className="block w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
                     />
                   </div>
                   <br />
@@ -95,7 +96,7 @@ function Varifyemail() {
                         name="otpToken"
                         placeholder="Verification code"
                         required
-                        className="block w-full border-b bg-transparent border-black py-1.5 text-gray-900 placeholder:text-gray-500 focus:outline-none sm:text-sm sm:leading-6"
+                        className="block w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
                       />
                     </div>
                   ) : null}

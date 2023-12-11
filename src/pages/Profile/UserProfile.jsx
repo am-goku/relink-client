@@ -4,7 +4,6 @@ import UserPosts from "../../components/profiles/UserPosts";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserByUsername, fetchUserPosts } from "../../services/apiMethods";
-// import EditProfile from "../../components/modal/EditProfile";
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -13,7 +12,6 @@ function UserProfile() {
     (state) => state?.user
   );
 
-  // const [isEdit, setIsEdit] = useState(false);
 
   const { username } = useParams();
 
@@ -70,11 +68,6 @@ function UserProfile() {
             ) : null}
           </div>
         </div>
-      {/* ) : (
-        <div className="w-full lg:h-screen flex flex-col justify-center items-center overflow-scroll no-scrollbar p-1">
-          <EditProfile setIsEdit={setIsEdit} />
-        </div>
-      )} */}
     </>
   );
 }

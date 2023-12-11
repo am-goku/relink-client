@@ -56,7 +56,6 @@ function Signup() {
             if(await regValidate({...userData, setErr: setError})) {
                 postRegister(userData).then((response) => {
                   if(response.status === 200) {
-                    alert(response.message)
                     navigate('/login');
                   } else {
                     setError(response.message);
@@ -75,11 +74,11 @@ function Signup() {
 
   return (
     <>
-      <div className="w-screen h-screen flex justify-center">
+      <div className="w-screen h-screen flex justify-center overflow-hidden">
         <div className="formContainer md:w-3/5 w-auto h-screen flex justify-center lg:justify-start md:items-center mt-20 md:mt-0">
           <div className=" max-h-full w-80 flex-col justify-start px-6 py-12 lg:px-8 md:bg-gradient-to-r from-gray-300 to-transparent rounded-lg">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-              <h2 className="mb-14 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+              <h2 className="mb-14 text-center text-2xl font-bold leading-9 tracking-tight text-white md:text-gray-900">
                 Register to ReLink
               </h2>
             </div>
@@ -89,7 +88,7 @@ function Signup() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="hidden md:block text-sm font-medium leading-6 text-gray-900"
                   >
                     Email
                   </label>
@@ -99,8 +98,9 @@ function Signup() {
                       name="email"
                       type="email"
                       autoComplete="email"
+                      placeholder="Email address"
                       // required
-                      className="block w-full border-b bg-transparent border-black py-1.5 text-gray-900 placeholder:text-gray-950 focus:outline-none sm:text-sm sm:leading-6"
+                      className="block w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
                       onChange={(e) => setEmail(e.target.value.trim())}
                     />
                   </div>
@@ -109,7 +109,7 @@ function Signup() {
                 <div>
                   <label
                     htmlFor="username"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="hidden md:block text-sm font-medium leading-6 text-gray-900"
                   >
                     Username
                   </label>
@@ -119,8 +119,9 @@ function Signup() {
                       name="username"
                       type="text"
                       autoComplete="username"
+                      placeholder="Username"
                       // required
-                      className="block w-full border-b bg-transparent border-black py-1.5 text-gray-900 placeholder:text-gray-950 focus:outline-none sm:text-sm sm:leading-6"
+                      className="block w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
                       onChange={(e) => setUsername(e.target.value.trim())}
                     />
                   </div>
@@ -130,7 +131,7 @@ function Signup() {
                   <div className="flex items-center justify-between">
                     <label
                       htmlFor="password"
-                      className="block text-sm font-medium leading-6 text-gray-900"
+                      className="hidden md:block text-sm font-medium leading-6 text-gray-900"
                     >
                       Password
                     </label>
@@ -140,8 +141,9 @@ function Signup() {
                       id="password"
                       name="password"
                       type="password"
+                      placeholder="Password"
                       required
-                      className="block w-full border-b bg-transparent border-black py-1.5 text-gray-900 placeholder:text-gray-950 focus:outline-none sm:text-sm sm:leading-6"
+                      className="block w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
                       onChange={(e) => {
                         setPassword(e.target.value.trim());
                         passCheck(e.target.value);
@@ -163,7 +165,7 @@ function Signup() {
                   <div className="flex items-center justify-between">
                     <label
                       htmlFor="password2"
-                      className="block text-sm font-medium leading-6 text-gray-900"
+                      className="hidden md:block text-sm font-medium leading-6 text-gray-900"
                     >
                       Confirm password
                     </label>
@@ -173,8 +175,9 @@ function Signup() {
                       id="password2"
                       name="password2"
                       type="password"
+                      placeholder="Confirm password"
                       required
-                      className="block w-full border-b bg-transparent border-black py-1.5 text-gray-900 placeholder:text-gray-950 focus:outline-none sm:text-sm sm:leading-6"
+                      className="block w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
                       onChange={(e) => setPassword2(e.target.value.trim())}
                     />
                   </div>
@@ -184,7 +187,7 @@ function Signup() {
                   <div className="text-red-700">{`! ${error}`}</div>
                 ) : null}
 
-                <div className='flex flex-col gap-2'>
+                <div className="flex flex-col gap-2">
                   <button
                     className="flex w-full justify-center rounded-md bg-[#1e1e1ec4] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     onClick={handleSubmit}
