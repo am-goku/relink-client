@@ -76,9 +76,9 @@ function Signup() {
     <>
       <div className="w-screen h-screen flex justify-center overflow-hidden">
         <div className="formContainer md:w-3/5 w-auto h-screen flex justify-center lg:justify-start md:items-center mt-20 md:mt-0">
-          <div className=" max-h-full w-80 flex-col justify-start px-6 py-12 lg:px-8 md:bg-gradient-to-r from-gray-300 to-transparent rounded-lg">
+          <div className=" max-h-full w-80 flex-col justify-start px-6 py-12 lg:px-8 bulgeBox2 rounded-lg">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-              <h2 className="mb-14 text-center text-2xl font-bold leading-9 tracking-tight text-white md:text-gray-900">
+              <h2 className="mb-14 text-center text-2xl font-bold leading-9 tracking-tight text-white ">
                 Register to ReLink
               </h2>
             </div>
@@ -88,7 +88,7 @@ function Signup() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="hidden md:block text-sm font-medium leading-6 text-gray-900"
+                    className="hidden md:block text-sm font-medium leading-6 text-white"
                   >
                     Email
                   </label>
@@ -100,7 +100,7 @@ function Signup() {
                       autoComplete="email"
                       placeholder="Email address"
                       // required
-                      className="block w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
+                      className="block focus:custom-box rounded-lg focus:ring-0 focus:border-[#212121] w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-whilte placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
                       onChange={(e) => setEmail(e.target.value.trim())}
                     />
                   </div>
@@ -109,7 +109,7 @@ function Signup() {
                 <div>
                   <label
                     htmlFor="username"
-                    className="hidden md:block text-sm font-medium leading-6 text-gray-900"
+                    className="hidden md:block text-sm font-medium leading-6 text-white"
                   >
                     Username
                   </label>
@@ -121,7 +121,7 @@ function Signup() {
                       autoComplete="username"
                       placeholder="Username"
                       // required
-                      className="block w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
+                      className="block focus:custom-box rounded-lg focus:ring-0 focus:border-[#212121] w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
                       onChange={(e) => setUsername(e.target.value.trim())}
                     />
                   </div>
@@ -131,7 +131,7 @@ function Signup() {
                   <div className="flex items-center justify-between">
                     <label
                       htmlFor="password"
-                      className="hidden md:block text-sm font-medium leading-6 text-gray-900"
+                      className="hidden md:block text-sm font-medium leading-6 text-white"
                     >
                       Password
                     </label>
@@ -143,7 +143,7 @@ function Signup() {
                       type="password"
                       placeholder="Password"
                       required
-                      className="block w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
+                      className="block focus:custom-box rounded-lg focus:ring-0 focus:border-[#212121] w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
                       onChange={(e) => {
                         setPassword(e.target.value.trim());
                         passCheck(e.target.value);
@@ -165,7 +165,7 @@ function Signup() {
                   <div className="flex items-center justify-between">
                     <label
                       htmlFor="password2"
-                      className="hidden md:block text-sm font-medium leading-6 text-gray-900"
+                      className="hidden md:block text-sm font-medium leading-6 text-white"
                     >
                       Confirm password
                     </label>
@@ -177,7 +177,7 @@ function Signup() {
                       type="password"
                       placeholder="Confirm password"
                       required
-                      className="block w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
+                      className="block focus:custom-box rounded-lg focus:ring-0 focus:border-[#212121] w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
                       onChange={(e) => setPassword2(e.target.value.trim())}
                     />
                   </div>

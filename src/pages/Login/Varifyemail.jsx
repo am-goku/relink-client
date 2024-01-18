@@ -58,9 +58,9 @@ function Varifyemail() {
     <>
       <div className="w-screen h-screen flex justify-center overflow-hidden">
         <div className="formContainer md:w-3/5 w-auto h-screen flex justify-center lg:justify-start md:items-center mt-20 md:mt-0">
-          <div className=" max-h-full w-80 flex-col justify-start px-6 py-12 lg:px-8 md:bg-gradient-to-r from-gray-300 to-transparent rounded-lg">
+          <div className=" max-h-full w-80 flex-col justify-start px-6 py-12 lg:px-8 bulgeBox2 rounded-lg">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-              <h2 className="mb-14 text-center text-2xl font-bold leading-9 tracking-tight text-white md:text-gray-900">
+              <h2 className="mb-14 text-center text-2xl font-bold leading-9 tracking-tight text-white ">
                 Verify email
               </h2>
             </div>
@@ -70,7 +70,7 @@ function Varifyemail() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-sm font-medium leading-6 text-white"
                   >
                     Email address
                   </label>
@@ -96,7 +96,7 @@ function Varifyemail() {
                         name="otpToken"
                         placeholder="Verification code"
                         required
-                        className="block w-full border-b bg-transparent border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-gray-300 md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
+                        className="block w-full border-b bg-transparent text-white border-gray-300 md:border-black py-1.5 text-gray-900 placeholder:text-white md:placeholder:text-transparent focus:outline-none sm:text-sm sm:leading-6"
                       />
                     </div>
                   ) : null}

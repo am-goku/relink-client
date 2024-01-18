@@ -7,7 +7,7 @@ import {
   FaRegEdit,
 } from "react-icons/fa";
 import { IoHomeSharp, IoNotifications } from "react-icons/io5";
-import logowithback from "../../images/logowithback.png";
+import logowithback from "../../images/relink.png";
 import CreatePost from "../modal/CreatePost";
 import { initFlowbite } from "flowbite";
 import { useNavigate } from "react-router-dom";
@@ -78,7 +78,7 @@ function NavBar({ path }) {
 
   return (
     <>
-      <div className="w-72 h-screen flex flex-col bg-gradient-to-r from-black via-zinc-900 to-zinc-700">
+      <div className="w-72 h-screen flex flex-col bg-black">
         <div className="w-full h-auto cursor-pointer">
           <img src={logowithback} alt="" className="h-auto" />
         </div>

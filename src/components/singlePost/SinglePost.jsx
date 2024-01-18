@@ -83,7 +83,7 @@ function SinglePost({postData, setSelectedPost, openEditor, setLikePost, likeMod
     <>
       <div className="p-4 mt-5 w-full select-none">
         {/* Parent div with padding */}
-        <div className="p-2 rounded-md relative lg:w-[40rem] flex flex-col bg-black bg-opacity-75 border-2 border-black">
+        <div className="p-2 rounded-md relative lg:w-[40rem] flex flex-col bulgeBox2">
           <div className="w-full h-16 flex p-2 gap-3 self-center">
             <div
               className="bg-white ml-1 w-11 h-11 rounded-full self-center cursor-pointer"
@@ -122,14 +122,14 @@ function SinglePost({postData, setSelectedPost, openEditor, setLikePost, likeMod
           </div>
 
           {/* Larger square div for image */}
-          <div className="max-w-full min-w-full mt-2 aspect-square bg-gray-300 rounded-lg overflow-hidden">
+          <div className="max-w-full min-w-full mt-2 aspect-square custom-box p-1 rounded-lg overflow-hidden">
             {/* You can add your image here */}
-              <img
-                src={post.image}
-                alt=""
-                className="object-cover w-full h-full"
-                draggable={false}
-              />
+            <img
+              src={post.image}
+              alt=""
+              className="object-cover w-full h-full "
+              draggable={false}
+            />
           </div>
           {/* show more funtion */}
           <div className="m-2">
@@ -137,7 +137,10 @@ function SinglePost({postData, setSelectedPost, openEditor, setLikePost, likeMod
           </div>
           <div className="mt-1">
             {likes?.length > 0 ? (
-              <span onClick={showLikes} className="pl-2 text-white text-sm font-light select-none">
+              <span
+                onClick={showLikes}
+                className="pl-2 text-white text-sm font-light select-none"
+              >
                 {likes?.includes(user?._id)
                   ? `You ${
                       likes.length > 1 ? `and ${likes?.length - 1} other` : ""
