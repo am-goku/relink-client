@@ -153,6 +153,24 @@ function Login() {
                     </button>
 
                     <OauthSignin />
+
+                    <span className="flex flex-col justify-center items-center text-white mt-1">
+                      <span className="text-gray-400">Demo User</span>
+                      <div className="flex flex-col">
+                        <p>
+                          <span className="text-sm text-gray-400">
+                            Username:
+                          </span>{" "}
+                          sample_user
+                        </p>
+                        <p>
+                          <span className="text-sm text-gray-400">
+                            Password:
+                          </span>{" "}
+                          123456789
+                        </p>
+                      </div>
+                    </span>
                   </div>
                 </div>
 
