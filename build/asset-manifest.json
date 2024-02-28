@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.72655a0b.css",
+    "main.js": "/static/js/main.db5367ac.js",
+    "static/media/logowithback.png": "/static/media/logowithback.3949b8070532575fc14b.png",
+    "static/media/pngwing.com.png": "/static/media/pngwing.com.1af97953cb939b403f72.png",
+    "static/media/img404.png": "/static/media/img404.6e91a0a9a9b9642bcb51.png",
+    "static/media/Google_Icn.png": "/static/media/Google_Icn.960c670a7a8d952eba35.png",
+    "index.html": "/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.72655a0b.css",
+    "static/js/main.db5367ac.js"
+  ]
+}
