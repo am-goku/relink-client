@@ -45,6 +45,7 @@ const signIn = (data) => {
     const popup = () => {
       signInWithPopup(auth, provider)
         .then((result) => {
+          console.log("google auth\n",result)
           const user = result.user;
           const newData = {
             name: user?.displayName,
