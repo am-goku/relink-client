@@ -92,7 +92,9 @@ function ChatList({setReciever}) {
 
     // to close a modal
     const closeModal = () => {
-      modalDiv.current.click();
+      const modal = document.getElementById("medium-modal");
+      modal.classList.remove("show");
+      modal.classList.add("hidden");
     }
 
   return (
@@ -135,7 +137,7 @@ function ChatList({setReciever}) {
                 Start a new chat
               </h3>
               <button
-                ref={modalDiv}
+                id='c_modal'
                 type="button"
                 className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 data-modal-hide="medium-modal"
