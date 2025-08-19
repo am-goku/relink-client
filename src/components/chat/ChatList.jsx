@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import ChatUser from './ChatUser';
 import { getConnections, getRoomWithUserID } from '../../services/apiMethods';
@@ -7,19 +7,21 @@ import { useNavigate } from 'react-router-dom';
 import { setReduxChatRoom } from '../../utils/reducers/userReducer';
 import { showError } from '../../hooks/errorManagement';
 
-function ChatList({setReciever}) {
+function ChatList({ setReciever }) {
 
-    const navigate = useNavigate()
-    const dispatch = useDispatch();
-    const user = useSelector((state) => state?.user?.userData)
-    const reduxChatRoom = useSelector((state) => state?.user?.chatRooms)
-    const [following, setFollowing] = useState([])
-    const [error, setError] = useState('')
-    const [list, setList] = useState([])
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state?.user?.userData)
+  const reduxChatRoom = useSelector((state) => state?.user?.chatRooms)
+  const [following, setFollowing] = useState([])
+  const [error, setError] = useState('')
+  const [list, setList] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(()=> {
-      initFlowbite()
-    })
+
+  useEffect(() => {
+    initFlowbite()
+  })
 
 
   useEffect(() => {
@@ -27,79 +29,79 @@ function ChatList({setReciever}) {
   }, [error]);
 
 
-    //for validation purposes
-    useEffect(()=> {
-      if(!user){
-        navigate('/login')
-      }
-    })
-
-
-
-    
-    //fetching rooms and setting it in redux state chat rooms
-    useEffect(()=> {
-      try {
-        getRoomWithUserID(user?._id).then((rooms) => {
-          const newList = rooms
-            .reduce((acc, curr) => {
-              const users = curr.users;
-              const otherUser = users.filter((id) => id !== user?._id);
-              return acc.concat(otherUser);
-            }, [])
-
-          // setList(newList);
-          dispatch(setReduxChatRoom(newList))
-        }).catch((err) => {
-          setError(err)
-        })
-      } catch (error) {
-        setError(error)
-      }
-    },[user, dispatch])
-
-
-    // setting up the chat room in redux state(only user ids are )
-    useEffect(()=> {
-      if(reduxChatRoom){
-        setList(reduxChatRoom)
-      }
-    }, [reduxChatRoom])
-
-
-  
-
-    //getting connections to show the people user following
-    useEffect(()=> {
-      initFlowbite()
-      try {
-        if(user){
-          getConnections(user?._id)
-            .then((response) => {
-              setFollowing(response?.following);
-            })
-            .catch((error) => {
-              setError(error?.message);
-            });
-        }
-      } catch (error) {
-        setError(error?.message);
-      }
-    }, [user]);
-
-
-    // to close a modal
-  const closeModal = () => {
-    const modal = document.getElementById("medium-modal");
-    if (modal) {
-      modal.classList.add("hidden");
-      modal.classList.remove("show");
+  //for validation purposes
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
     }
+  })
 
-    // Remove Flowbite's backdrop too
-    const backdrop = document.querySelector('[modal-backdrop]');
-    if (backdrop) backdrop.remove();
-  };
+
+
+
+  //fetching rooms and setting it in redux state chat rooms
+  useEffect(() => {
+    try {
+      getRoomWithUserID(user?._id).then((rooms) => {
+        const newList = rooms
+          .reduce((acc, curr) => {
+            const users = curr.users;
+            const otherUser = users.filter((id) => id !== user?._id);
+            return acc.concat(otherUser);
+          }, [])
+
+        // setList(newList);
+        dispatch(setReduxChatRoom(newList))
+      }).catch((err) => {
+        setError(err)
+      })
+    } catch (error) {
+      setError(error)
+    }
+  }, [user, dispatch])
+
+
+  // setting up the chat room in redux state(only user ids are )
+  useEffect(() => {
+    if (reduxChatRoom) {
+      setList(reduxChatRoom)
+    }
+  }, [reduxChatRoom])
+
+
+
+
+  //getting connections to show the people user following
+  useEffect(() => {
+    initFlowbite()
+    try {
+      if (user) {
+        getConnections(user?._id)
+          .then((response) => {
+            setFollowing(response?.following);
+          })
+          .catch((error) => {
+            setError(error?.message);
+          });
+      }
+    } catch (error) {
+      setError(error?.message);
+    }
+  }, [user]);
+
+
+  // to close a modal
+  // const closeModal = () => {
+  //   const modal = document.getElementById("medium-modal");
+  //   if (modal) {
+  //     modal.classList.add("hidden");
+  //     modal.classList.remove("show");
+  //   }
+
+  //   // Remove Flowbite's backdrop too
+  //   const backdrop = document.querySelector('[modal-backdrop]');
+  //   if (backdrop) backdrop.remove();
+  // };
 
   return (
     <>
@@ -117,19 +119,19 @@ function ChatList({setReciever}) {
         </div>
         {list?.length > 0
           ? list.map((userId, index) => {
-              return (
-                <ChatUser
-                  doFunction={setReciever}
-                  userId={userId}
-                  key={index}
-                  closeModal={closeModal}
-                />
-              );
-            })
+            return (
+              <ChatUser
+                doFunction={setReciever}
+                userId={userId}
+                key={index}
+                closeModal={() => setIsModalOpen}
+              />
+            );
+          })
           : null}
       </div>
 
-      <div
+      {/* <div
         id="medium-modal"
         tabIndex="-1"
         className="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
@@ -162,27 +164,34 @@ function ChatList({setReciever}) {
                 </svg>
                 <span className="sr-only">Close modal</span>
               </button>
-            </div>
-            <div className="p-4 md:p-5 space-y-4">
-              {following ? (
-                following.map((userId, index) => {
-                  return (
-                    <ul>
-                      <ChatUser
-                        doFunction={setReciever}
-                        userId={userId}
-                        key={index}
-                      />
-                    </ul>
-                  );
-                })
-              ) : (
-                <span>You not following anyone</span>
-              )}
+            </div> */}
+      {
+        isModalOpen && (
+          <div id="medium-modal" className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+            <div className="relative w-full max-w-lg bg-white rounded-lg shadow">
+              <button onClick={() => setIsModalOpen(false)}>X</button>
+              <div className="p-4 md:p-5 space-y-4">
+                {following ? (
+                  following.map((userId, index) => {
+                    return (
+                      <ul>
+                        <ChatUser
+                          doFunction={setReciever}
+                          userId={userId}
+                          key={index}
+                        />
+                      </ul>
+                    );
+                  })
+                ) : (
+                  <span>You not following anyone</span>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </div> 
+        )
+      }
+      {/* </div>  */}
     </>
   );
 }
