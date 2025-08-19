@@ -91,6 +91,7 @@ function ChatList({setReciever}) {
 
 
     // to close a modal
+    // eslint-disable-next-line no-unused-vars
     const closeModal = () => {
       modalDiv.current.click();
     }
@@ -131,7 +132,7 @@ function ChatList({setReciever}) {
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                Default modal
+                Start a new chat
               </h3>
               <button
                 type="button"
@@ -157,18 +158,21 @@ function ChatList({setReciever}) {
               </button>
             </div>
             <div className="p-4 md:p-5 space-y-4">
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                With less than a month to go before the European Union enacts
-                new consumer privacy laws for its citizens, companies around the
-                world are updating their terms of service agreements to comply.
-              </p>
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                The European Union’s General Data Protection Regulation
-                (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
-                common set of data rights in the European Union. It requires
-                organizations to notify users as soon as possible of high-risk
-                data breaches that could personally affect them.
-              </p>
+              {following ? (
+                following.map((userId, index) => {
+                  return (
+                    <ul>
+                      <ChatUser
+                        doFunction={setReciever}
+                        userId={userId}
+                        key={index}
+                      />
+                    </ul>
+                  );
+                })
+              ) : (
+                <span>You not following anyone</span>
+              )}
             </div>
             <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
               <button
@@ -189,23 +193,6 @@ function ChatList({setReciever}) {
           </div>
         </div>
       </div>
-
-{/*       
-          {following ? (
-            following.map((userId, index) => {
-              return (
-                <ul>
-                  <ChatUser
-                    doFunction={setReciever}
-                    userId={userId}
-                    key={index}
-                  />
-                </ul>
-              );
-            })
-          ) : (
-            <span>You not following anyone</span>
-          )} */}
         
     </>
   );
