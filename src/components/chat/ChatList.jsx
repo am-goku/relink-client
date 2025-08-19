@@ -112,8 +112,8 @@ function ChatList({ setReciever }) {
             type="button"
             className="text-3xl font-semibold ml-auto"
             onClick={() => setIsModalOpen(true)}
-            // data-modal-target="medium-modal"
-            // data-modal-toggle="medium-modal"
+          // data-modal-target="medium-modal"
+          // data-modal-toggle="medium-modal"
           >
             +
           </button>
@@ -125,7 +125,8 @@ function ChatList({ setReciever }) {
                 doFunction={setReciever}
                 userId={userId}
                 key={index}
-                closeModal={() => setIsModalOpen}
+                isModalOpen={isModalOpen}
+                setisModalOpen={setIsModalOpen}
               />
             );
           })
@@ -180,6 +181,8 @@ function ChatList({ setReciever }) {
                           doFunction={setReciever}
                           userId={userId}
                           key={index}
+                          isModalOpen={isModalOpen}
+                          setisModalOpen={setIsModalOpen}
                         />
                       </ul>
                     );

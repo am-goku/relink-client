@@ -6,72 +6,70 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTimeDifference } from '../../hooks/timeAgo';
 import { showError } from '../../hooks/errorManagement';
 
-function ChatUser({userId, doFunction, key, closeModal}) {
+function ChatUser({ userId, doFunction, key, isModalOpen, setisModalOpen }) {
 
   const dispatch = useDispatch()
-    const currentUser = useSelector((state)=>state?.user?.userData)
-    const [online, setOnline] = useState(false);
-    const [user, setUser] = useState();
-    const currentRoom = useSelector((state)=>state?.user?.currentRoom);
-    const [error, setError] = useState('')
+  const currentUser = useSelector((state) => state?.user?.userData)
+  const [online, setOnline] = useState(false);
+  const [user, setUser] = useState();
+  const currentRoom = useSelector((state) => state?.user?.currentRoom);
+  const [error, setError] = useState('')
 
 
-    const [room, setRoom] = useState();
-    const [time, setTime] = useState();
+  const [room, setRoom] = useState();
+  const [time, setTime] = useState();
 
+  useEffect(() => {
+    showError(error, setError);
+  }, [error]);
 
+  useEffect(() => {
+    getRoomWithIds(userId, currentUser?._id).then((response) => {
+      setRoom(response);
 
-    
-
-    useEffect(() => {
-      showError(error, setError);
-    }, [error]);
-
-    useEffect(()=> {
-      getRoomWithIds(userId, currentUser?._id).then((response) =>{
-        setRoom(response);
-        
-        if(response?.lastMessage && response?.lastMessageTime){
-          setTime(getTimeDifference(response?.lastMessageTime))
-        }
-      })
-    },[currentUser, userId, dispatch])
-
-    
-    useEffect(()=> {
-      if(currentRoom?.users?.includes(userId)){
-        setRoom(currentRoom)
+      if (response?.lastMessage && response?.lastMessageTime) {
+        setTime(getTimeDifference(response?.lastMessageTime))
       }
-    }, [currentRoom, userId])
-
-    
-    useEffect(()=> {
-      try {
-        getUser(userId)
-          .then((user) => {
-            setUser(user[0]);
-          })
-          .catch((error) => {
-            setError(error);
-          });
-      } catch (error) {
-        setError(error)
-      }
-    },[userId])
+    })
+  }, [currentUser, userId, dispatch])
 
 
-    useEffect(() => {
-      setOnline(user?.online)
-    }, [user]);
+  useEffect(() => {
+    if (currentRoom?.users?.includes(userId)) {
+      setRoom(currentRoom)
+    }
+  }, [currentRoom, userId])
+
+
+  useEffect(() => {
+    try {
+      getUser(userId)
+        .then((user) => {
+          setUser(user[0]);
+        })
+        .catch((error) => {
+          setError(error);
+        });
+    } catch (error) {
+      setError(error)
+    }
+  }, [userId])
+
+
+  useEffect(() => {
+    setOnline(user?.online)
+  }, [user]);
+
+  const handleClick = () => {
+    doFunction(user);
+    isModalOpen && setisModalOpen(false);
+  }
 
 
   return (
     <div
       className="flex items-center gap-5 border-2 p-2 rounded-lg select-none relative bg-slate-400 opacity-70 cursor-pointer"
-      onClick={() => {
-        doFunction(user);
-        closeModal();
-      }}
+      onClick={handleClick}
     >
       <div className="relative aspect-square rounded-full w-fit h-fit">
         <ProfilePic
