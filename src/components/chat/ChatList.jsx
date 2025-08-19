@@ -91,7 +91,6 @@ function ChatList({setReciever}) {
 
 
     // to close a modal
-    // eslint-disable-next-line no-unused-vars
     const closeModal = () => {
       modalDiv.current.click();
     }
@@ -117,6 +116,7 @@ function ChatList({setReciever}) {
                   doFunction={setReciever}
                   userId={userId}
                   key={index}
+                  closeModal={closeModal}
                 />
               );
             })
@@ -174,7 +174,7 @@ function ChatList({setReciever}) {
                 <span>You not following anyone</span>
               )}
             </div>
-            <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+            {/* <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
               <button
                 data-modal-hide="medium-modal"
                 type="button"
@@ -189,7 +189,7 @@ function ChatList({setReciever}) {
               >
                 Decline
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

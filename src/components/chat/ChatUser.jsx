@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTimeDifference } from '../../hooks/timeAgo';
 import { showError } from '../../hooks/errorManagement';
 
-function ChatUser({userId, doFunction, key}) {
+function ChatUser({userId, doFunction, key, closeModal}) {
 
   const dispatch = useDispatch()
     const currentUser = useSelector((state)=>state?.user?.userData)
@@ -68,7 +68,10 @@ function ChatUser({userId, doFunction, key}) {
   return (
     <div
       className="flex items-center gap-5 border-2 p-2 rounded-lg select-none relative bg-slate-400 opacity-70 cursor-pointer"
-      onClick={() => doFunction(user)}
+      onClick={() => {
+        doFunction(user);
+        closeModal();
+      }}
     >
       <div className="relative aspect-square rounded-full w-fit h-fit">
         <ProfilePic
