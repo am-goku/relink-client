@@ -111,8 +111,9 @@ function ChatList({ setReciever }) {
           <button
             type="button"
             className="text-3xl font-semibold ml-auto"
-            data-modal-target="medium-modal"
-            data-modal-toggle="medium-modal"
+            onClick={() => setIsModalOpen(true)}
+            // data-modal-target="medium-modal"
+            // data-modal-toggle="medium-modal"
           >
             +
           </button>
